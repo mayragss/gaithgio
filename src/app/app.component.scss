@@ -1,23 +1,27 @@
 
-.comming{
-    text-align: center;
-    font-size: 100px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-    font-weight: 700;
+.center {
+  text-align: center;
 }
 
-.stay{
-    text-align: center;
-    font-size: 25px;
-    font-weight: 100;
-    padding-top: 8px;
-    margin-top: 0px;
-    color: #797979;
+.comming {
+  font-size: 100px;
+  font-weight: 700;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  color: #fff;
+  @media only screen and (max-width: 700px) {
+    font-size: 50px;
+  }
 }
 
-.center{
-    margin: 0 auto;
-    display: table;
-    padding-top: 2rem;
+.stay {
+  font-size: 25px;
+  font-weight: 100;
+  margin-top: 0;
+  padding-top: 8px;
+  color: #797979;
+
+  @media only screen and (max-width: 700px) {
+    font-size: 8px;
+  }
 }
