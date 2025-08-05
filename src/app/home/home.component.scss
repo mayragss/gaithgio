@@ -1,35 +1,82 @@
-
 .center {
-  text-align: center;
+  margin: 0 auto;
+  display: table;
 }
 
-.comming {
-  font-size: 100px;
-  font-weight: 700;
-  margin-bottom: 0;
-  padding-bottom: 0;
+.main {
+  min-height: 700px;
+  background: url('../../../public/images/Secao1.png');
+  padding: 0px;
+}
+
+.menu {
+  font-family: 'Montserrat';
+}
+
+.highlight {
+  margin-top: 6rem;
+  font-size: 1.8rem;
+
+  img {
+    max-width: 350px;
+    margin: 0 auto;
+    display: table;
+  }
+}
+
+.about {
+  padding-bottom: 3rem;
+
+  img {
+    max-width: 650px;
+  }
+
+  .title {
+    font-family: 'Cinzel';
+    font-size: 3rem;
+  }
+
+  p {
+    font-size: 22px;
+    font-family: 'Montserrat';
+  }
+
+  .about-txt {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    line-height: 2rem;
+  }
+}
+
+.values {
+  min-height: 700px;
+  background: url('../../../public/images/Secao3.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center; // centraliza verticalmente
+  justify-content: center; // centraliza horizontalmente
   color: #fff;
-  @media only screen and (max-width: 700px) {
+
+  .title {
     font-size: 50px;
   }
-}
 
-.stay {
-  font-size: 25px;
-  font-weight: 100;
-  margin-top: 0;
-  padding-top: 8px;
-  color: #797979;
-
-  @media only screen and (max-width: 700px) {
-    font-size: 8px;
+  .description {
+    font-size: 25px;
   }
-}
- :host::ng-deep   body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000;
+
+  .desc{
+    max-width: 1000px;
+    padding-top: 1.4rem;
+  }
+
+  p-button {
+    border: 1px solid #fff;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 6px;
+    width: 300px;
+    text-align: center;
+    font-family: 'Montserrat';
+    font-size: 1.2rem !important;
+  }
 }

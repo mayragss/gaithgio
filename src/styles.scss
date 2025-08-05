@@ -1,1 +1,112 @@
 /* You can add global styles to this file, and also import other style files */
+/* === Reset CSS === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  text-rendering: optimizeSpeed;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus {
+  outline: 2px solid #000; // Você pode personalizar isso
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+@font-face {
+  font-family: 'Montserrat-Italic';
+  src: url('../public/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 100 900; 
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal; 
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url('../public/fonts/Cinzel-VariableFont_wght.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal; 
+  font-display: swap;
+}
+
+.main-txt-color{
+  color: #624725 !important;
+}
+
+.montserrat{
+  font-family: 'Montserrat';
+}
+
+.montserrat-italic{
+  font-family: 'Montserrat-Italic';
+}
+
+.cinzel{
+  font-family: 'Cinzel';
+}
