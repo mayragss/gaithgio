@@ -113,7 +113,7 @@ button {
 
 .footer{
   background-color: #624725;
-  min-height: 100px;
+  min-height: 280px;
   color: #fff;
 
   p{
@@ -122,5 +122,10 @@ button {
 
   span{
     font-size: 9px;
+  }
+
+  img{
+    width: 200px;
+    height: 200px;
   }
 }

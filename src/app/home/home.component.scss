@@ -180,9 +180,14 @@
 }
 
 .contact{
-  min-height: 500px !important;
+  min-height: 660px !important;
   position: relative;
   overflow: hidden;
+
+  .title{
+    font-size: 60px !important;
+    padding-bottom: 3rem;
+  }
   
     &::before {
     content: "";
