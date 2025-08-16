@@ -20,6 +20,8 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+@import "primeicons/primeicons.css";
+
 img,
 picture,
 video,
@@ -128,4 +130,9 @@ button {
     width: 200px;
     height: 200px;
   }
+}
+
+.title {
+  font-size: 40px;
+  color: #624725 !important;
 }

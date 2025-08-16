@@ -1,4 +1,22 @@
 body{
     background-color: #fff !important;
-    color: pink;
+}
+
+.member-area{
+  p{
+    font-size: 15px;
+  }
+}
+
+.menu {
+  font-family: 'Montserrat';
+}
+.center {
+  margin: 0 auto;
+  display: table;
+}
+
+a:focus{
+    border: none !important;
+    outline: none;
 }
