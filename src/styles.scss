@@ -117,6 +117,8 @@ button {
   background-color: #624725;
   min-height: 280px;
   color: #fff;
+  width: 100%;
+  bottom: 0;
 
   p{
     font-size: 13px;
@@ -135,4 +137,9 @@ button {
 .title {
   font-size: 40px;
   color: #624725 !important;
+}
+
+a:focus{
+    border: none !important;
+    outline: none;
 }

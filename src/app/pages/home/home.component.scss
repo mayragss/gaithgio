@@ -13,7 +13,7 @@
 
 .main {
   min-height: 700px;
-  background: url('../../../public/images/Secao1.png');
+  background: url('../../../../public/images/Secao1.png');
   padding: 0px;
 }
 
@@ -58,7 +58,7 @@
 
 .values {
   min-height: 700px;
-  background: url('../../../public/images/Secao3.png') no-repeat center center;
+  background: url('../../../../public/images/Secao3.png') no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center; // centraliza verticalmente
@@ -188,7 +188,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: url('../../../public/images/Secao7.jpeg') no-repeat center/cover;
+    background: url('../../../../public/images/Secao7.jpeg') no-repeat center/cover;
     filter: brightness(0.5);
     z-index: -1; // fica atrás do conteúdo
   }
