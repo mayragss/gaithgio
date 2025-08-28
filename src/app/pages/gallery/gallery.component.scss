@@ -1,0 +1,48 @@
+body{
+    background-color: #fff !important;
+    color: pink;
+}
+
+.center{
+    margin: 0 auto;
+    display: table;
+}
+
+.filter{
+    max-width: 1450px !important;
+
+    p{
+        font-size: 14px;
+    }
+}
+
+.products{
+
+    max-width: 1346px !important;  
+    color: #624725 !important; 
+    .add-cart{
+        background: #fff;
+        padding: .4rem;
+        border: 1px solid #624725;
+        color: #624725 !important; 
+        font-size: 10px;
+    }
+
+    .card{
+        min-width: 200px;
+        min-height: 370px;
+        cursor: pointer;
+
+        p{
+            font-size: 14px;
+        }
+    }
+
+    @media only screen and (min-width:700px){
+        img{
+            max-width: 250px;
+            min-height: 300px;
+            max-height: 300px;
+        }
+    }
+}

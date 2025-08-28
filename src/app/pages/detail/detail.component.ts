@@ -4,10 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { CartService } from '../../services/cart.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'detail',
-  imports: [NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent, ToastModule],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
@@ -22,7 +24,8 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +58,10 @@ export class DetailComponent implements OnInit {
         });
       }
     });
+  }
+
+  addToCart() {
+    this.cartService.addToCart(this.product!, this.quantity);
   }
 
   addQuantity(){

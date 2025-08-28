@@ -1,0 +1,21 @@
+<navbar></navbar>
+
+<div class="content md:pl-3 md:pr-3 md:pt-7 mb-8">
+    <p class="mt-4 mb-5 uppercase cinzel center title">Galeria</p>
+
+
+    <div class="products montserrat pt-3 center">
+        <div class="flex pt-4 flex-row gap-5 justify-content-center pb-3 flex-wrap">
+
+            @for (image of images; track $index) {
+            <div class="flex flex-column card">
+                <img src="/{{ image.path  }}" />
+            </div>
+            }
+
+        </div>
+    </div>
+
+</div>
+
+<footer></footer>

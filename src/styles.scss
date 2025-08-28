@@ -14,13 +14,13 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #fff !important;
 }
 
 body {
   text-rendering: optimizeSpeed;
 }
 
-@import "primeicons/primeicons.css";
 
 img,
 picture,
@@ -109,13 +109,17 @@ button {
   font-family: 'Montserrat-Italic';
 }
 
+.white-color{
+  color: #fff !important;
+}
+
 .cinzel{
   font-family: 'Cinzel';
 }
 
 .footer{
   background-color: #624725;
-  min-height: 280px;
+  min-height: 234px;
   color: #fff;
   width: 100%;
   bottom: 0;

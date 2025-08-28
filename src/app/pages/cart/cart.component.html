@@ -1,0 +1,23 @@
+<div class="cart text-color">
+  <h2>Meu Carrinho</h2>
+
+  @if (items.length > 0) {
+    @for (item of items; track item.product.id) {
+      <div class="cart-item">
+        <p>{{ item.product.name }} ({{ item.quantity }})</p>
+        <p>€{{ item.product.price * item.quantity }}</p>
+
+        <div class="controls">
+          <button (click)="updateQuantity(item.product.id, item.quantity - 1)">-</button>
+          <button (click)="updateQuantity(item.product.id, item.quantity + 1)">+</button>
+          <button (click)="remove(item.product.id)">Remover</button>
+        </div>
+      </div>
+    }
+
+    <h3>Total: €{{ totalPrice() }}</h3>
+    <button (click)="clear()">Limpar Carrinho</button>
+  } @else {
+    <p>O carrinho está vazio 🛒</p>
+  }
+</div>
