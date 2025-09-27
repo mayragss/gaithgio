@@ -4,12 +4,11 @@ import { ProductService } from '../../services/product.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Product } from '../../models/product';
 import { CommonModule } from '@angular/common';
-import { JsonArrayToStringPipe } from '../../pipes/json-array-to-string.pipe';
 import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'faqs',
-  imports: [NavbarComponent, CommonModule, JsonArrayToStringPipe, FooterComponent ],
+  imports: [NavbarComponent, CommonModule, FooterComponent ],
   templateUrl: './faqs.component.html',
   styleUrls: ['./faqs.component.scss']
 })

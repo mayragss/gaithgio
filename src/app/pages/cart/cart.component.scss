@@ -4,8 +4,23 @@
     padding-left: 16%;
 }
 
-.text-color{
+.gaith-color{
     color: #624725 !important;
+}
+
+.divider{
+    height: 1px;
+    width: 100%;
+    background: #624725;
+    opacity: 0.3;
+}
+
+.item{
+    font-size: 12px;
+    img{
+        width: 100px;
+        height: 100px;
+    }
 }
 .title{
     font-size: 23px;
@@ -13,7 +28,7 @@
 }
 
 .price{
-    font-size: 19px;
+    justify-content: space-between;
 }
 .size{
     font-size: 13px;
@@ -27,6 +42,22 @@
     font-size: 13px;
 }
 
+.head{
+    p{
+    font-size: 13px;
+    }
+}
+
+:host::ng-deep .p-button{
+    background: #624725 !important;
+    min-width: 220px;
+    border: 1px solid #624725;
+    color: #fff;
+    font-size: 14px;
+    font-family: 'Montserrat';
+    border-radius: 3px;
+}
+
 .size-card{
     max-width: 35px;
     border: 1px solid #624725;
@@ -36,7 +67,20 @@
 }
 
 .quantity{
-    font-size: 13px;
+    font-size: 17px;
+    width: 135px;
+    height: 30px;
+    border: 1px solid #624725;
+
+    .text{
+        font-size: 13px;
+        padding-top: 3px;
+        font-weight: 700;
+    }
+}
+
+.pi-trash{
+    font-size: 15px;
 }
 
 .quantify-card{
@@ -57,6 +101,10 @@
 
 .main-img{
     max-width: 320px;
+}
+
+.cart{
+    min-width: 80%;
 }
 
 .add-cart{

@@ -1,23 +1,62 @@
-<div class="cart text-color">
-  <h2>Meu Carrinho</h2>
+<div class="cart gaith-color center pt-8 montserrat">
+  <div class="flex flex-row justift-content-between">
+    <h2 class="font-bold">Seu Carrinho</h2>
+    <a href="/products" class="keep-buying">Continuar compra</a>
+  </div>
 
+  <div class="head flex flex-row pt-4">
+    <div class="w-6"style="    justify-items: self-start;"><p>Produto</p></div>
+    <div class="w-3 md:pr-4 self-end"><p>Quantidade</p></div>
+    <div class="w-3 self-end"><p>Total</p></div>
+  </div>
+  <div class="divider mt-3 mb-3"></div>
   @if (items.length > 0) {
-    @for (item of items; track item.product.id) {
-      <div class="cart-item">
-        <p>{{ item.product.name }} ({{ item.quantity }})</p>
-        <p>€{{ item.product.price * item.quantity }}</p>
-
-        <div class="controls">
-          <button (click)="updateQuantity(item.product.id, item.quantity - 1)">-</button>
-          <button (click)="updateQuantity(item.product.id, item.quantity + 1)">+</button>
-          <button (click)="remove(item.product.id)">Remover</button>
-        </div>
+  @for (item of items; track item.product.id) {
+  <div class="flex flex-row pb-5">
+    <div class="w-6 flex flex-row gap-5 item">
+      <img [src]="'' + getImageMain(item.product)" alt="{{item.product.name}}" />
+      <div class="flex flex-column gap-1 mt-3">
+        <p>{{item.product.name}}</p>
+        <p>€ {{item.product.price}}</p>
+        <p>Tamanho 
+          @if(item.product.attributes != undefined){
+          @for (tamanho of getTamanhos(item.product.attributes); track tamanho) {
+          <span>{{ tamanho }}</span>
+          }}
+        </p>
       </div>
-    }
+    </div>
+    <div class="w-3 flex flex-row justify-content-end">
+        <!-- <button (click)="remove(item.product.id)">Remover</button> -->
+        
+      <div class="quantity flex flex-row gap-2 justify-content-between">
+        <span class="w-3 cursor-pointer center" (click)="updateQuantity(item.product.id, item.quantity + 1)">+</span>
+        <span class="w-3 cursor-pointer text" >{{item.quantity}}</span>
+        <span class="w-3 cursor-pointer" (click)="updateQuantity(item.product.id, item.quantity - 1)">-</span>
+      </div> 
+    </div>
+    <div class="w-3 flex flex-row price">
+      <div class="justify-content-start ml-3 pt-1">
+      <i class="pi pi-trash" ></i>
+      </div>
+      <p class="">€
+        {{item.product.price}} </p>
+    </div>
+  </div>
+  }
+  <div class="divider mt-3 mb-3"></div>
 
-    <h3>Total: €{{ totalPrice() }}</h3>
-    <button (click)="clear()">Limpar Carrinho</button>
+  <div class="price-will-be-payed align-self-end flex flex-column">
+    <div class="flex flex-row gap-4">
+      <p class="font-bold size-14">Total Estimado </p>
+      <p class="font-normal size-14">€{{ totalPrice() }}</p>
+    </div>
+    <p class="size-6 pb-3">Impostos, descontos e entregas calculados a seguir</p>
+    <p-button>Finalizar compra</p-button>
+  </div>
+
+  <button (click)="clear()">Limpar Carrinho</button>
   } @else {
-    <p>O carrinho está vazio 🛒</p>
+  <p>O carrinho está vazio 🛒</p>
   }
 </div>

@@ -12,14 +12,15 @@
 
 <section id="about" class="main-txt-color">
 
-  <div class="flex flex-row gap-4 about md:pt-8 md:mb-7">
-    <img class="md:pt-4" src="/images/Secao2.jpeg" />
+  <div class="flex md:flex-row flex-column gap-4 about md:pt-8 md:mb-7">
+    <img class="md:pt-4 desktop" src="/images/Secao2.jpeg" />
+    <img class="md:pt-4 mobile center" src="/images/Secao2-mobile.png" />
     <div class="text-section md:pt-4 montserrat">
       <p class="title center md:pt-5">SOBRE NÓS</p>
       <div class="pt-4 about-txt">
         <p class="">GaithGio é a evolução natural de um sonho. Nasceu como <span class="montserrat-italic">
             Gaith Silver Plate
-          </span> , dedicada à
+          </span>, dedicada à
           criação
           de jóias corporais descontraídas e agnósticas.
         </p>
@@ -40,14 +41,24 @@
     <div class="flex flex-column">
       <p class="mb-4 center cinzel tt">NOSSOS VALORES</p>
 
-      <div class="mt-5 flex flex-row gap-8 center uppercase mb-5">
-        <p-button>EXCLUSIVIDADE</p-button>
-        <p-button>SUSTENTABILIDADE</p-button>
+      <div class="mt-5 flex flex-row gap-8 center uppercase mb-5 desktop">
+        <p-button label="EXCLUSIVIDADE" class="" />
+        <p-button label="SUSTENTABILIDADE" />
       </div>
-      <div class="desc flex flex-column justify-content-center">
+
+      <div class="flex flex-row gap-6 center uppercase mb-1 values-btn mobile">
+        <span class="cursor-pointer">EXCLUSIVIDADE</span>
+        <span class="cursor-pointer">SUSTENTABILIDADE</span>
+      </div>
+      <div class="desc flex flex-column justify-content-center desktop">
         <p class="description montserrat pb-0 mb-0">Criada com intenção, alma e mãos que acreditam na transformação como
           um</p>
         <p class="description montserrat mb-0 pb-0 center">ato de cuidado com o mundo e com as histórias que cada peça
+          carrega.</p>
+      </div>
+      <div class="desc text-align-center mobile">
+        <p class="description montserrat pb-0 mb-0">Criada com intenção, alma e mãos que acreditam na transformação como
+          um ato de cuidado com o mundo e com as histórias que cada peça
           carrega.</p>
       </div>
     </div>
@@ -55,26 +66,36 @@
 </section>
 
 <section id="concept">
-  <div class="concept p-5 flex flex-row">
+  <div class="concept p-5 md:pb-5 pb-0 flex flex-column md:flex-row">
     <div class="flex flex-column gap-4 pt-5">
-      <p class="title cinzel center pt-8">Conceito da Marca</p>
-      <div class="desc center pl-8 pt-5 pr-8">
+      <p class="title cinzel center md:pt-8">Conceito da Marca</p>
+      <div class="desc center pl-8 pt-5 pr-8 desktop">
         <p class="montserrat-italic">“O upcycling vem do costume de reutilizar peças ou materiais que haviam pela casa
           na época de criança, minha mãe sempre ensinava o valor de brechós e roupas de doações da igreja. Pra mim
           sempre foi normal reciclar.” - Giovanna Gaith</p>
         <p class="montserrat-italic pt-4">Vestir o que é genuíno. Escolher ser único todos os dias com peças exclusivas,
           conscientes e com identidade.</p>
       </div>
+      
+      <div class="desc mb-5 mobile">
+        <p class="montserrat-italic">“O upcycling vem do costume de reutilizar peças ou materiais que haviam pela casa
+          na época de criança, minha mãe sempre ensinava o valor de brechós e roupas de doações da igreja. Pra mim
+          sempre foi normal reciclar.” - Giovanna Gaith 
+        </p>
+          <p class="montserrat-italic mt-3">Vestir o que é genuíno. Escolher ser único todos os dias com peças exclusivas,
+          conscientes e com identidade.</p>
+      </div>
     </div>
-    <img src="/images/Secao4.jpeg" />
+    <img class="desktop" src="/images/Secao4.jpeg" />
+    <img class="mobile center" src="/images/Secao4-mobile.png" />
   </div>
 </section>
 
 <section id="collection">
   <div class="collection pt-3">
     <div class="center">
-      <p class="title cinzel center pt-8 cinzel">Nova Coleção</p>
-      <div class="desc pt-6 center">
+      <p class="title cinzel center md:pt-8 pt-6 cinzel">Nova Coleção</p>
+      <div class="desc md:pt-6 pt-4 center">
         <p class="flex flex-row text-justify-center montserrat">Criados com tecidos reaproveitados e alma artesanal, os
           biquínis GaithGio
           vestem o verão com intenção. Para quem faz do seu corpo manifesto.
@@ -83,21 +104,34 @@
           <span class="flex flex-row justify-content-end montserrat cursor-pointer see-all">[Ver tudo]</span>
         </a>
       </div>
-      <div class="images flex flex-row gap-6 w-full mt-5 mb-3">
+      <div class="images flex flex-row gap-6 w-full mt-5 mb-3 desktop">
         <img class="first w-20" src="/images/Secao5.jpeg" />
         <img class="second w-20" src="/images/Secao5.2.jpg" />
         <img class="first w-20" src="/images/Secao5.3.jpg" />
         <img class="second w-20" src="/images/Secao5.4.jpg" />
         <img class="first w-20" src="/images/Secao5.5.jpg" />
       </div>
+      
+      <div class="images flex flex-column w-full mt-5 mobile">
+        <div class="flex flex-row grid">
+            <img class="regular col-4" src="/images/Secao5.jpeg" />
+            <img class="middle col-4" src="/images/Secao5.2.jpg" />
+            <img class="regular col-4" src="/images/Secao5.3.jpg" />
+        </div>
+
+        <div class="flex flex-row gap-2 grid justify-content-center">
+            <img class="middle col-5" src="/images/Secao5.4.jpg" />
+            <img class="middle col-5" src="/images/Secao5.5.jpg" />
+      </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="gallery" class="pt-8">
-  <div class="gallery mb-5 flex flex-row w-full mb-2 mt-8">
-    <div class="w-50 flex flex-column pl-5">
-      <p class="title cinzel center pb-5 pt-8">Nossa Galeria</p>
+<section id="gallery" class="pt-0 md:pt-8  mb-5 md:mb-0">
+  <div class="gallery mb-8 md:mb-5 flex flex-column md:flex-row w-full mb-2 mt-5 md:mt-8">
+    <div class="md:w-50 flex flex-column md:pl-5">
+      <p class="title cinzel center pb-5 pt-8">Galeria</p>
       <p class="description montserrat pl-8">Criações que já contaram histórias — desde coleções passadas à peças feitas sob
         medida. Um mergulho no processo criativo da GaithGio.</p>
         <a href="/gallery" class="no-underline">
@@ -105,7 +139,13 @@
         </a>
 
     </div>
-    <div class="w-50 flex">
+    <div class="desktop w-50 flex">
+      <div class="w-full style">
+        <img class="img1" src="/images/Secao6.jpg" />
+        <img class="img2" src="/images/Secao6.1.jpg" />
+      </div>
+    </div>
+    <div class="mobile flex">
       <div class="w-full style">
         <img class="img1" src="/images/Secao6.jpg" />
         <img class="img2" src="/images/Secao6.1.jpg" />
@@ -115,17 +155,17 @@
 </section>
 
 <section id="contact">
-  <div class="contact flex flex-column md:pt-8 md:mt-8">
+  <div class="contact flex flex-column mt-8 md:pt-8 md:mt-8">
     <p class="title center md:pt-8 cinzel">CONTACTOS</p>
-    <div class="flex flex-row w-full gap-8 mt-6">
+    <div class="flex flex-row w-full gap-6 md:gap-8 mt-6">
       <div class="w-5 flex flex-column align-items-end gap-4">
-        <p-button>@gaithgio</p-button>
-        <p-button>contact@gaithgio.com</p-button>
+        <p-button><img class="btn-icon" src="images/instagram.png" /><span>@gaithgio</span> </p-button>
+        <p-button><img class="btn-icon" src="images/mail.png" /><span>contact@gaithgio.com</span></p-button>
       </div>
       
       <div class="w-5 flex flex-column md:pl-8 gap-4">
-        <p-button>+351 934 036 467</p-button>
-        <p-button>Tamanhos</p-button>
+        <p-button><img class="btn-icon" src="images/phone.png" /><span>+351 934 036 467</span></p-button>
+        <p-button><img class="btn-icon" src="images/ruler.png" /><span>Tamanhos</span></p-button>
       </div>
     </div>
     <div class="w-full line"></div>

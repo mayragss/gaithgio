@@ -7,6 +7,10 @@
   width: 20%;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 .w-50 {
   width: 50%;
 }
@@ -32,6 +36,15 @@
     margin: 0 auto;
     display: table;
   }
+
+  @media only screen and (max-width: 700px) {
+    font-size: 1rem;
+    margin-top: 40%;
+
+    img {
+      max-width: 250px;
+    }
+  }
 }
 
 .about {
@@ -56,6 +69,37 @@
     padding-right: 5rem;
     line-height: 2rem;
   }
+
+  @media only screen and (max-width: 700px) {
+    padding-top: 20%;
+
+    img {
+      width: 70%;
+    }
+
+    .title {
+      font-size: 2rem;
+      padding-top: 1.5rem;
+      padding-bottom: 1rem;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 24px;
+    }
+
+    .text-section {
+      width: 70%;
+      align-self: center;
+      padding-bottom: 3rem;
+    }
+
+    .about-txt {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+  }
 }
 
 .values {
@@ -73,7 +117,7 @@
   }
 
   .description {
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .desc {
@@ -83,13 +127,57 @@
 
   p-button {
     border: 1px solid #fff;
-    padding: 1rem 2rem 1rem 2rem;
+    padding: .3rem .5rem .3rem .5rem;
     border-radius: 6px;
-    width: 300px;
+    width: 239px;
     text-align: center;
-    font-family: 'Montserrat';
-    font-size: 1.2rem !important;
+    font-family: "Montserrat";
+    font-size: 1rem !important;
+    max-height: 54px;
+
+
   }
+
+  @media only screen and (max-width: 700px) {
+    background: url('../../../../public/images/Secao3-mobile.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+
+    .tt {
+      font-size: 27px;
+      color: #fff;
+    }
+
+    .description {
+      font-size: 12px;
+      text-align: center;
+      max-width: 85%;
+      margin: 0 auto;
+      display: table;
+    }
+
+  }
+}
+
+:host ::ng-deep .values-btn {
+  @media only screen and (max-width: 700px) {
+    span {
+      max-width: 120px !important;
+      height: 15px !important;
+      border-radius: 15px !important;
+      font-size: 7px !important;
+      color: #fff;
+      border: 3px solid #fff;
+      padding: .3rem 1.2rem .9rem;
+    }
+  }
+
+
+}
+
+.btn-icon {
+  max-width: 17px;
+  padding-top: .2rem;
 }
 
 .concept {
@@ -105,6 +193,25 @@
     p {
       font-size: 22px;
     }
+  }
+
+  @media only screen and (max-width:700px) {
+    .desc {
+      max-width: 90%;
+      margin: 0 auto;
+      display: table;
+
+      p {
+        font-size: 11px;
+        font-weight: 500;
+      }
+    }
+
+    img {
+      max-width: 400px;
+      width: 80%;
+    }
+
   }
 }
 
@@ -136,6 +243,36 @@
     span {
       color: #ffbd59;
       margin-right: 32px;
+    }
+  }
+
+  @media only screen and (max-width:700px) {
+    .grid {
+      padding: .7rem .7rem;
+    }
+
+    .regular {
+      height: 180px;
+      margin-top: 1rem;
+    }
+
+    .middle {
+      height: 215px !important;
+    }
+
+    .desc {
+      max-width: 85%;
+
+      p {
+        text-align: center;
+        font-size: 12px;
+      }
+
+      span {
+        color: #ffbd59;
+        margin-right: 32px;
+        font-size: 8px;
+      }
     }
   }
 
@@ -175,19 +312,51 @@
       top: 10%;
     }
   }
+
+  @media only screen and (max-width:700px) {
+    .description {
+      font-size: 12px !important;
+    }
+
+    .style {
+      position: relative;
+      max-height: 351px;
+      height: 344px;
+      margin-bottom: 75px;
+    }
+
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 207px !important;
+    }
+
+    .img2 {
+      z-index: 1 !important;
+      left: 40% !important;
+    }
+
+    .img1 {
+      z-index: 2 !important;
+      left: 7% !important;
+      top: 40% !important;
+    }
+
+  }
 }
 
-.contact{
+.contact {
   min-height: 660px !important;
   position: relative;
   overflow: hidden;
 
-  .title{
+  .title {
     font-size: 60px !important;
     padding-bottom: 3rem;
   }
-  
-    &::before {
+
+  &::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -196,7 +365,7 @@
     z-index: -1; // fica atrás do conteúdo
   }
 
-  p{ 
+  p {
     color: #fff !important;
   }
 
@@ -211,20 +380,57 @@
     font-size: 1.2rem !important;
   }
 
-  .line{
+  .line {
     border: 1px solid #fff;
     position: absolute;
-    bottom: 23px;
+    bottom: 9px;
     left: 0;
     opacity: 0.5;
   }
+
+  @media only screen and (max-width:700px) {
+
+    .line { 
+      bottom: 4px; 
+    }
+
+    &::before {
+      background: url('../../../../public/images/Secao7-mobile.png') no-repeat center/cover !important;
+    }
+
+    .title {
+      font-size: 30px !important;
+      padding-top: 50%;
+    }
+
+    p-button {
+      border: 1px solid #fff;
+      padding: 0px !important;
+      border-radius: 3px;
+      width: 140px !important;
+      text-align: center;
+      color: #fff;
+      font-family: 'Montserrat';
+
+      img {
+        max-width: 10%;
+      }
+
+      span {
+        font-size: 8px !important;
+      }
+    }
+  }
 }
-:host::ng-deep p-button{
-    color: #fff !important;
-    background: none !important;
-  }
-:host::ng-deep button{
-    border: none !important;
-    color: #fff !important;
-    background: none !important;
-  }
+
+
+:host::ng-deep p-button {
+  color: #fff !important;
+  background: none !important;
+}
+
+:host::ng-deep button {
+  border: none !important;
+  color: #fff !important;
+  background: none !important;
+}

@@ -21,8 +21,22 @@ a:focus{
     outline: none;
 }
 
-.cart-icon{
-  img{
+.cart-icon {
+  position: relative; 
+  display: inline-block;
+
+  img {
     width: 16px;
+    display: block;
+  }
+
+  .circle {
+    position: absolute;
+    top: 5px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ffbd59;
+    border-radius: 50%;
   }
 }

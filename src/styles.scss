@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* === Reset CSS === */
+@import "primeicons/primeicons.css";
+
 *,
 *::before,
 *::after {
@@ -8,7 +10,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: sans-serif;
   line-height: 1.5;
@@ -19,6 +22,18 @@ html, body {
 
 body {
   text-rendering: optimizeSpeed;
+}
+
+.desktop {
+  @media only screen and (max-width:700px) {
+    display: none !important;
+  }
+}
+
+.mobile {
+  @media only screen and (min-width:700px) {
+    display: none !important;
+  }
 }
 
 
@@ -60,6 +75,31 @@ button {
   cursor: pointer;
 }
 
+.text-align-center {
+  text-align: end;
+}
+
+.size-14 {
+  font-size: 14px;
+}
+
+.size-6 {
+  font-size: 6.5px;
+}
+
+.center {
+  display: table;
+  margin: 0 auto;
+}
+
+.self-end {
+  justify-items: self-end !important;
+}
+
+.align-self-end {
+  align-items: self-end !important;
+}
+
 :focus {
   outline: 2px solid #000; // Você pode personalizar isso
   outline-offset: 2px;
@@ -78,14 +118,15 @@ button {
   font-family: 'Montserrat-Italic';
   src: url('../public/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
   font-style: italic;
-  font-weight: 100 900; 
+  font-weight: 100 900;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'Montserrat';
   src: url('../public/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
   font-style: normal;
-  font-weight: normal; 
+  font-weight: normal;
   font-display: swap;
 }
 
@@ -93,57 +134,80 @@ button {
   font-family: 'Cinzel';
   src: url('../public/fonts/Cinzel-VariableFont_wght.ttf') format('truetype');
   font-style: normal;
-  font-weight: normal; 
+  font-weight: normal;
   font-display: swap;
 }
 
-.main-txt-color{
+.main-txt-color {
   color: #624725 !important;
 }
 
-.montserrat{
+.montserrat {
   font-family: 'Montserrat';
 }
 
-.montserrat-italic{
+.montserrat-italic {
   font-family: 'Montserrat-Italic';
 }
 
-.white-color{
+.white-color {
   color: #fff !important;
 }
 
-.cinzel{
+.cinzel {
   font-family: 'Cinzel';
 }
 
-.footer{
+.footer {
   background-color: #624725;
-  min-height: 234px;
+  min-height: 217px;
   color: #fff;
   width: 100%;
   bottom: 0;
 
-  p{
-    font-size: 13px;
+  p {
+    font-size: 11px;
   }
 
-  span{
+  span {
     font-size: 9px;
   }
 
-  img{
-    width: 200px;
-    height: 200px;
+  img {
+    width: 180px;
+    height: 180px;
+  }
+
+  @media only screen and (max-width:700px) {
+    min-height: 190px;
+
+    p {
+      font-size: 5px;
+      line-height: 2px;
+    }
+
+    img {
+      width: 80px;
+      height: 140px;
+    }
+
+    span {
+      font-size: 5px;
+    }
+
   }
 }
 
 .title {
   font-size: 40px;
   color: #624725 !important;
+
+  @media only screen and (max-width:700px) {
+    font-size: 28px;
+  }
 }
 
-a:focus{
-    border: none !important;
-    outline: none;
+a:focus {
+  border: none !important;
+  outline: none;
 }
