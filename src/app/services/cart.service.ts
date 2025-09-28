@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 export interface CartItem {
   product: Product;
   quantity: number;
+  selectedSize?: string;
 }
 
 @Injectable({
@@ -37,15 +38,15 @@ export class CartService {
     return data ? JSON.parse(data) : [];
   }
 
-  addToCart(product: Product, quantity: number = 1) {
+  addToCart(product: Product, quantity: number = 1, selectedSize?: string) {
     const items = [...this.items()];
-    const existing = items.find(i => i.product.id === product.id);
+    const existing = items.find(i => i.product.id === product.id && i.selectedSize === selectedSize);
 
     if (existing) {
       existing.quantity += quantity;
       this.messageService.add({ severity: 'success', icon: "", detail: 'Produto atualizado com sucesso!', life: 3000 });
     } else {
-      items.push({ product, quantity });      
+      items.push({ product, quantity, selectedSize });      
       this.messageService.add({ severity: 'success', icon: "", detail: 'Produto adicionado com sucesso!', life: 3000 });      
     }
 
