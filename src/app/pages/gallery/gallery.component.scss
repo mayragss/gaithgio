@@ -55,4 +55,20 @@ body{
             max-height: 300px;
         }
     }
+
+    // Mobile Gallery
+    .mobile-gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.5rem;
+        padding: 1rem;
+
+        .mobile-gallery-item {
+            img {
+                width: 100%;
+                height: 170px;
+                object-fit: cover;
+            }
+        }
+    }
 }

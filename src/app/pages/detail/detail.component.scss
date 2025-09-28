@@ -68,3 +68,180 @@
     max-width: 220px;
     height: 45px;
 }
+
+// Mobile Layout - mantendo mesmo estilo do desktop
+.mobile-detail-container {
+    padding: 1rem;
+    
+    .mobile-images-container {
+        display: flex;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        
+        .mobile-thumbnails {
+            width: 28%;
+            margin: 0 0%;
+            padding-top: 12%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            
+            .mobile-thumbnail {
+                width: 68%;
+                height: 90px;
+                object-fit: cover;
+                cursor: pointer;
+                padding-top: 0px;
+                margin-left: .7rem;
+            }
+        }
+        
+            .mobile-main-image {
+                width: 60%;
+                margin: 0 2%;
+
+                img {
+                    width: 90%;
+                    height: 380px;
+                    object-fit: cover;
+                    margin-left: 1.2rem;
+                }
+            }
+    }
+    
+    .mobile-product-info {
+        .mobile-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #624725;
+            margin: 0 0 0.3rem 0;
+            text-align: left;
+        }
+
+        .mobile-price {
+            font-size: 14px;
+            color: #624725;
+            margin: 0 0 0.3rem 0;
+            text-align: left;
+        }
+
+        .mobile-color {
+            font-size: 11px;
+            color: #624725;
+            margin: 0 0 0.8rem 0;
+            text-align: left;
+        }
+    }
+    
+    .mobile-size-section {
+        margin-bottom: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .mobile-size-content {
+            .mobile-size-label {
+                font-size: 11px;
+                color: #624725;
+                margin: 0 0 0.3rem 0;
+                text-align: left;
+            }
+
+            .mobile-size-options {
+                display: flex;
+                gap: 0.3rem;
+
+                .mobile-size-card {
+                    max-width: 28px;
+                    border: 1px solid #624725;
+                    padding: 6px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #624725;
+                    cursor: pointer;
+                    text-align: center;
+
+                    &.selected {
+                        background-color: #624725;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+    
+    .mobile-quantity-section {
+        margin-bottom: 0.8rem;
+
+        .mobile-quantity-label {
+            font-size: 11px;
+            color: #624725;
+            margin: 0 0 0.3rem 0;
+            text-align: left;
+        }
+
+        .mobile-quantify-card {
+            max-width: 110px;
+            height: 28px;
+            border: 1px solid #624725;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            i {
+                font-size: 12px !important;
+                padding: 0.3rem;
+                cursor: pointer;
+                color: #624725;
+            }
+
+            p {
+                font-size: 12px;
+                font-weight: 600;
+                color: #624725;
+                margin: 0;
+            }
+        }
+    }
+    
+    .mobile-add-cart {
+        background: #fff;
+        padding: .3rem;
+        border: 1px solid #624725;
+        color: #624725 !important;
+        font-size: 12px;
+        max-width: 180px;
+        height: 35px;
+        width: 100%;
+        margin-bottom: 1rem;
+        cursor: pointer;
+    }
+    
+    .mobile-size-section .mobile-description {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .mobile-desc-header {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 11px;
+            color: #624725;
+            cursor: pointer;
+            margin-bottom: 0.3rem;
+
+            i {
+                font-size: 8px;
+            }
+        }
+
+        .mobile-desc-text {
+            font-size: 11px;
+            color: #624725;
+            margin: 0;
+            line-height: 1.3;
+            text-align: right;
+        }
+    }
+}

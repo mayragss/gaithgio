@@ -6,10 +6,11 @@ import { Product } from '../../models/product';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CartService } from '../../services/cart.service';
 import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'detail',
-  imports: [NavbarComponent, FooterComponent, ToastModule],
+  imports: [NavbarComponent, FooterComponent, ToastModule, CommonModule],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
@@ -21,6 +22,8 @@ export class DetailComponent implements OnInit {
   attributes: any = {};
   quantity: number = 1;
   stock: number | undefined;
+  selectedSize: string = '';
+  descriptionExpanded: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,5 +83,17 @@ export class DetailComponent implements OnInit {
       return this.quantity;
     }
     return this.quantity > 1 ? this.quantity-- : this.quantity;
+  }
+
+  selectImage(image: string) {
+    this.imageMain = image;
+  }
+
+  selectSize(size: string) {
+    this.selectedSize = size;
+  }
+
+  toggleDescription() {
+    this.descriptionExpanded = !this.descriptionExpanded;
   }
 }
