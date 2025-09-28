@@ -55,7 +55,7 @@
         <p class="font-normal size-14">€{{ totalPrice() }}</p>
       </div>
       <p class="size-6 pb-3">Impostos, descontos e entregas calculados a seguir</p>
-      <p-button>Finalizar compra</p-button>
+      <p-button (click)="finalizarCompra()">Finalizar compra</p-button>
     </div>
 
     <button (click)="clear()">Limpar Carrinho</button>
@@ -112,7 +112,7 @@
         <p class="mobile-total-price">€{{ totalPrice() }}</p>
       </div>
       <p class="mobile-total-note">Impostos, descontos e entregas calculados a seguir</p>
-      <p-button class="mobile-checkout-btn">Finalizar compra</p-button>
+      <p-button class="mobile-checkout-btn" (click)="finalizarCompra()">Finalizar compra</p-button>
     </div>
 
     <button class="mobile-clear-btn" (click)="clear()">Limpar Carrinho</button>
