@@ -3,6 +3,16 @@ body{
     color: pink;
 }
 
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
 .center{
     margin: 0 auto;
     display: table;
@@ -43,6 +53,53 @@ body{
             max-width: 250px;
             min-height: 300px;
             max-height: 300px;
+        }
+    }
+}
+
+// Mobile Filter - layout compacto como na imagem
+.mobile-filter {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    
+    p {
+        font-size: 12px;
+        margin: 0;
+    }
+    
+    .font-semibold {
+        font-weight: 600;
+    }
+    
+    .font-light {
+        font-weight: 300;
+    }
+}
+
+// Cursor pointer para elementos clicáveis
+.cursor-pointer {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+// Mobile Products Grid - apenas o layout, mantendo estilos do desktop
+.mobile-products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1rem;
+    row-gap: 2rem;
+    padding: 1rem;
+    margin-top: 2rem;
+    
+    .mobile-product-card {
+        img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
         }
     }
 }

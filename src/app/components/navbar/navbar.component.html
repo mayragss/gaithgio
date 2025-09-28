@@ -42,18 +42,18 @@
 <!-- Overlay fullscreen no mobile -->
 
 @if(menuOpen) {
-    <div class="menu-overlay fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
-    <button class="absolute top-5 right-5 text-3xl" (click)="closeMenu()">✕</button>
-
-    <div class="flex flex-col gap-6 text-xl main-txt-color">
-        <a href="/#about" (click)="closeMenu()">SOBRE NÓS</a>
-        <a href="/#values" (click)="closeMenu()">NOSSOS VALORES</a>
-        <a href="/#concept" (click)="closeMenu()">CONCEITO DA MARCA</a>
-        <a href="/#collection" (click)="closeMenu()">NOVA COLEÇÃO</a>
-        <a href="/products" (click)="closeMenu()">PRODUTOS</a>
-        <a href="/gallery" (click)="closeMenu()">GALERIA</a>
-        <a href="/#contact" (click)="closeMenu()">CONTATOS</a>
-        <a href="/faqs" (click)="closeMenu()">FAQS</a>
+    <div class="menu-overlay mobile">
+        <button class="close-btn" (click)="closeMenu()">✕</button>
+        
+        <div class="menu-items">
+            <a href="/#about" (click)="closeMenu()">SOBRE NÓS</a>
+            <a href="/#values" (click)="closeMenu()">NOSSOS VALORES</a>
+            <a href="/#concept" (click)="closeMenu()">CONCEITO DA MARCA</a>
+            <a href="/#collection" (click)="closeMenu()">NOVA COLEÇÃO</a>
+            <a href="/products" (click)="closeMenu()">PRODUTOS</a>
+            <a href="/gallery" (click)="closeMenu()">GALERIA</a>
+            <a href="/#contact" (click)="closeMenu()">CONTATOS</a>
+            <a href="/faqs" (click)="closeMenu()">FAQS</a>
+        </div>
     </div>
-</div>
 }

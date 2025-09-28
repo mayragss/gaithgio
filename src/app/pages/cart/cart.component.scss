@@ -1,4 +1,14 @@
 
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart {
+    flex: 1;
+}
+
 .main{
     max-width: 100%;
     padding-left: 16%;

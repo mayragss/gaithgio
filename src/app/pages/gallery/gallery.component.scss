@@ -3,6 +3,16 @@ body{
     color: pink;
 }
 
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
 .center{
     margin: 0 auto;
     display: table;

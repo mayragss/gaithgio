@@ -27,6 +27,11 @@ export class ProductsComponent implements OnInit {
   aFirst: boolean = true;
   zFirst: boolean = true;
   activeOrder: { [key: string]: 'asc' | 'desc' } = {};
+  
+  // Estados dos arrows
+  disponibilidadeArrowUp: boolean = false;
+  precoArrowUp: boolean = false;
+  ordenarArrowUp: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -75,5 +80,18 @@ export class ProductsComponent implements OnInit {
         tap({ error: (err) => console.error('Erro ao carregar produtos', err) })
       )
       .subscribe((products) => this.products = products);
+  }
+
+  // Métodos para toggle dos arrows
+  toggleDisponibilidadeArrow() {
+    this.disponibilidadeArrowUp = !this.disponibilidadeArrowUp;
+  }
+
+  togglePrecoArrow() {
+    this.precoArrowUp = !this.precoArrowUp;
+  }
+
+  toggleOrdenarArrow() {
+    this.ordenarArrowUp = !this.ordenarArrowUp;
   }
 }

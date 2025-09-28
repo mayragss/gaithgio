@@ -20,3 +20,16 @@ a:focus{
     border: none !important;
     outline: none;
 }
+
+// Estilos para links do footer
+.footer {
+    a {
+        color: #fff !important;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
