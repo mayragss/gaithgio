@@ -247,17 +247,35 @@
   }
 
   @media only screen and (max-width:700px) {
-    .grid {
-      padding: .7rem .7rem;
+    .images {
+      overflow: hidden;
+      width: 100%;
+      padding: 0 1rem;
+      
+      .flex-row {
+        width: 100%;
+        overflow: hidden;
+        justify-content: center;
+        align-items: flex-start;
+      }
     }
 
-    .regular {
+    .collection-img-small {
       height: 180px;
-      margin-top: 1rem;
+      width: 28%;
+      object-fit: cover;
     }
 
-    .middle {
-      height: 215px !important;
+    .collection-img-large {
+      height: 200px;
+      width: 40%;
+      object-fit: cover;
+    }
+
+    .collection-img-medium {
+      height: 190px;
+      width: 45%;
+      object-fit: cover;
     }
 
     .desc {
