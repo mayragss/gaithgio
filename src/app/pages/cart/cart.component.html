@@ -56,9 +56,8 @@
       </div>
       <p class="size-6 pb-3">Impostos, descontos e entregas calculados a seguir</p>
       <p-button (click)="finalizarCompra()">Finalizar compra</p-button>
+      <button (click)="clear()" class="mt-3">Limpar Carrinho</button>
     </div>
-
-    <button (click)="clear()">Limpar Carrinho</button>
     } @else {
     <p>O carrinho está vazio 🛒</p>
     }

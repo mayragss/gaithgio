@@ -83,8 +83,5 @@ export class CartComponent implements OnInit {
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
     
     window.open(url, '_blank');
-    
-    // Limpar o carrinho após enviar a mensagem
-    this.clear();
   }
 }
