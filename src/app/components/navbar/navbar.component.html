@@ -1,5 +1,12 @@
 <div class="member-area flex justify-content-end mb-5 pt-5 mr-7 desktop">
-    <p class="main-txt-color underline">Área de Cliente</p>
+    @if (isLoggedIn()) {
+        <div class="user-info flex align-items-center gap-2 mr-3">
+            <span class="main-txt-color montserrat">Olá, {{ getUserName() }}!</span>
+            <a href="/member/dashboard" class="main-txt-color underline">Meu Painel</a>
+        </div>
+    } @else {
+        <a href="/member/login" class="main-txt-color underline mr-3">Entrar / Cadastrar</a>
+    }
     <a href="/cart" class="no-underline cursor-pointer main-txt-color">
         <div class="cart-icon ml-2">
             <img src="images\cart.png " />
@@ -13,7 +20,14 @@
 <div class="member-area flex flex-row justify-content-between mb-5 pt-5 mobile">
     <i class="pi pi-bars ml-2" (click)="toggleMenu()"></i>
     <div class="justify-content-end flex flex-row mr-3">
-        <p class="main-txt-color underline">Área de Cliente</p>
+        @if (isLoggedIn()) {
+            <div class="user-info flex align-items-center gap-2 mr-2">
+                <span class="main-txt-color montserrat size-14">Olá, {{ getUserName() }}!</span>
+                <a href="/member/dashboard" class="main-txt-color underline size-14">Painel</a>
+            </div>
+        } @else {
+            <a href="/member/login" class="main-txt-color underline mr-2 size-14">Entrar</a>
+        }
         <a href="/cart" class="no-underline cursor-pointer main-txt-color">
             <div class="cart-icon ml-2">
                 <img src="images\cart.png " />
@@ -54,6 +68,11 @@
             <a href="/gallery" (click)="closeMenu()">GALERIA</a>
             <a href="/#contact" (click)="closeMenu()">CONTATOS</a>
             <a href="/faqs" (click)="closeMenu()">FAQS</a>
+            @if (isLoggedIn()) {
+                <a href="/member/dashboard" (click)="closeMenu()">MEU PAINEL</a>
+            } @else {
+                <a href="/member/login" (click)="closeMenu()">ENTRAR / CADASTRAR</a>
+            }
         </div>
     </div>
 }

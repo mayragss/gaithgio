@@ -6,6 +6,8 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { FaqsComponent } from './pages/faqs/faqs.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { MemberDashboardComponent } from './pages/member/member-dashboard.component';
+import { MemberLoginComponent } from './pages/member/member-login.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -15,4 +17,8 @@ export const routes: Routes = [
     { path: 'product/detail/:id', component: DetailComponent },
     { path: 'cart', component: CartComponent },
     { path: 'gallery', component: GalleryComponent },
+    // Member routes
+    { path: 'member/login', component: MemberLoginComponent },
+    { path: 'member/dashboard', component: MemberDashboardComponent },
+    { path: 'member', redirectTo: '/member/login', pathMatch: 'full' },
 ];

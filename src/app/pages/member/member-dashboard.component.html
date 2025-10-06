@@ -1,0 +1,235 @@
+<div class="member-dashboard" *ngIf="currentUser">
+  <div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h1 class="dashboard-title cinzel">Meu Painel</h1>
+      <p class="welcome-text montserrat">Bem-vindo, {{ currentUser.firstName }}!</p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="dashboard-nav">
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'profile'"
+        (click)="setActiveTab('profile')">
+        <i class="pi pi-user"></i>
+        Perfil
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'orders'"
+        (click)="setActiveTab('orders')">
+        <i class="pi pi-shopping-bag"></i>
+        Pedidos
+      </button>
+      <button 
+        class="nav-tab" 
+        [class.active]="activeTab === 'addresses'"
+        (click)="setActiveTab('addresses')">
+        <i class="pi pi-map-marker"></i>
+        Endereços
+      </button>
+      <button 
+        class="nav-tab logout-btn" 
+        (click)="logout()">
+        <i class="pi pi-sign-out"></i>
+        Sair
+      </button>
+    </div>
+
+    <!-- Content Area -->
+    <div class="dashboard-content">
+      <!-- Profile Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'profile'">
+        <div class="profile-section">
+          <h2 class="section-title cinzel">Informações Pessoais</h2>
+          <div class="profile-info">
+            <div class="info-item">
+              <label class="montserrat">Nome:</label>
+              <span class="montserrat">{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
+            </div>
+            <div class="info-item">
+              <label class="montserrat">Email:</label>
+              <span class="montserrat">{{ currentUser.email }}</span>
+            </div>
+            <div class="info-item">
+              <label class="montserrat">Telefone:</label>
+              <span class="montserrat">{{ currentUser.phone }}</span>
+            </div>
+            <div class="info-item" *ngIf="currentUser.dateOfBirth">
+              <label class="montserrat">Data de Nascimento:</label>
+              <span class="montserrat">{{ currentUser.dateOfBirth | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+          <button class="edit-btn montserrat" (click)="setActiveTab('edit-profile')">
+            <i class="pi pi-pencil"></i>
+            Editar Perfil
+          </button>
+        </div>
+      </div>
+
+      <!-- Orders Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'orders'">
+        <h2 class="section-title cinzel">Histórico de Pedidos</h2>
+        <div class="orders-list" *ngIf="currentUser.orders.length > 0; else noOrders">
+          <div class="order-card" *ngFor="let order of currentUser.orders">
+            <div class="order-header">
+              <span class="order-number montserrat">Pedido #{{ order.orderNumber }}</span>
+              <span class="order-status montserrat" [class]="'status-' + order.status">
+                {{ order.status | titlecase }}
+              </span>
+            </div>
+            <div class="order-details">
+              <p class="montserrat">Data: {{ order.createdAt | date:'dd/MM/yyyy' }}</p>
+              <p class="montserrat">Total: R$ {{ order.total | number:'1.2-2' }}</p>
+              <p class="montserrat">Itens: {{ order.items.length }}</p>
+            </div>
+          </div>
+        </div>
+        <ng-template #noOrders>
+          <div class="empty-state">
+            <i class="pi pi-shopping-bag empty-icon"></i>
+            <p class="montserrat">Nenhum pedido encontrado</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Addresses Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'addresses'">
+        <div class="addresses-header">
+          <h2 class="section-title cinzel">Meus Endereços</h2>
+          <button class="add-address-btn montserrat" (click)="setActiveTab('add-address')">
+            <i class="pi pi-plus"></i>
+            Adicionar Endereço
+          </button>
+        </div>
+        <div class="addresses-list" *ngIf="currentUser.addresses.length > 0; else noAddresses">
+          <div class="address-card" *ngFor="let address of currentUser.addresses">
+            <div class="address-header">
+              <span class="address-type montserrat">{{ address.type | titlecase }}</span>
+              <span class="default-badge montserrat" *ngIf="address.isDefault">Padrão</span>
+            </div>
+            <div class="address-details">
+              <p class="montserrat">{{ address.street }}, {{ address.number }}</p>
+              <p class="montserrat" *ngIf="address.complement">{{ address.complement }}</p>
+              <p class="montserrat">{{ address.neighborhood }}</p>
+              <p class="montserrat">{{ address.city }} - {{ address.state }}</p>
+              <p class="montserrat">CEP: {{ address.zipCode }}</p>
+            </div>
+            <div class="address-actions">
+              <button class="edit-address-btn montserrat">
+                <i class="pi pi-pencil"></i>
+                Editar
+              </button>
+            </div>
+          </div>
+        </div>
+        <ng-template #noAddresses>
+          <div class="empty-state">
+            <i class="pi pi-map-marker empty-icon"></i>
+            <p class="montserrat">Nenhum endereço cadastrado</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Edit Profile Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'edit-profile'">
+        <h2 class="section-title cinzel">Editar Perfil</h2>
+        <form class="profile-form">
+          <div class="form-group">
+            <label class="montserrat">Nome</label>
+            <input type="text" class="form-input montserrat" [(ngModel)]="currentUser.firstName" name="firstName">
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Sobrenome</label>
+            <input type="text" class="form-input montserrat" [(ngModel)]="currentUser.lastName" name="lastName">
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Email</label>
+            <input type="email" class="form-input montserrat" [(ngModel)]="currentUser.email" name="email">
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Telefone</label>
+            <input type="tel" class="form-input montserrat" [(ngModel)]="currentUser.phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Data de Nascimento</label>
+            <input type="date" class="form-input montserrat" [(ngModel)]="currentUser.dateOfBirth" name="dateOfBirth">
+          </div>
+          <div class="form-actions">
+            <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('profile')">
+              Cancelar
+            </button>
+            <button type="submit" class="save-btn montserrat">
+              Salvar Alterações
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Add Address Tab -->
+      <div class="tab-content" *ngIf="activeTab === 'add-address'">
+        <h2 class="section-title cinzel">Adicionar Endereço</h2>
+        <form class="address-form">
+          <div class="form-group">
+            <label class="montserrat">Tipo de Endereço</label>
+            <select class="form-input montserrat" name="type">
+              <option value="shipping">Entrega</option>
+              <option value="billing">Cobrança</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="montserrat">Rua</label>
+              <input type="text" class="form-input montserrat" name="street">
+            </div>
+            <div class="form-group">
+              <label class="montserrat">Número</label>
+              <input type="text" class="form-input montserrat" name="number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Complemento</label>
+            <input type="text" class="form-input montserrat" name="complement">
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Bairro</label>
+            <input type="text" class="form-input montserrat" name="neighborhood">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="montserrat">Cidade</label>
+              <input type="text" class="form-input montserrat" name="city">
+            </div>
+            <div class="form-group">
+              <label class="montserrat">Estado</label>
+              <input type="text" class="form-input montserrat" name="state">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="montserrat">CEP</label>
+              <input type="text" class="form-input montserrat" name="zipCode">
+            </div>
+            <div class="form-group">
+              <label class="montserrat">País</label>
+              <input type="text" class="form-input montserrat" name="country" value="Brasil">
+            </div>
+          </div>
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="isDefault" name="isDefault">
+            <label for="isDefault" class="montserrat">Definir como endereço padrão</label>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('addresses')">
+              Cancelar
+            </button>
+            <button type="submit" class="save-btn montserrat">
+              Salvar Endereço
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

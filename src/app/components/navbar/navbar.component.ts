@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'navbar',
@@ -8,8 +9,8 @@ import { CartService } from '../../services/cart.service';
 })
 export class NavbarComponent {
   cartService = inject(CartService);
+  authService = inject(AuthService);
 
-  
   menuOpen = false;
 
   toggleMenu() {
@@ -18,5 +19,14 @@ export class NavbarComponent {
 
   closeMenu() {
     this.menuOpen = false;
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  getUserName(): string {
+    const user = this.authService.getCurrentUser();
+    return user ? user.firstName : '';
   }
 }
