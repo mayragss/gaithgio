@@ -55,6 +55,7 @@
             font-size: 1rem;
             transition: all 0.3s ease;
             background: #f8f9fa;
+            color: #000;
             &:focus { outline: none; border-color: #624725; background: #fff; box-shadow: 0 0 0 3px rgba(98, 71, 37, 0.1); }
             &::placeholder { color: #adb5bd; }
           }
