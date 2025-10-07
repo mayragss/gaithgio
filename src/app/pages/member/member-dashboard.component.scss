@@ -1,6 +1,6 @@
 .member-dashboard {
   min-height: 100vh;
-  background-color: #fff;
+  background: #fff;
   padding: 2rem 1rem;
 
   .dashboard-container {
@@ -45,12 +45,7 @@
       align-items: center;
       gap: 0.5rem;
 
-      &:hover {
-        background: #624725;
-        color: #fff;
-      }
-
-      &.active {
+      &:hover, &.active {
         background: #624725;
         color: #fff;
       }
@@ -64,10 +59,6 @@
           background: #c82333;
           border-color: #c82333;
         }
-      }
-
-      i {
-        font-size: 1.1rem;
       }
     }
   }
@@ -133,64 +124,41 @@
         }
       }
 
-      .orders-list {
-        .order-card {
-          background: #fff;
-          border-radius: 8px;
-          padding: 1.5rem;
+      .orders-list .order-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #624725;
+
+        .order-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           margin-bottom: 1rem;
-          border-left: 4px solid #624725;
 
-          .order-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-
-            .order-number {
-              font-weight: 600;
-              color: #624725;
-            }
-
-            .order-status {
-              padding: 0.25rem 0.75rem;
-              border-radius: 20px;
-              font-size: 0.875rem;
-              font-weight: 500;
-
-              &.status-pending {
-                background: #fff3cd;
-                color: #856404;
-              }
-
-              &.status-processing {
-                background: #d1ecf1;
-                color: #0c5460;
-              }
-
-              &.status-shipped {
-                background: #d4edda;
-                color: #155724;
-              }
-
-              &.status-delivered {
-                background: #d1ecf1;
-                color: #0c5460;
-              }
-
-              &.status-cancelled {
-                background: #f8d7da;
-                color: #721c24;
-              }
-            }
+          .order-number {
+            font-weight: 600;
+            color: #624725;
           }
 
-          .order-details {
-            p {
-              margin: 0.25rem 0;
-              color: #6c757d;
-            }
+          .order-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+
+            &.status-pending { background: #fff3cd; color: #856404; }
+            &.status-processing { background: #d1ecf1; color: #0c5460; }
+            &.status-shipped { background: #d4edda; color: #155724; }
+            &.status-delivered { background: #d1ecf1; color: #0c5460; }
+            &.status-cancelled { background: #f8d7da; color: #721c24; }
           }
+        }
+
+        .order-details p {
+          margin: 0.25rem 0;
+          color: #6c757d;
         }
       }
 
@@ -220,61 +188,57 @@
         }
       }
 
-      .addresses-list {
-        .address-card {
-          background: #fff;
-          border-radius: 8px;
-          padding: 1.5rem;
+      .addresses-list .address-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+
+        .address-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           margin-bottom: 1rem;
-          border: 1px solid #e9ecef;
 
-          .address-header {
+          .address-type {
+            font-weight: 600;
+            color: #624725;
+            text-transform: capitalize;
+          }
+
+          .default-badge {
+            background: #624725;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+          }
+        }
+
+        .address-details p {
+          margin: 0.25rem 0;
+          color: #6c757d;
+        }
+
+        .address-actions {
+          margin-top: 1rem;
+
+          .edit-address-btn {
+            background: transparent;
+            color: #624725;
+            border: 1px solid #624725;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
 
-            .address-type {
-              font-weight: 600;
-              color: #624725;
-              text-transform: capitalize;
-            }
-
-            .default-badge {
+            &:hover {
               background: #624725;
               color: #fff;
-              padding: 0.25rem 0.75rem;
-              border-radius: 20px;
-              font-size: 0.75rem;
-            }
-          }
-
-          .address-details {
-            p {
-              margin: 0.25rem 0;
-              color: #6c757d;
-            }
-          }
-
-          .address-actions {
-            margin-top: 1rem;
-
-            .edit-address-btn {
-              background: transparent;
-              color: #624725;
-              border: 1px solid #624725;
-              padding: 0.5rem 1rem;
-              border-radius: 6px;
-              cursor: pointer;
-              font-size: 0.875rem;
-              display: flex;
-              align-items: center;
-              gap: 0.5rem;
-
-              &:hover {
-                background: #624725;
-                color: #fff;
-              }
             }
           }
         }
@@ -296,8 +260,7 @@
         }
       }
 
-      .profile-form,
-      .address-form {
+      .profile-form, .address-form {
         background: #fff;
         border-radius: 8px;
         padding: 2rem;
@@ -359,8 +322,7 @@
           justify-content: center;
           margin-top: 2rem;
 
-          .cancel-btn,
-          .save-btn {
+          .cancel-btn, .save-btn {
             padding: 0.75rem 2rem;
             border-radius: 6px;
             cursor: pointer;
@@ -403,11 +365,9 @@
       }
     }
 
-    .dashboard-nav {
-      .nav-tab {
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-      }
+    .dashboard-nav .nav-tab {
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
     }
 
     .dashboard-content {
@@ -418,8 +378,7 @@
           font-size: 1.5rem;
         }
 
-        .profile-form,
-        .address-form {
+        .profile-form, .address-form {
           padding: 1rem;
         }
       }

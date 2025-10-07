@@ -78,7 +78,7 @@
         </div>
 
         <div class="error-message" *ngIf="errorMessage">
-          <i class="pi pi-exclamation-triangle"></i>
+          <span class="icon">⚠️</span>
           {{ errorMessage }}
         </div>
 
@@ -86,9 +86,9 @@
           type="submit" 
           class="submit-btn montserrat"
           [disabled]="isLoading">
-          <i class="pi pi-spin pi-spinner" *ngIf="isLoading"></i>
-          <i class="pi pi-sign-in" *ngIf="!isLoading && isLoginMode"></i>
-          <i class="pi pi-user-plus" *ngIf="!isLoading && !isLoginMode"></i>
+          <span class="icon" *ngIf="isLoading">⏳</span>
+          <span class="icon" *ngIf="!isLoading && isLoginMode">🔑</span>
+          <span class="icon" *ngIf="!isLoading && !isLoginMode">👤</span>
           {{ isLoading ? 'Processando...' : (isLoginMode ? 'Entrar' : 'Criar Conta') }}
         </button>
       </form>
@@ -110,19 +110,19 @@
       <h3 class="benefits-title cinzel">Benefícios da sua conta</h3>
       <ul class="benefits-list">
         <li class="benefits-item montserrat">
-          <i class="pi pi-check"></i>
+          <span class="icon">✅</span>
           Histórico de pedidos
         </li>
         <li class="benefits-item montserrat">
-          <i class="pi pi-check"></i>
+          <span class="icon">✅</span>
           Endereços salvos
         </li>
         <li class="benefits-item montserrat">
-          <i class="pi pi-check"></i>
+          <span class="icon">✅</span>
           Atualizações de pedidos
         </li>
         <li class="benefits-item montserrat">
-          <i class="pi pi-check"></i>
+          <span class="icon">✅</span>
           Ofertas exclusivas
         </li>
       </ul>

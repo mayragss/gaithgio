@@ -12,27 +12,27 @@
         class="nav-tab" 
         [class.active]="activeTab === 'profile'"
         (click)="setActiveTab('profile')">
-        <i class="pi pi-user"></i>
+        <span class="icon">👤</span>
         Perfil
       </button>
       <button 
         class="nav-tab" 
         [class.active]="activeTab === 'orders'"
         (click)="setActiveTab('orders')">
-        <i class="pi pi-shopping-bag"></i>
+        <span class="icon">🛍️</span>
         Pedidos
       </button>
       <button 
         class="nav-tab" 
         [class.active]="activeTab === 'addresses'"
         (click)="setActiveTab('addresses')">
-        <i class="pi pi-map-marker"></i>
+        <span class="icon">📍</span>
         Endereços
       </button>
       <button 
         class="nav-tab logout-btn" 
         (click)="logout()">
-        <i class="pi pi-sign-out"></i>
+        <span class="icon">🚪</span>
         Sair
       </button>
     </div>
@@ -62,7 +62,7 @@
             </div>
           </div>
           <button class="edit-btn montserrat" (click)="setActiveTab('edit-profile')">
-            <i class="pi pi-pencil"></i>
+            <span class="icon">✏️</span>
             Editar Perfil
           </button>
         </div>
@@ -88,7 +88,7 @@
         </div>
         <ng-template #noOrders>
           <div class="empty-state">
-            <i class="pi pi-shopping-bag empty-icon"></i>
+            <span class="empty-icon">🛍️</span>
             <p class="montserrat">Nenhum pedido encontrado</p>
           </div>
         </ng-template>
@@ -99,7 +99,7 @@
         <div class="addresses-header">
           <h2 class="section-title cinzel">Meus Endereços</h2>
           <button class="add-address-btn montserrat" (click)="setActiveTab('add-address')">
-            <i class="pi pi-plus"></i>
+            <span class="icon">➕</span>
             Adicionar Endereço
           </button>
         </div>
@@ -118,15 +118,15 @@
             </div>
             <div class="address-actions">
               <button class="edit-address-btn montserrat">
-                <i class="pi pi-pencil"></i>
-                Editar
+              <span class="icon">✏️</span>
+              Editar
               </button>
             </div>
           </div>
         </div>
         <ng-template #noAddresses>
           <div class="empty-state">
-            <i class="pi pi-map-marker empty-icon"></i>
+            <span class="empty-icon">📍</span>
             <p class="montserrat">Nenhum endereço cadastrado</p>
           </div>
         </ng-template>
