@@ -12,27 +12,23 @@
         class="nav-tab" 
         [class.active]="activeTab === 'profile'"
         (click)="setActiveTab('profile')">
-        <span class="icon">👤</span>
         Perfil
       </button>
       <button 
         class="nav-tab" 
         [class.active]="activeTab === 'orders'"
         (click)="setActiveTab('orders')">
-        <span class="icon">🛍️</span>
         Pedidos
       </button>
       <button 
         class="nav-tab" 
         [class.active]="activeTab === 'addresses'"
         (click)="setActiveTab('addresses')">
-        <span class="icon">📍</span>
         Endereços
       </button>
       <button 
         class="nav-tab logout-btn" 
         (click)="logout()">
-        <span class="icon">🚪</span>
         Sair
       </button>
     </div>
