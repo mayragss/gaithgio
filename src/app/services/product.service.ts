@@ -10,7 +10,7 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
-  private apiUrl = 'https://72.60.191.142:300/products'/* 'http://localhost:3000/products'*/; // ajuste a URL conforme sua API
+  private apiUrl = 'https://72.60.191.142/products'/* 'http://localhost:3000/products'*/; // ajuste a URL conforme sua API
 
   constructor(private http: HttpClient) { }
 
