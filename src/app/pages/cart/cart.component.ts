@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
     try {
       if (product?.images) {
         const images: string[] = JSON.parse(product.images.toString());
+        console.log('images '+images);
         return images.length > 0 ? images[0] : "sem-imagem.png"; // fallback
       }
       return "sem-imagem.png"; // caso não tenha imagens
@@ -71,17 +72,17 @@ export class CartComponent implements OnInit {
     }
 
     let mensagem = "Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n";
-    
+
     this.items.forEach(item => {
       const tamanho = item.selectedSize ? ` - Tamanho ${item.selectedSize}` : '';
       mensagem += `${item.product.name}${tamanho} - Quantidade: ${item.quantity} - Valor: €${item.product.price}\n`;
     });
-    
+
     mensagem += `\nValor total: €${this.totalPrice()}`;
-    
+
     const numero = "5511957056779";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    
+
     window.open(url, '_blank');
   }
 }
