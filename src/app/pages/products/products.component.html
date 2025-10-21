@@ -19,7 +19,7 @@
             </div>
             <div class="flex flex-row align-items-center gap-3 ml-auto">
                 <p class="font-light">Ordenar:</p>
-                <p class="font-light flex flex-row cursor-pointer" (click)="toggleOrdenarArrow()">A-Z 
+                <p class="font-light flex flex-row cursor-pointer" (click)="toggleOrdenarArrow()">A-Z
                     <i [ngClass]="ordenarArrowUp ? 'pi pi-angle-up' : 'pi pi-angle-down'" class="pt-1 pl-1"></i>
                 </p>
                 <p class="font-light">8 produtos</p>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="flex flex-row align-items-center gap-2">
                     <p class="font-light">Ordenar:</p>
-                    <p class="font-light flex flex-row cursor-pointer" (click)="toggleOrdenarArrow()">A-Z 
+                    <p class="font-light flex flex-row cursor-pointer" (click)="toggleOrdenarArrow()">A-Z
                         <i [ngClass]="ordenarArrowUp ? 'pi pi-angle-up' : 'pi pi-angle-down'" class="pt-1 pl-1"></i>
                     </p>
                     <p class="font-light">6 produtos</p>
@@ -53,9 +53,9 @@
             @for (product of products; track $index) {
             <div class="flex flex-column card">
                     <a class="no-underline" href="/product/detail/{{product.id}}">
-                        <img src="{{ product.images | jsonArrayToString }}" />
-                        <p class="center p-0 pt-2">Bikini Mangaba</p>
-                        <p class="center p-0 pt-2 pt-2">€35.00</p>
+                    <img src="{{ product.images | jsonArrayToString }}" />
+                    <p class="center p-0 pt-2">{{product.name}}</p>
+                    <p class="center p-0 pt-2 pt-2">€{{product.price}}</p>
                     </a>
                     <button class="mt-3 add-cart w-10 center" (click)="addToCart(product)">Adicionar ao carrinho</button>
             </div>
@@ -68,8 +68,8 @@
             <div class="flex flex-column card mobile-product-card">
                 <a class="no-underline" href="/product/detail/{{product.id}}">
                     <img src="{{ product.images | jsonArrayToString }}" />
-                    <p class="center p-0 pt-2">Bikini Mangaba</p>
-                    <p class="center p-0 pt-2 pt-2">€35.00</p>
+                    <p class="center p-0 pt-2">{{product.name}}</p>
+                    <p class="center p-0 pt-2 pt-2">€{{product.price}}</p>
                 </a>
                 <button class="mt-3 add-cart w-10 center" (click)="addToCart(product)">Adicionar ao carrinho</button>
             </div>
