@@ -7,12 +7,12 @@
         <div class="w-2 flex-column">
             <!--foreach com o campo tratado-->
             @for (img of images; track $index) {
-            <img class="small-image" src="images/{{img}}" />
+            <img class="small-image" src="{{img}}" />
             }
         </div>
 
         <div class="w-4">
-            <img class="main-img" src="/{{imageMain}}" />
+            <img class="main-img" src="{{imageMain}}" />
         </div>
 
         <div class="mb-8 w-5 montserrat flex flex-column">
@@ -51,12 +51,12 @@
         <div class="mobile-images-container">
             <div class="mobile-thumbnails">
                 @for (img of images; track $index) {
-                <img class="mobile-thumbnail" [class.active]="imageMain === img" src="images/{{img}}" (click)="selectImage(img)" />
+                <img class="mobile-thumbnail" [class.active]="imageMain === img" src="{{img}}" (click)="selectImage(img)" />
                 }
             </div>
             
             <div class="mobile-main-image">
-                <img src="/{{imageMain}}" />
+                <img src="{{imageMain}}" />
             </div>
         </div>
 

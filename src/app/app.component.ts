@@ -17,5 +17,22 @@ export class AppComponent {
 
   ngOnInit() {
     this.primeng.ripple.set(true);
+    this.loadFonts();
+  }
+
+  private loadFonts() {
+    // Check if fonts are already loaded
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        document.body.classList.add('font-loaded');
+        document.body.classList.remove('font-loading');
+      });
+    } else {
+      // Fallback for older browsers
+      setTimeout(() => {
+        document.body.classList.add('font-loaded');
+        document.body.classList.remove('font-loading');
+      }, 100);
+    }
   }
 }

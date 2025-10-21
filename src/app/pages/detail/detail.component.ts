@@ -53,8 +53,14 @@ export class DetailComponent implements OnInit {
             if(images.length > 1){
               this.images = [];
               images.forEach(img => {
-                this.images.push(img);              
-            });
+                // Se já é uma URL completa, usar diretamente
+                if (img.startsWith('http')) {
+                  this.images.push(img);
+                } else {
+                  // Se não é URL completa, construir a URL completa
+                  this.images.push(`https://api-ecommerce.maygomes.com${img.startsWith('/') ? '' : '/'}${img}`);
+                }
+              });
             }
           } ,
           error: (err) => console.error('Erro ao carregar produto:', err)

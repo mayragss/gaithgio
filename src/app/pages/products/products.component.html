@@ -53,7 +53,7 @@
             @for (product of products; track $index) {
             <div class="flex flex-column card">
                     <a class="no-underline" href="/product/detail/{{product.id}}">
-                        <img src="/{{ product.images | jsonArrayToString }}" />
+                        <img src="{{ product.images | jsonArrayToString }}" />
                         <p class="center p-0 pt-2">Bikini Mangaba</p>
                         <p class="center p-0 pt-2 pt-2">€35.00</p>
                     </a>
@@ -67,7 +67,7 @@
             @for (product of products; track $index) {
             <div class="flex flex-column card mobile-product-card">
                 <a class="no-underline" href="/product/detail/{{product.id}}">
-                    <img src="/{{ product.images | jsonArrayToString }}" />
+                    <img src="{{ product.images | jsonArrayToString }}" />
                     <p class="center p-0 pt-2">Bikini Mangaba</p>
                     <p class="center p-0 pt-2 pt-2">€35.00</p>
                 </a>
