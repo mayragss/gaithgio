@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
+import { environment } from '../../environments/environment';
 
 export interface LoginRequest {
   email: string;
@@ -25,7 +26,7 @@ export interface RegisterRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.apiUrl;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 

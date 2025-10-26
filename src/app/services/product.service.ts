@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
+import { environment } from '../../environments/environment';
 
 
 
@@ -10,7 +11,7 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
-  private apiUrl = 'https://api-ecommerce.maygomes.com/products'/* 'http://localhost:3000/products'*/; // ajuste a URL conforme sua API
+  private apiUrl = `${environment.apiUrl}/products`;
 
   constructor(private http: HttpClient) { }
 
