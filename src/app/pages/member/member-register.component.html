@@ -1,0 +1,127 @@
+<div class="member-login">
+  <div class="login-container">
+    <div class="login-header">
+      <h1 class="login-title cinzel">GAITHGIO</h1>
+      <p class="login-subtitle montserrat">Crie sua conta</p>
+    </div>
+
+    <div class="login-form-container">
+      <form class="login-form" (ngSubmit)="onSubmit()">
+        <!-- Registration fields -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="montserrat">Nome</label>
+            <input 
+              type="text" 
+              class="form-input montserrat" 
+              [(ngModel)]="firstName" 
+              name="firstName"
+              placeholder="Seu nome"
+              required>
+          </div>
+          <div class="form-group">
+            <label class="montserrat">Sobrenome</label>
+            <input 
+              type="text" 
+              class="form-input montserrat" 
+              [(ngModel)]="lastName" 
+              name="lastName"
+              placeholder="Seu sobrenome"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="montserrat">Email</label>
+          <input 
+            type="email" 
+            class="form-input montserrat" 
+            [(ngModel)]="email" 
+            name="email"
+            placeholder="seu@email.com"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label class="montserrat">Telefone</label>
+          <input 
+            type="tel" 
+            class="form-input montserrat" 
+            [(ngModel)]="phone" 
+            name="phone"
+            placeholder="(11) 99999-9999"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label class="montserrat">Senha</label>
+          <input 
+            type="password" 
+            class="form-input montserrat" 
+            [(ngModel)]="password" 
+            name="password"
+            placeholder="Sua senha"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label class="montserrat">Confirmar Senha</label>
+          <input 
+            type="password" 
+            class="form-input montserrat" 
+            [(ngModel)]="confirmPassword" 
+            name="confirmPassword"
+            placeholder="Confirme sua senha"
+            required>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          <span class="icon">⚠️</span>
+          {{ errorMessage }}
+        </div>
+
+        <button 
+          type="submit" 
+          class="submit-btn montserrat"
+          [disabled]="isLoading">
+          <span class="icon" *ngIf="isLoading">⏳</span>
+          {{ isLoading ? 'Processando...' : 'Criar Conta' }}
+        </button>
+      </form>
+
+      <div class="form-footer">
+        <p class="montserrat">
+          Já tem uma conta?
+          <button 
+            type="button" 
+            class="toggle-mode-btn montserrat"
+            (click)="goToLogin()">
+            Fazer login
+          </button>
+        </p>
+      </div>
+    </div>
+
+    <!-- <div class="login-benefits">
+      <h3 class="benefits-title cinzel">Benefícios da sua conta</h3>
+      <ul class="benefits-list">
+        <li class="benefits-item montserrat">
+          <span class="icon">✅</span>
+          Histórico de pedidos
+        </li>
+        <li class="benefits-item montserrat">
+          <span class="icon">✅</span>
+          Endereços salvos
+        </li>
+        <li class="benefits-item montserrat">
+          <span class="icon">✅</span>
+          Atualizações de pedidos
+        </li>
+        <li class="benefits-item montserrat">
+          <span class="icon">✅</span>
+          Ofertas exclusivas
+        </li>
+      </ul>
+    </div> -->
+  </div>
+</div>

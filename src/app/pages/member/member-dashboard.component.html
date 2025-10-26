@@ -1,4 +1,4 @@
-<div class="member-dashboard" *ngIf="currentUser">
+<div class="member-dashboard" *ngIf="currentUser; else loadingTemplate">
   <div class="dashboard-container">
     <!-- Header -->
     <div class="dashboard-header">
@@ -68,7 +68,8 @@
       <div class="tab-content" *ngIf="activeTab === 'orders'">
         <h2 class="section-title cinzel">Histórico de Pedidos</h2>
         <div class="orders-list" *ngIf="currentUser.orders.length > 0; else noOrders">
-          <div class="order-card" *ngFor="let order of currentUser.orders">
+          @for (order of currentUser.orders; track order.id) {
+          <div class="order-card">
             <div class="order-header">
               <span class="order-number montserrat">Pedido #{{ order.orderNumber }}</span>
               <span class="order-status montserrat" [class]="'status-' + order.status">
@@ -81,6 +82,7 @@
               <p class="montserrat">Itens: {{ order.items.length }}</p>
             </div>
           </div>
+          }
         </div>
         <ng-template #noOrders>
           <div class="empty-state">
@@ -100,7 +102,8 @@
           </button>
         </div>
         <div class="addresses-list" *ngIf="currentUser.addresses.length > 0; else noAddresses">
-          <div class="address-card" *ngFor="let address of currentUser.addresses">
+          @for (address of currentUser.addresses; track address.id) {
+          <div class="address-card">
             <div class="address-header">
               <span class="address-type montserrat">{{ address.type | titlecase }}</span>
               <span class="default-badge montserrat" *ngIf="address.isDefault">Padrão</span>
@@ -119,6 +122,7 @@
               </button>
             </div>
           </div>
+          }
         </div>
         <ng-template #noAddresses>
           <div class="empty-state">
@@ -131,33 +135,40 @@
       <!-- Edit Profile Tab -->
       <div class="tab-content" *ngIf="activeTab === 'edit-profile'">
         <h2 class="section-title cinzel">Editar Perfil</h2>
-        <form class="profile-form">
+        
+        <div class="success-message" *ngIf="successMessage">
+          <span class="icon">✅</span>
+          {{ successMessage }}
+        </div>
+
+        <form class="profile-form" (ngSubmit)="onSubmitEditProfile()">
           <div class="form-group">
             <label class="montserrat">Nome</label>
-            <input type="text" class="form-input montserrat" [(ngModel)]="currentUser.firstName" name="firstName">
+            <input type="text" class="form-input montserrat" [(ngModel)]="editForm.firstName" name="firstName" required>
           </div>
           <div class="form-group">
             <label class="montserrat">Sobrenome</label>
-            <input type="text" class="form-input montserrat" [(ngModel)]="currentUser.lastName" name="lastName">
+            <input type="text" class="form-input montserrat" [(ngModel)]="editForm.lastName" name="lastName" required>
           </div>
           <div class="form-group">
             <label class="montserrat">Email</label>
-            <input type="email" class="form-input montserrat" [(ngModel)]="currentUser.email" name="email">
+            <input type="email" class="form-input montserrat" [(ngModel)]="editForm.email" name="email" required>
           </div>
           <div class="form-group">
             <label class="montserrat">Telefone</label>
-            <input type="tel" class="form-input montserrat" [(ngModel)]="currentUser.phone" name="phone">
+            <input type="tel" class="form-input montserrat" [(ngModel)]="editForm.phone" name="phone" required>
           </div>
           <div class="form-group">
             <label class="montserrat">Data de Nascimento</label>
-            <input type="date" class="form-input montserrat" [(ngModel)]="currentUser.dateOfBirth" name="dateOfBirth">
+            <input type="date" class="form-input montserrat" [(ngModel)]="editForm.dateOfBirth" name="dateOfBirth">
           </div>
           <div class="form-actions">
             <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('profile')">
               Cancelar
             </button>
-            <button type="submit" class="save-btn montserrat">
-              Salvar Alterações
+            <button type="submit" class="save-btn montserrat" [disabled]="isLoading">
+              <span *ngIf="isLoading">⏳</span>
+              {{ isLoading ? 'Salvando...' : 'Salvar Alterações' }}
             </button>
           </div>
         </form>
@@ -229,3 +240,14 @@
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer></footer>
+
+<!-- Loading Template -->
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <p class="montserrat">Carregando seus dados...</p>
+  </div>
+</ng-template>

@@ -1,11 +1,8 @@
 <div class="member-area flex justify-content-end mb-5 pt-5 mr-7 desktop">
     @if (isLoggedIn()) {
-        <div class="user-info flex align-items-center gap-2">
-            <span class="main-txt-color montserrat">Olá, {{ getUserName() }}!</span>
-            <a href="/member/dashboard" class="main-txt-color underline montserrat">Meu Painel</a>
-        </div>
+        <a href="/member/dashboard" class="main-txt-color underline montserrat">Área de Cliente</a>
     } @else {
-        <a href="/member/login" class="main-txt-color underline montserrat">Área de Cliente</a>
+        <a href="/login" class="main-txt-color underline montserrat">Área de Cliente</a>
     }
     <div class="cart-icon ml-2">
       <a href="/cart" class="no-underline cursor-pointer main-txt-color">
@@ -21,12 +18,9 @@
     <i class="pi pi-bars ml-2" (click)="toggleMenu()"></i>
     <div class="justify-content-end flex flex-row mr-3">
         @if (isLoggedIn()) {
-            <div class="user-info flex align-items-center gap-2 mr-2">
-                <span class="main-txt-color montserrat size-14">Olá, {{ getUserName() }}!</span>
-                <a href="/member/dashboard" class="main-txt-color underline size-14">Painel</a>
-            </div>
+            <a href="/member/dashboard" class="main-txt-color underline mr-2 size-14">Área de Cliente</a>
         } @else {
-            <a href="/member/login" class="main-txt-color underline mr-2 size-14">Entrar</a>
+            <a href="/login" class="main-txt-color underline mr-2 size-14">Área de Cliente</a>
         }
         <a href="/cart" class="no-underline cursor-pointer main-txt-color">
             <div class="cart-icon ml-2">
@@ -69,9 +63,9 @@
             <a href="/#contact" (click)="closeMenu()">CONTATOS</a>
             <a href="/faqs" (click)="closeMenu()">FAQS</a>
             @if (isLoggedIn()) {
-                <a href="/member/dashboard" (click)="closeMenu()">MEU PAINEL</a>
+                <a href="/member/dashboard" (click)="closeMenu()">ÁREA DE CLIENTE</a>
             } @else {
-                <a href="/member/login" (click)="closeMenu()">ENTRAR / CADASTRAR</a>
+                <a href="/login" (click)="closeMenu()">ÁREA DE CLIENTE</a>
             }
         </div>
     </div>

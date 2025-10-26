@@ -5,17 +5,23 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-member-login',
+  selector: 'app-member-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './member-login.component.html',
-  styleUrls: ['./member-login.component.scss']
+  templateUrl: './member-register.component.html',
+  styleUrls: ['./member-register.component.scss']
 })
-export class MemberLoginComponent implements OnInit {
+export class MemberRegisterComponent implements OnInit {
   email: string = '';
   password: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
+
+  // Registration fields
+  firstName: string = '';
+  lastName: string = '';
+  confirmPassword: string = '';
+  phone: string = '';
 
   constructor(
     private authService: AuthService,
@@ -29,34 +35,41 @@ export class MemberLoginComponent implements OnInit {
     }
   }
 
-  goToRegister(): void {
-    this.router.navigate(['/register']);
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 
   onSubmit(): void {
-    this.login();
+    this.register();
   }
 
-  login(): void {
-    if (!this.email || !this.password) {
-      this.errorMessage = 'Por favor, preencha todos os campos.';
+  register(): void {
+    if (!this.validateRegistration()) {
       return;
     }
 
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.authService.login(this.email, this.password).subscribe({
-      next: (success: boolean) => {
-        if (success) {
-          this.handleSuccessfulLogin();
+    const userData = {
+      email: this.email,
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      phone: this.phone
+    };
+
+    this.authService.register(userData).subscribe({
+      next: (response: any) => {
+        if (response.user && response.user.token) {
+          this.handleSuccessfulRegistration();
         } else {
-          this.errorMessage = 'Email ou senha incorretos.';
+          this.errorMessage = 'Erro ao criar conta. Tente novamente.';
         }
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Login error:', error);
+        console.error('Registration error:', error);
         // Capturar a mensagem de erro específica da API
         if (error.error && error.error.error) {
           this.errorMessage = error.error.error;
@@ -65,14 +78,39 @@ export class MemberLoginComponent implements OnInit {
         } else if (error.message) {
           this.errorMessage = error.message;
         } else {
-          this.errorMessage = 'Erro ao fazer login. Tente novamente.';
+          this.errorMessage = 'Erro ao criar conta. Tente novamente.';
         }
         this.isLoading = false;
       }
     });
   }
 
-  private handleSuccessfulLogin(): void {
+  validateRegistration(): boolean {
+    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPassword || !this.phone) {
+      this.errorMessage = 'Por favor, preencha todos os campos.';
+      return false;
+    }
+
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'As senhas não coincidem.';
+      return false;
+    }
+
+    if (this.password.length < 6) {
+      this.errorMessage = 'A senha deve ter pelo menos 6 caracteres.';
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      this.errorMessage = 'Por favor, insira um email válido.';
+      return false;
+    }
+
+    return true;
+  }
+
+  private handleSuccessfulRegistration(): void {
     // Verificar se há itens de checkout salvos
     const checkoutItems = localStorage.getItem('checkout_items');
     

@@ -40,7 +40,7 @@
       </div>
       <div class="w-3 flex flex-row price">
         <div class="justify-content-start ml-3 pt-1">
-        <i class="pi pi-trash" ></i>
+        <i class="pi pi-trash cursor-pointer" (click)="remove(item.product.id)"></i>
         </div>
         <p class="">€
           {{item.product.price}} </p>
@@ -98,7 +98,7 @@
         </div>
       </div>
       <div class="mobile-item-total-section">
-        <i class="pi pi-trash mobile-trash-icon"></i>
+        <i class="pi pi-trash mobile-trash-icon cursor-pointer" (click)="remove(item.product.id)"></i>
         <p class="mobile-item-total">€{{item.product.price}}</p>
       </div>
     </div>

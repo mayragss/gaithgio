@@ -11,31 +11,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
-  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
-  
-  <!-- Preload custom fonts to prevent FOUC -->
-  <link rel="preload" href="/fonts/Montserrat-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="/fonts/Montserrat-Italic-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="preload" href="/fonts/Cinzel-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">                                         
 
   <style>
-    /* Prevent FOUC by setting initial font stack */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-      font-display: swap;
-    }
-    
-    /* Hide content until fonts are loaded */
-    .font-loading {
-      visibility: hidden;
-    }
-    
-    .font-loaded {
-      visibility: visible;
-    }
+
   </style>
 </head>
-<body class="font-loading">
+<body>
   <app-root></app-root>
 </body>
 </html>

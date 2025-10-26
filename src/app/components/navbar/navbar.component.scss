@@ -7,10 +7,29 @@ body{
     font-size: 15px;
   }
 
+  .logout-btn {
+    background: none;
+    border: none;
+    color: #624725;
+    text-decoration: underline;
+    font-family: 'Montserrat';
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ffbd59;
+    }
+  }
+
   @media only screen and (max-width:700px) {
   p{
     font-size: 10px;
     padding-top: 4px;
+  }
+
+  .logout-btn {
+    font-size: 10px;
   }
   }
 }
@@ -101,6 +120,24 @@ a:focus{
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: color 0.3s ease;
+
+      &:hover {
+        color: #ffbd59;
+      }
+    }
+
+    .logout-btn {
+      background: none;
+      border: none;
+      color: #624725;
+      text-decoration: none;
+      font-family: 'Montserrat';
+      font-size: 18px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+      cursor: pointer;
 
       &:hover {
         color: #ffbd59;

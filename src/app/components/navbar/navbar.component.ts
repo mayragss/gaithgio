@@ -22,11 +22,6 @@ export class NavbarComponent {
   }
 
   isLoggedIn(): boolean {
-    return this.authService.isAuthenticated();
-  }
-
-  getUserName(): string {
-    const user = this.authService.getCurrentUser();
-    return user ? user.firstName : '';
+    return this.authService.isLoggedIn();
   }
 }
