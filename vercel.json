@@ -1,0 +1,6 @@
+{
+  "buildCommand": "ng build --configuration production",
+  "outputDirectory": "dist/gaithgio/browser",
+  "installCommand": "npm install",
+  "framework": "angular"
+}
