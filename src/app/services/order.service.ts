@@ -17,14 +17,16 @@ export interface CreateOrderRequest {
 
 export interface Order {
   id: number;
-  orderNumber: string;
+  orderNumber?: string;
   total: number;
   status: string;
   paymentMethod: string;
-  paymentStatus: string;
+  paymentStatus?: string;
   createdAt: string;
   updatedAt: string;
   items?: OrderItem[];
+  orderItems?: OrderItem[];
+  OrderItems?: OrderItem[];
 }
 
 @Injectable({

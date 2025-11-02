@@ -20,6 +20,17 @@ export class MemberDashboardComponent implements OnInit {
   isLoading: boolean = false;
   successMessage: string = '';
   editForm: any = {};
+  addressForm: any = {
+    type: 'residential',
+    street: '',
+    number: '',
+    complement: '',
+    district: '',
+    city: '',
+    zip: '',
+    country: 'Portugal'
+  };
+  editingAddressId: number | null = null;
   orders: Order[] = [];
   isLoadingOrders: boolean = false;
   showUserMenu: boolean = false;
@@ -98,6 +109,22 @@ export class MemberDashboardComponent implements OnInit {
     if (tab === 'orders') {
       console.log('Aba orders selecionada, carregando pedidos...');
       this.loadOrders();
+    }
+    
+    // Se for adicionar endereço, resetar o formulário
+    if (tab === 'add-address') {
+      this.editingAddressId = null;
+      this.addressForm = {
+        type: 'residential',
+        street: '',
+        number: '',
+        complement: '',
+        district: '',
+        city: '',
+        zip: '',
+        country: 'Portugal'
+      };
+      this.successMessage = '';
     }
   }
 
@@ -199,10 +226,24 @@ export class MemberDashboardComponent implements OnInit {
   }
 
   getTotalItems(order: Order): number {
-    if (!order.items || order.items.length === 0) {
+    // A API retorna OrderItems com O maiúsculo (como no JSON fornecido)
+    const items = (order as any).OrderItems;
+    
+    if (!order || !items) {
       return 0;
     }
-    return order.items.reduce((total, item) => total + (item.quantity || 0), 0);
+    
+    if (!Array.isArray(items) || items.length === 0) {
+      return 0;
+    }
+    
+    // Calcular total somando as quantidades
+    const total = items.reduce((sum: number, item: any) => {
+      const qty = typeof item.quantity === 'number' ? item.quantity : parseInt(String(item.quantity || 0), 10);
+      return sum + qty;
+    }, 0);
+    
+    return total;
   }
 
   formatItemsText(order: Order): string {
@@ -212,16 +253,18 @@ export class MemberDashboardComponent implements OnInit {
 
   concludeOrder(order: Order): void {
     let mensagem = `Olá! Gostaria de finalizar meu pedido da GAITHGIO.\n\n`;
-    mensagem += `📦 Pedido #${order.orderNumber}\n`;
+    mensagem += `📦 Pedido #${order.orderNumber || order.id}\n`;
     mensagem += `📅 Data: ${new Date(order.createdAt).toLocaleDateString('pt-PT')}\n`;
     
     // Garantir que total seja tratado como número
     const total = typeof order.total === 'number' ? order.total : parseFloat(String(order.total)) || 0;
     mensagem += `💰 Total: €${total.toFixed(2)}\n\n`;
     
-    if (order.items && order.items.length > 0) {
+    // Usar OrderItems (O maiúsculo) que é como a API retorna
+    const items = (order as any).OrderItems;
+    if (items && items.length > 0) {
       mensagem += `Itens do pedido:\n`;
-      order.items.forEach((item, index) => {
+      items.forEach((item: any, index: number) => {
         mensagem += `${index + 1}. `;
         
         // Verificar se o item tem productName (do tipo OrderItem do user.ts) ou precisa buscar
@@ -259,9 +302,91 @@ export class MemberDashboardComponent implements OnInit {
     this.showUserMenu = !this.showUserMenu;
   }
 
+  getAddressTypeLabel(type: string): string {
+    const types: { [key: string]: string } = {
+      'residential': 'Residencial',
+      'commercial': 'Comercial'
+    };
+    return types[type] || type;
+  }
+
   logout(): void {
     this.showUserMenu = false;
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  editAddress(address: any): void {
+    this.editingAddressId = address.id;
+    this.addressForm = {
+      type: address.type || 'residential',
+      street: address.street || '',
+      number: address.number || '',
+      complement: address.complement || '',
+      district: address.district || address.neighborhood || '',
+      city: address.city || '',
+      zip: address.zip || address.zipCode || '',
+      country: address.country || 'Portugal'
+    };
+    this.successMessage = '';
+    this.setActiveTab('add-address');
+  }
+
+  saveAddress(): void {
+    if (!this.authService.isLoggedIn()) {
+      return;
+    }
+
+    this.isLoading = true;
+    const addressData = {
+      street: this.addressForm.street,
+      number: this.addressForm.number,
+      district: this.addressForm.district,
+      city: this.addressForm.city,
+      state: this.addressForm.city, // state pode ser igual a city
+      zip: this.addressForm.zip,
+      complement: this.addressForm.complement || '',
+      type: this.addressForm.type
+    };
+
+    // Se estiver editando, fazer PUT, senão POST
+    if (this.editingAddressId) {
+      this.authService.updateAddress(this.editingAddressId, addressData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Endereço atualizado com sucesso!';
+          this.editingAddressId = null;
+          // Recarregar perfil para obter endereços atualizados
+          this.authService.refreshUserProfile().subscribe(user => {
+            this.currentUser = user;
+            // Redirecionar para lista de endereços
+            this.setActiveTab('addresses');
+          });
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Erro ao atualizar endereço:', error);
+          this.successMessage = 'Erro ao atualizar endereço. Tente novamente.';
+        }
+      });
+    } else {
+      this.authService.addAddress(addressData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Endereço salvo com sucesso!';
+          // Recarregar perfil para obter endereços atualizados
+          this.authService.refreshUserProfile().subscribe(user => {
+            this.currentUser = user;
+            // Redirecionar para lista de endereços
+            this.setActiveTab('addresses');
+          });
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Erro ao salvar endereço:', error);
+          this.successMessage = 'Erro ao salvar endereço. Tente novamente.';
+        }
+      });
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -170,6 +170,26 @@ export class AuthService {
 
   forgotPassword(email: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/users/forgot-password`, { email });
+  }
+
+  addAddress(addressData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.post<any>(`${this.baseUrl}/address`, addressData, { headers });
+  }
+
+  updateAddress(addressId: number, addressData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.put<any>(`${this.baseUrl}/address/${addressId}`, addressData, { headers });
   }
 
   updateProfile(profileData: any): Observable<any> {
