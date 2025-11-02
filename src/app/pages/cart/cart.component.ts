@@ -197,7 +197,7 @@ export class CartComponent implements OnInit {
       mensagem += `\n\nNúmero do pedido: ${orderNumber}`;
     }
 
-    const numero = "5511957056779";
+    const numero = "351934036467";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
     // Abrir WhatsApp em nova aba
@@ -264,7 +264,7 @@ export class CartComponent implements OnInit {
       mensagem += `\n\nNúmero do pedido: ${orderNumber}`;
     }
 
-    const numero = "5511957056779";
+    const numero = "351934036467";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
     // Abrir WhatsApp em nova aba
