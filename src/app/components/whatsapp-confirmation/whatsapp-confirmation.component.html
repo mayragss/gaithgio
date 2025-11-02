@@ -1,0 +1,36 @@
+<div class="confirmation-overlay">
+  <div class="confirmation-dialog">
+    <div class="confirmation-header">
+      <h2 class="confirmation-title montserrat">Confirmação de Pedido</h2>
+    </div>
+    
+    <div class="confirmation-content montserrat">
+      <p class="confirmation-message">
+        Olá <strong>{{ firstName }}</strong>! Seu pedido foi criado com sucesso.
+      </p>
+      <p class="confirmation-message">
+        Você será redirecionado para o WhatsApp para finalizar sua compra.
+      </p>
+      @if (orderNumber) {
+      <p class="order-number">
+        Número do pedido: <strong>{{ orderNumber }}</strong>
+      </p>
+      }
+    </div>
+    
+    <div class="confirmation-actions">
+      <p-button 
+        label="Confirmar" 
+        (onClick)="onConfirm()"
+        styleClass="confirm-btn">
+      </p-button>
+      <p-button 
+        label="Cancelar" 
+        (onClick)="onCancel()"
+        styleClass="cancel-btn"
+        [text]="true">
+      </p-button>
+    </div>
+  </div>
+</div>
+

@@ -73,6 +73,16 @@
   width: 135px;
   height: 30px;
   border: 1px solid #624725;
+  align-items: center;
+
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+  }
 
   .text {
     font-size: 13px;

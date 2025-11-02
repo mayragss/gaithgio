@@ -115,10 +115,8 @@ export class MemberRegisterComponent implements OnInit {
     const checkoutItems = localStorage.getItem('checkout_items');
     
     if (checkoutItems) {
-      // Limpar os itens de checkout salvos
-      localStorage.removeItem('checkout_items');
-      // Redirecionar para dashboard na aba pedidos
-      this.router.navigate(['/member/dashboard'], { queryParams: { tab: 'orders' } });
+      // Redirecionar para o carrinho para que o checkout seja processado automaticamente
+      this.router.navigate(['/cart']);
     } else {
       // Redirecionar normalmente para dashboard
       this.router.navigate(['/member/dashboard']);

@@ -1,35 +1,65 @@
 <div class="member-dashboard" *ngIf="currentUser; else loadingTemplate">
-  <div class="dashboard-container">
-    <!-- Header -->
-    <div class="dashboard-header">
-      <h1 class="dashboard-title cinzel">Meu Painel</h1>
-      <p class="welcome-text montserrat">Bem-vindo, {{ currentUser.firstName }}!</p>
+  <!-- Navbar do Dashboard -->
+  <div class="dashboard-navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <a href="/" class="logo-link">
+          <img src="/images/Logotipo.png" alt="GAITHGIO" class="logo-image" />
+          <span class="logo-text cinzel">GAITHGIO</span>
+        </a>
+      </div>
+      <div class="navbar-links montserrat">
+        <a href="/" class="navbar-link">
+          <i class="pi pi-home"></i>
+          Home
+        </a>
+        <a href="/products" class="navbar-link">
+          <i class="pi pi-shopping-bag"></i>
+          Produtos
+        </a>
+        <div class="navbar-profile" (click)="toggleUserMenu()">
+          <i class="pi pi-user"></i>
+        </div>
+        @if (showUserMenu) {
+          <div class="user-dropdown">
+            <div class="user-info">
+              <p class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</p>
+              <p class="user-email">{{ currentUser.email }}</p>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="logout-option" (click)="logout()">
+              <i class="pi pi-arrow-right"></i>
+              <span>Sair</span>
+            </div>
+          </div>
+        }
+      </div>
     </div>
-
-    <!-- Navigation Tabs -->
-    <div class="dashboard-nav">
+  </div>
+  
+  <div class="dashboard-container" [class.orders-container]="activeTab === 'orders'">
+    <!-- Secondary Navigation Menu -->
+    <div class="dashboard-tabs">
       <button 
-        class="nav-tab" 
+        class="tab-item" 
         [class.active]="activeTab === 'profile'"
         (click)="setActiveTab('profile')">
-        Perfil
+        <i class="pi pi-user"></i>
+        <span class="montserrat">Perfil</span>
       </button>
       <button 
-        class="nav-tab" 
+        class="tab-item" 
         [class.active]="activeTab === 'orders'"
         (click)="setActiveTab('orders')">
-        Pedidos
+        <i class="pi pi-box"></i>
+        <span class="montserrat">Pedidos</span>
       </button>
       <button 
-        class="nav-tab" 
+        class="tab-item" 
         [class.active]="activeTab === 'addresses'"
         (click)="setActiveTab('addresses')">
-        Endereços
-      </button>
-      <button 
-        class="nav-tab logout-btn" 
-        (click)="logout()">
-        Sair
+        <i class="pi pi-map-marker"></i>
+        <span class="montserrat">Endereços</span>
       </button>
     </div>
 
@@ -52,44 +82,70 @@
               <label class="montserrat">Telefone:</label>
               <span class="montserrat">{{ currentUser.phone }}</span>
             </div>
-            <div class="info-item" *ngIf="currentUser.dateOfBirth">
-              <label class="montserrat">Data de Nascimento:</label>
-              <span class="montserrat">{{ currentUser.dateOfBirth | date:'dd/MM/yyyy' }}</span>
-            </div>
+            @if (currentUser.dateOfBirth) {
+              <div class="info-item">
+                <label class="montserrat">Data de Nascimento:</label>
+                <span class="montserrat">{{ currentUser.dateOfBirth | date:'dd/MM/yyyy' }}</span>
+              </div>
+            }
           </div>
           <button class="edit-btn montserrat" (click)="setActiveTab('edit-profile')">
-            <span class="icon">✏️</span>
-            Editar Perfil
+            <i class="pi pi-pencil"></i>
+            <span>Editar Perfil</span>
           </button>
         </div>
       </div>
 
       <!-- Orders Tab -->
       <div class="tab-content" *ngIf="activeTab === 'orders'">
-        <h2 class="section-title cinzel">Histórico de Pedidos</h2>
-        <div class="orders-list" *ngIf="currentUser.orders.length > 0; else noOrders">
-          @for (order of currentUser.orders; track order.id) {
-          <div class="order-card">
-            <div class="order-header">
-              <span class="order-number montserrat">Pedido #{{ order.orderNumber }}</span>
-              <span class="order-status montserrat" [class]="'status-' + order.status">
-                {{ order.status | titlecase }}
-              </span>
+        <div class="orders-section">
+          <h2 class="section-title cinzel">Histórico de Pedidos</h2>
+          @if (isLoadingOrders) {
+            <div class="empty-state">
+              <p class="montserrat">Carregando pedidos...</p>
             </div>
-            <div class="order-details">
-              <p class="montserrat">Data: {{ order.createdAt | date:'dd/MM/yyyy' }}</p>
-              <p class="montserrat">Total: R$ {{ order.total | number:'1.2-2' }}</p>
-              <p class="montserrat">Itens: {{ order.items.length }}</p>
+          } @else {
+            <div class="orders-info" *ngIf="orders.length > 0; else noOrders">
+              @for (order of orders; track order.id) {
+              <div class="order-card">
+                <div class="order-icon-circle">
+                  <i class="pi pi-box"></i>
+                </div>
+                <div class="order-content">
+                  <div class="order-number montserrat">Pedido #{{ order.orderNumber }}</div>
+                  <div class="order-date montserrat">
+                    <i class="pi pi-clock"></i>
+                    <span>{{ formatOrderDate(order.createdAt) }}</span>
+                  </div>
+                  <div class="order-items montserrat">
+                    {{ formatItemsText(order) }}
+                  </div>
+                </div>
+                <div class="order-side">
+                  <div class="order-status-container">
+                    <span class="status-dot" [class]="'dot-' + order.status"></span>
+                    <span class="order-status montserrat" [class]="'status-' + order.status">
+                      {{ getStatusLabel(order.status) }}
+                    </span>
+                  </div>
+                  <div class="order-total montserrat">R$ {{ order.total | number:'1.2-2' }}</div>
+                  <div class="order-action-link">
+                    <a class="conclude-link montserrat" (click)="concludeOrder(order)">
+                      Concluir o Pedido
+                    </a>
+                  </div>
+                </div>
+              </div>
+              }
             </div>
-          </div>
+            <ng-template #noOrders>
+              <div class="empty-state">
+                <span class="empty-icon">🛍️</span>
+                <p class="montserrat">Nenhum pedido encontrado</p>
+              </div>
+            </ng-template>
           }
         </div>
-        <ng-template #noOrders>
-          <div class="empty-state">
-            <span class="empty-icon">🛍️</span>
-            <p class="montserrat">Nenhum pedido encontrado</p>
-          </div>
-        </ng-template>
       </div>
 
       <!-- Addresses Tab -->
@@ -97,7 +153,7 @@
         <div class="addresses-header">
           <h2 class="section-title cinzel">Meus Endereços</h2>
           <button class="add-address-btn montserrat" (click)="setActiveTab('add-address')">
-            <span class="icon">➕</span>
+            <span class="icon">+</span>
             Adicionar Endereço
           </button>
         </div>
@@ -125,9 +181,12 @@
           }
         </div>
         <ng-template #noAddresses>
-          <div class="empty-state">
-            <span class="empty-icon">📍</span>
-            <p class="montserrat">Nenhum endereço cadastrado</p>
+          <div class="empty-state-address">
+            <div class="empty-icon-circle">
+              <i class="pi pi-map-marker"></i>
+            </div>
+            <p class="empty-title cinzel">Nenhum endereço cadastrado</p>
+            <p class="empty-description montserrat">Adicione um endereço para facilitar suas compras futuras.</p>
           </div>
         </ng-template>
       </div>
@@ -223,9 +282,9 @@
               <input type="text" class="form-input montserrat" name="country" value="Brasil">
             </div>
           </div>
-          <div class="form-group checkbox-group">
+          <div class="form-group checkbox-group flex flex-row">
             <input type="checkbox" id="isDefault" name="isDefault">
-            <label for="isDefault" class="montserrat">Definir como endereço padrão</label>
+            <label for="isDefault" class="montserrat pl-2 pt-1">Definir como endereço padrão</label>
           </div>
           <div class="form-actions">
             <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('addresses')">

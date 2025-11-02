@@ -74,12 +74,30 @@ export class ProductsComponent implements OnInit {
   }
 
   loadProducts() {
+    console.log('Carregando produtos da API...');
     this.productService.getAll()
       .pipe(
         take(1),
-        tap({ error: (err) => console.error('Erro ao carregar produtos', err) })
+        tap({ 
+          next: (products) => console.log('Produtos carregados:', products.length, products),
+          error: (err) => {
+            console.error('Erro ao carregar produtos:', err);
+            console.error('URL da API:', err?.url || 'Não disponível');
+            console.error('Status:', err?.status || 'Não disponível');
+            console.error('Mensagem:', err?.message || 'Erro desconhecido');
+          }
+        })
       )
-      .subscribe((products) => this.products = products);
+      .subscribe({
+        next: (products) => {
+          this.products = products;
+          console.log('Produtos atribuídos ao componente:', this.products.length);
+        },
+        error: (err) => {
+          console.error('Erro na subscrição:', err);
+          this.products = [];
+        }
+      });
   }
 
   // Métodos para toggle dos arrows

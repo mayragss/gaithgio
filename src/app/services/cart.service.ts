@@ -44,10 +44,10 @@ export class CartService {
 
     if (existing) {
       existing.quantity += quantity;
-      this.messageService.add({ severity: 'success', icon: "", detail: 'Produto atualizado com sucesso!', life: 3000 });
+      this.messageService.add({ severity: 'success', detail: 'Produto atualizado com sucesso!', life: 3000 });
     } else {
       items.push({ product, quantity, selectedSize });      
-      this.messageService.add({ severity: 'success', icon: "", detail: 'Produto adicionado com sucesso!', life: 1000 });      
+      this.messageService.add({ severity: 'success', detail: 'Produto adicionado com sucesso!', life: 1000 });      
     }
 
     this.items.set(items);

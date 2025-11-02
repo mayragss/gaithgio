@@ -17,8 +17,8 @@ import { CommonModule } from '@angular/common';
 export class DetailComponent implements OnInit {
   productExternalId!: number;
   product?: Product;
-  imageMain: string="images/no-image-icon-6.png";
-  images: string[] = ["no-image-icon-6.png","no-image-icon-6.png","no-image-icon-6.png"];
+  imageMain: string = "images/no-image-icon-6.png";
+  images: string[] = [];
   attributes: any = {};
   quantity: number = 1;
   stock: number | undefined;
@@ -45,12 +45,26 @@ export class DetailComponent implements OnInit {
               // página nao encontrada
             this.product = res;
             const images: any[] = JSON.parse(this.product?.images.toString());
-            this.imageMain = images[0];
+            
+            // Definir a imagem principal
+            if (images && images.length > 0) {
+              const firstImage = images[0];
+              // Se já é uma URL completa, usar diretamente
+              if (firstImage.startsWith('http')) {
+                this.imageMain = firstImage;
+              } else {
+                // Se não é URL completa, construir a URL completa
+                this.imageMain = `https://api-ecommerce.maygomes.com${firstImage.startsWith('/') ? '' : '/'}${firstImage}`;
+              }
+            } else {
+              this.imageMain = "images/no-image-icon-6.png";
+            }
 
             this.attributes = JSON.parse(this.product?.attributes.toString());
             this.stock = this.product.stock;
 
-            if(images.length > 1){
+            // Processar todas as imagens para a galeria
+            if(images && images.length > 1){
               this.images = [];
               images.forEach(img => {
                 // Se já é uma URL completa, usar diretamente
@@ -61,6 +75,8 @@ export class DetailComponent implements OnInit {
                   this.images.push(`https://api-ecommerce.maygomes.com${img.startsWith('/') ? '' : '/'}${img}`);
                 }
               });
+            } else {
+              this.images = [];
             }
           } ,
           error: (err) => console.error('Erro ao carregar produto:', err)

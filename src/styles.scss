@@ -214,3 +214,49 @@ a:focus {
   border: none !important;
   outline: none;
 }
+
+// Estilos para o Toast do PrimeNG - Alinhamento do ícone e mensagem
+:host::ng-deep .p-toast {
+  .p-toast-message {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    font-family: 'Montserrat', sans-serif !important;
+    
+    .p-toast-message-icon {
+      display: none !important;
+    }
+    
+    .p-toast-message-content {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      align-self: center !important;
+      flex: 1;
+      font-family: 'Montserrat', sans-serif !important;
+      vertical-align: middle;
+    }
+    
+    .p-toast-summary,
+    .p-toast-detail {
+      font-family: 'Montserrat', sans-serif !important;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      align-self: center !important;
+      vertical-align: middle;
+      line-height: normal;
+    }
+  }
+  
+  .p-toast-message-success {
+    font-family: 'Montserrat', sans-serif !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    
+    .p-toast-icon-close {
+      align-self: center !important;
+    }
+  }
+}

@@ -13,9 +13,15 @@ export class ProductService {
 
   private apiUrl = `${environment.apiUrl}/products`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    console.log('ProductService inicializado');
+    console.log('API URL:', environment.apiUrl);
+    console.log('Products URL completa:', this.apiUrl);
+    console.log('Production mode:', environment.production);
+  }
 
   getAll(): Observable<Product[]> {
+    console.log('Chamando getAll() na URL:', this.apiUrl);
     return this.http.get<Product[]>(this.apiUrl);
   }
 

@@ -5,16 +5,19 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { AuthService } from '../../services/auth.service';
 import { OrderService, CreateOrderRequest } from '../../services/order.service';
 import { Router } from '@angular/router';
+import { WhatsAppConfirmationComponent } from '../../components/whatsapp-confirmation/whatsapp-confirmation.component';
 
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
   standalone: true,
-  imports: [Button, FooterComponent]
+  imports: [Button, FooterComponent, WhatsAppConfirmationComponent]
 })
 export class CartComponent implements OnInit {
   items: CartItem[] = [];
+  showConfirmation: boolean = false;
+  createdOrderNumber?: string;
 
   constructor(
     private authService: AuthService,
@@ -30,16 +33,52 @@ export class CartComponent implements OnInit {
   }
 
   getImageMain(product: any): string {
+    if (!product?.images) {
+      return "images/no-image-icon-6.png";
+    }
+
     try {
-      if (product?.images) {
-        const images: string[] = JSON.parse(product.images.toString());
-        console.log('images '+images);
-        return images.length > 0 ? images[0] : "sem-imagem.png"; // fallback
+      let images: string[] = [];
+      
+      // Se já é um array, usa diretamente
+      if (Array.isArray(product.images)) {
+        images = product.images;
+      } 
+      // Se é string, tenta parsear
+      else if (typeof product.images === 'string') {
+        try {
+          const parsed = JSON.parse(product.images);
+          if (Array.isArray(parsed)) {
+            images = parsed;
+          } else {
+            // Se não é array após parse, pode ser uma string única
+            images = [product.images];
+          }
+        } catch (e) {
+          // Se falhar o parse, tenta usar como string única
+          images = [product.images];
+        }
       }
-      return "sem-imagem.png"; // caso não tenha imagens
+      
+      if (images && images.length > 0) {
+        const imageUrl = images[0];
+        if (!imageUrl) {
+          return "images/no-image-icon-6.png";
+        }
+        
+        // Se a URL já começa com http, retornar como está
+        if (imageUrl.startsWith('http')) {
+          return imageUrl;
+        }
+        
+        // Caso contrário, construir a URL completa da API
+        return `https://api-ecommerce.maygomes.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+      }
+      
+      return "images/no-image-icon-6.png";
     } catch (error) {
-      console.error("Erro ao parsear imagens:", error);
-      return "sem-imagem.png";
+      console.error("Erro ao processar imagens:", error);
+      return "images/no-image-icon-6.png";
     }
   }
 
@@ -124,19 +163,22 @@ export class CartComponent implements OnInit {
       paymentMethod: 'whatsapp'
     };
 
+    console.log('Criando pedido com dados:', orderData);
+
     // Criar pedido na API
     this.orderService.createOrder(orderData).subscribe({
       next: (response) => {
         console.log('Pedido criado com sucesso:', response);
-        this.openWhatsApp(response.orderNumber);
-        this.clearCart();
-        this.router.navigate(['/member/dashboard'], { queryParams: { tab: 'orders' } });
+        // Salvar o número do pedido e mostrar a tela de confirmação
+        this.createdOrderNumber = response.orderNumber;
+        this.showConfirmation = true;
       },
       error: (error) => {
         console.error('Erro ao criar pedido:', error);
-        // Mesmo com erro, abrir WhatsApp (fallback)
-        this.openWhatsApp();
-        this.router.navigate(['/member/dashboard'], { queryParams: { tab: 'orders' } });
+        console.error('Erro completo:', JSON.stringify(error, null, 2));
+        // Mesmo com erro, mostrar confirmação (fallback)
+        this.createdOrderNumber = undefined;
+        this.showConfirmation = true;
       }
     });
   }
@@ -176,10 +218,61 @@ export class CartComponent implements OnInit {
       this.items = JSON.parse(checkoutItems);
       localStorage.removeItem('checkout_items');
       
-      // Prosseguir com o checkout automaticamente
-      setTimeout(() => {
-        this.proceedToCheckout();
-      }, 1000); // Pequeno delay para garantir que a página carregou
+      // Prosseguir com o checkout automaticamente após garantir que o perfil está carregado
+      this.authService.refreshUserProfile().subscribe(() => {
+        setTimeout(() => {
+          this.proceedToCheckout();
+        }, 500);
+      });
     }
+  }
+
+  onConfirmWhatsApp(): void {
+    // Fechar a confirmação
+    this.showConfirmation = false;
+    // Guardar uma cópia dos itens antes de limpar o carrinho
+    const itemsCopy = [...this.items];
+    // Abrir WhatsApp com os itens
+    this.openWhatsAppWithItems(itemsCopy, this.createdOrderNumber);
+    // Limpar o carrinho após abrir WhatsApp
+    this.clearCart();
+    // Redirecionar para a página de pedidos
+    this.router.navigate(['/member/dashboard'], { queryParams: { tab: 'orders' } });
+  }
+
+  onCancelWhatsApp(): void {
+    // Fechar a confirmação
+    this.showConfirmation = false;
+    // Limpar o carrinho
+    this.clearCart();
+    // Redirecionar para a página de pedidos
+    this.router.navigate(['/member/dashboard'], { queryParams: { tab: 'orders' } });
+  }
+
+  private openWhatsAppWithItems(items: CartItem[], orderNumber?: string) {
+    let mensagem = "Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n";
+
+    items.forEach(item => {
+      const tamanho = item.selectedSize ? ` - Tamanho ${item.selectedSize}` : '';
+      mensagem += `${item.product.name}${tamanho} - Quantidade: ${item.quantity} - Valor: €${item.product.price}\n`;
+    });
+
+    const totalPrice = items.reduce((acc, i) => acc + i.product.price * i.quantity, 0);
+    mensagem += `\nValor total: €${totalPrice}`;
+    
+    if (orderNumber) {
+      mensagem += `\n\nNúmero do pedido: ${orderNumber}`;
+    }
+
+    const numero = "5511957056779";
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+    // Abrir WhatsApp em nova aba
+    window.open(url, '_blank');
+  }
+
+  getFirstName(): string {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser?.firstName || 'Cliente';
   }
 }
