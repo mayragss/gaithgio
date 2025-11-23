@@ -42,11 +42,26 @@ body{
         min-width: 200px;
         min-height: 370px;
         cursor: pointer;
-        flex: 0 0 calc(20% - 16px); // 5 itens por linha (20% menos o gap)
-        max-width: calc(20% - 16px);
+        flex: 0 0 calc(20% - 20px); // 5 itens por linha (20% menos o gap de 1.25rem)
+        max-width: calc(20% - 20px);
+        width: calc(20% - 20px);
 
         p{
             font-size: 14px;
+        }
+    }
+    
+    @media only screen and (min-width: 700px) {
+        .desktop {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.25rem; // gap-5 equivalente
+        }
+        
+        .card {
+            flex: none !important;
+            max-width: 100% !important;
+            width: 100% !important;
         }
     }
 
