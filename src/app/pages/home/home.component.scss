@@ -24,6 +24,7 @@
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.4);
       z-index: 1;
+      pointer-events: none; // Permite cliques através do overlay
     }
     
     > * {
@@ -45,26 +46,51 @@
 
     // Estilos para navbar branco apenas nesta seção
     ::ng-deep {
+      navbar {
+        position: relative;
+        z-index: 100 !important; // Navbar acima do overlay
+        pointer-events: auto !important; // Garante que é clicável
+      }
+
       .member-area {
+        position: relative;
+        z-index: 101 !important; // Área de cliente acima do overlay
+        pointer-events: auto !important; // Garante que é clicável
+        
         a {
           color: #fff !important;
+          pointer-events: auto !important; // Links clicáveis
         }
 
         .cart-icon {
+          pointer-events: auto !important; // Ícone clicável
+          
           img {
             filter: brightness(0) invert(1);
           }
         }
+
+        i.pi-bars {
+          pointer-events: auto !important; // Ícone de menu clicável
+        }
       }
 
       .menu {
+        position: relative;
+        z-index: 101 !important; // Menu acima do overlay
+        pointer-events: auto !important; // Garante que é clicável
+        
         a {
           color: #fff !important;
+          pointer-events: auto !important; // Links clicáveis
         }
       }
 
       i.pi-bars {
         color: #fff !important;
+        pointer-events: auto !important; // Ícone clicável
+        position: relative;
+        z-index: 101 !important;
       }
     }
   }

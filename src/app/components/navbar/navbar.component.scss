@@ -1,10 +1,26 @@
+:host {
+  position: relative;
+  z-index: 1000 !important; // Navbar acima de qualquer overlay
+  pointer-events: auto !important; // Garante que é clicável
+  display: block;
+}
+
 body{
     background-color: #fff !important;
 }
 
 .member-area{
+  position: relative;
+  z-index: 1000 !important; // Garante que está acima de qualquer overlay
+  pointer-events: auto !important; // Garante que é clicável
+  
   p{
     font-size: 15px;
+  }
+
+  a {
+    pointer-events: auto !important; // Links clicáveis
+    cursor: pointer !important;
   }
 
   .logout-btn {
@@ -16,6 +32,7 @@ body{
     font-size: 15px;
     cursor: pointer;
     transition: color 0.3s ease;
+    pointer-events: auto !important;
 
     &:hover {
       color: #ffbd59;
@@ -36,10 +53,22 @@ body{
 
 i{
   color: #000;
+  pointer-events: auto !important; // Ícones clicáveis
+  cursor: pointer !important;
+  position: relative;
+  z-index: 1000 !important;
 }
 
 .menu {
   font-family: 'Montserrat';
+  position: relative;
+  z-index: 1000 !important; // Garante que está acima de qualquer overlay
+  pointer-events: auto !important; // Garante que é clicável
+  
+  a {
+    pointer-events: auto !important; // Links clicáveis
+    cursor: pointer !important;
+  }
 }
 .center {
   margin: 0 auto;
