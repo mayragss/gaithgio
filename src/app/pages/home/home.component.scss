@@ -180,6 +180,28 @@
       padding-right: 0;
     }
   }
+
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-bottom: 0 !important;
+
+    img {
+      max-width: 531px !important;
+      max-height: 531px !important;
+    }
+
+    .title {
+      padding-top: 0 !important;
+    }
+
+    .about-txt {
+      padding-left: 1rem !important;
+
+      p {
+        font-size: 20px !important;
+      }
+    }
+  }
 }
 
 .values {
@@ -347,6 +369,23 @@
     }
   }
 
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .w-20 {
+      width: 18% !important;
+    }
+
+    .first {
+      max-height: 265px !important;
+      min-height: 265px !important;
+    }
+
+    .second {
+      max-height: 300px !important;
+      min-height: 285px !important;
+    }
+  }
+
   @media only screen and (max-width:700px) {
     .images {
       overflow: hidden;
@@ -375,7 +414,7 @@
 
     .collection-img-medium {
       height: 190px;
-      width: 45%;
+      width: 39%;
       object-fit: cover;
     }
 
@@ -400,18 +439,37 @@
   @media only screen and (min-width: 701px) {
     min-height: 600px;
   }
+
+  // Padding-top no iPad
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    padding-top: 2rem !important;
+  }
 }
 
 .gallery {
+  // Padding-top no iPad
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    padding-top: 2rem !important;
+  }
+
   .desktop-max-width {
     @media only screen and (min-width: 701px) {
       max-width: 60%;
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+      max-width: 55% !important;
     }
   }
   
   .description {
     color: #624725 !important;
     font-size: 22px !important;
+
+    @media only screen and (max-width: 700px) {
+      padding: 1rem !important;
+      padding-top: 0px !important;
+    }
   }
 
   span {

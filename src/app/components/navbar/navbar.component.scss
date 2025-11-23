@@ -69,6 +69,13 @@ i{
     pointer-events: auto !important; // Links clicáveis
     cursor: pointer !important;
   }
+
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .flex.flex-row {
+      font-size: 13px !important;
+    }
+  }
 }
 .center {
   margin: 0 auto;
@@ -85,7 +92,7 @@ a:focus{
   display: inline-block;
 
   img {
-    width: 19px;
+    width: 23px; // 19px + 4px
     padding-top: 2px;
     display: block;
   }
@@ -101,11 +108,12 @@ a:focus{
   }
 
   @media only screen and (max-width:700px) {
+    margin-left: 0 !important;
 
-  img {
-    width: 11px;
-    display: block;
-  }
+    img {
+      width: 15px; // 11px + 4px
+      display: block;
+    }
   }
 }
 
