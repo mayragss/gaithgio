@@ -7,6 +7,7 @@ interface GalleryItem {
   alt: string;
   path: string;
   type?: 'image' | 'video';
+  thumbnail?: string; // Imagem de capa para vídeos
 }
 
 @Component({
@@ -19,9 +20,9 @@ interface GalleryItem {
 export class GalleryComponent {
   images: GalleryItem[] = galleryData;
   videos: GalleryItem[] = [
-    { alt: 'Video 1', path: 'images/video-1.mp4', type: 'video' },
-    { alt: 'Video 2', path: 'images/video-2.mp4', type: 'video' },
-    { alt: 'Video 3', path: 'images/video-3.mp4', type: 'video' }
+    { alt: 'Video 1', path: 'images/video-1.mp4', type: 'video', thumbnail: 'images/capa-video-1.jpeg' },
+    { alt: 'Video 2', path: 'images/video-2.mp4', type: 'video', thumbnail: 'images/capa-video-2.jpeg' },
+    { alt: 'Video 3', path: 'images/video-3.mp4', type: 'video', thumbnail: 'images/capa-video-3.jpeg' }
   ];
   
   allItems: GalleryItem[] = [...this.images, ...this.videos];
@@ -31,6 +32,10 @@ export class GalleryComponent {
 
   getVideoPath(path: string): string {
     return `/${path}`;
+  }
+
+  getThumbnailPath(thumbnail: string | undefined): string {
+    return thumbnail ? `/${thumbnail}` : '';
   }
 
   openVideo(videoPath: string) {

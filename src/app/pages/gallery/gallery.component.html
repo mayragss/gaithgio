@@ -13,7 +13,11 @@
             <div class="flex flex-column card" [class.video-card]="item.type === 'video'" (click)="item.type === 'video' ? openVideo(item.path) : null">
                 @if (item.type === 'video') {
                     <div class="video-thumbnail">
-                        <video [src]="getVideoPath(item.path)" muted></video>
+                        @if (item.thumbnail) {
+                            <img [src]="getThumbnailPath(item.thumbnail)" />
+                        } @else {
+                            <video [src]="getVideoPath(item.path)" muted></video>
+                        }
                         <div class="play-overlay">
                             <i class="pi pi-play"></i>
                         </div>
@@ -32,7 +36,11 @@
             <div class="mobile-gallery-item" [class.video-item]="item.type === 'video'" (click)="item.type === 'video' ? openVideo(item.path) : null">
                 @if (item.type === 'video') {
                     <div class="video-thumbnail">
-                        <video [src]="getVideoPath(item.path)" muted></video>
+                        @if (item.thumbnail) {
+                            <img [src]="getThumbnailPath(item.thumbnail)" />
+                        } @else {
+                            <video [src]="getVideoPath(item.path)" muted></video>
+                        }
                         <div class="play-overlay">
                             <i class="pi pi-play"></i>
                         </div>

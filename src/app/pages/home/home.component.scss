@@ -3,7 +3,7 @@
   display: table;
 }
 
-.w-20 { width: 20%; }
+.w-20 { width: 19%; }
 .w-50 { width: 50%; }
 .w-100 { width: 100%; }
 
@@ -197,11 +197,13 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 1;
+    pointer-events: none; // Permite cliques através do overlay
   }
   
   > * {
     position: relative;
     z-index: 2;
+    pointer-events: auto; // Garante que os elementos são clicáveis
   }
   display: flex;
   align-items: center;
@@ -223,6 +225,9 @@
   }
 
   p-button {
+    position: relative;
+    z-index: 10 !important; // Botões acima do overlay
+    pointer-events: auto !important; // Garante que são clicáveis
     border: 1px solid #fff;
     padding: .3rem .5rem;
     border-radius: 6px;
@@ -231,6 +236,7 @@
     font-family: "Montserrat";
     font-size: 1rem !important;
     max-height: 54px;
+    cursor: pointer !important;
   }
 
   @media only screen and (max-width: 700px) {
@@ -254,6 +260,10 @@
 }
 
 :host ::ng-deep .values-btn {
+  position: relative;
+  z-index: 10 !important; // Botões acima do overlay
+  pointer-events: auto !important; // Garante que são clicáveis
+  
   @media only screen and (max-width: 700px) {
     span {
       max-width: 120px !important;
@@ -263,6 +273,8 @@
       color: #fff;
       border: 3px solid #fff;
       padding: .3rem 1.2rem .9rem;
+      cursor: pointer !important;
+      pointer-events: auto !important;
     }
   }
 }
@@ -489,6 +501,9 @@
   }
 
   p-button {
+    position: relative;
+    z-index: 10 !important; // Botões acima de qualquer overlay
+    pointer-events: auto !important; // Garante que são clicáveis
     border: 1px solid #fff;
     padding: .5rem 2rem;
     border-radius: 6px;
@@ -497,6 +512,7 @@
     color: #fff;
     font-family: 'Montserrat';
     font-size: 1.2rem !important;
+    cursor: pointer !important;
   }
 
   .line {
@@ -522,6 +538,9 @@
     }
 
     p-button {
+      position: relative;
+      z-index: 10 !important; // Botões acima de qualquer overlay
+      pointer-events: auto !important; // Garante que são clicáveis
       border: 1px solid #fff;
       padding: 0px !important;
       border-radius: 3px;
@@ -529,6 +548,7 @@
       text-align: center;
       color: #fff;
       font-family: 'Montserrat';
+      cursor: pointer !important;
 
       img {
         max-width: 10%;
@@ -544,10 +564,23 @@
 :host::ng-deep p-button {
   color: #fff !important;
   background: none !important;
+  pointer-events: auto !important; // Garante que são clicáveis
+  position: relative;
+  z-index: 10 !important; // Botões acima de qualquer overlay
+  cursor: pointer !important;
+  
+  a {
+    pointer-events: auto !important; // Links dentro dos botões são clicáveis
+    cursor: pointer !important;
+    z-index: 11 !important;
+    position: relative;
+  }
 }
 
 :host::ng-deep button {
   border: none !important;
   color: #fff !important;
   background: none !important;
+  pointer-events: auto !important; // Garante que são clicáveis
+  cursor: pointer !important;
 }
