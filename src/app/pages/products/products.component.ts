@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
   aFirst: boolean = true;
   zFirst: boolean = true;
   activeOrder: { [key: string]: 'asc' | 'desc' } = {};
-  
+
   // Estados dos arrows
   disponibilidadeArrowUp: boolean = false;
   precoArrowUp: boolean = false;
@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit {
       maxPrice: [null]
     });
 
-    this.loadProducts();
+     this.loadProducts();
   }
 /*
   toggleSort(filter: 'price' | 'availability' | 'letters') {
@@ -78,20 +78,22 @@ export class ProductsComponent implements OnInit {
     this.productService.getAll()
       .pipe(
         take(1),
-        tap({ 
+        tap({
           next: (products) => console.log('Produtos carregados:', products.length, products),
           error: (err) => {
             console.error('Erro ao carregar produtos:', err);
-            console.error('URL da API:', err?.url || 'Não disponível');
-            console.error('Status:', err?.status || 'Não disponível');
-            console.error('Mensagem:', err?.message || 'Erro desconhecido');
           }
         })
       )
       .subscribe({
         next: (products) => {
-          this.products = products;
-          console.log('Produtos atribuídos ao componente:', this.products.length);
+          if (Array.isArray(products)) {
+            this.products = products;
+            console.log('Produtos atribuídos ao componente:', this.products.length);
+          } else {
+            console.error('Resposta da API não é um array:', products);
+            this.products = [];
+          }
         },
         error: (err) => {
           console.error('Erro na subscrição:', err);

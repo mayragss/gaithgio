@@ -1,0 +1,53 @@
+body{
+    background-color: #fff !important;
+    color: pink;
+}
+
+.center{
+    margin: 0 auto;
+    display: table;
+}
+
+.text-main-color{
+    color: #624725 !important;
+}
+
+.text-yellow{
+    color: #ffbd59 !important;
+}
+
+.text-main-size{
+    font-size: 18px !important;
+
+    @media only screen and (max-width: 700px) {
+        font-size: 10px !important;
+    }
+}
+
+.main-container{
+    max-width: 1246px !important;  
+}
+
+.privacy-content {
+    text-align: left;
+    line-height: 1.8;
+    color: #624725 !important;
+    
+    p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+        color: #624725 !important;
+    }
+    
+    ul, ol {
+        margin-left: 2rem;
+        margin-bottom: 1.5rem;
+        color: #624725 !important;
+    }
+    
+    li {
+        margin-bottom: 0.5rem;
+        color: #624725 !important;
+    }
+}
+

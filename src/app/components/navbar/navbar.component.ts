@@ -15,10 +15,12 @@ export class NavbarComponent {
 
   toggleMenu() {
     this.menuOpen = true;
+    document.body.classList.add('menu-mobile-open');
   }
 
   closeMenu() {
     this.menuOpen = false;
+    document.body.classList.remove('menu-mobile-open');
   }
 
   isLoggedIn(): boolean {

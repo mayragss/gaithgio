@@ -81,28 +81,33 @@ a:focus{
 }
 
 .menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: white;
-  z-index: 9999;
-  display: flex;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: white !important;
+  z-index: 999999 !important;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden !important;
 
   .close-btn {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: none;
-    border: none;
+    background: none !important;
+    border: none !important;
     font-size: 24px;
-    color: #624725;
+    color: #624725 !important;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1000001 !important;
+    
+    &:hover {
+      color: #624725 !important;
+    }
   }
 
   .menu-items {
@@ -145,3 +150,12 @@ a:focus{
     }
   }
 }
+
+:host::ng-deep .menu-overlay .close-btn {
+  color: #624725 !important;
+  
+  &:hover {
+    color: #624725 !important;
+  }
+}
+

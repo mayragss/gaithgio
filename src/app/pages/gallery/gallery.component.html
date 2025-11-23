@@ -9,9 +9,18 @@
         <!-- Desktop Gallery -->
         <div class="flex pt-4 flex-row gap-5 justify-content-center pb-3 flex-wrap desktop">
 
-            @for (image of images; track $index) {
-            <div class="flex flex-column card">
-                <img src="/{{ image.path  }}" />
+            @for (item of allItems; track $index) {
+            <div class="flex flex-column card" [class.video-card]="item.type === 'video'" (click)="item.type === 'video' ? openVideo(item.path) : null">
+                @if (item.type === 'video') {
+                    <div class="video-thumbnail">
+                        <video [src]="getVideoPath(item.path)" muted></video>
+                        <div class="play-overlay">
+                            <i class="pi pi-play"></i>
+                        </div>
+                    </div>
+                } @else {
+                    <img src="/{{ item.path }}" />
+                }
             </div>
             }
 
@@ -19,15 +28,34 @@
 
         <!-- Mobile Gallery -->
         <div class="mobile-gallery mobile">
-            @for (image of images; track $index) {
-            <div class="mobile-gallery-item">
-                <img src="/{{ image.path  }}" />
+            @for (item of allItems; track $index) {
+            <div class="mobile-gallery-item" [class.video-item]="item.type === 'video'" (click)="item.type === 'video' ? openVideo(item.path) : null">
+                @if (item.type === 'video') {
+                    <div class="video-thumbnail">
+                        <video [src]="getVideoPath(item.path)" muted></video>
+                        <div class="play-overlay">
+                            <i class="pi pi-play"></i>
+                        </div>
+                    </div>
+                } @else {
+                    <img src="/{{ item.path }}" />
+                }
             </div>
             }
         </div>
     </div>
 
 </div>
+
+<!-- Video Player Modal -->
+@if (showVideoPlayer && selectedVideo) {
+    <div class="video-modal" (click)="closeVideo()">
+        <div class="video-modal-content" (click)="$event.stopPropagation()">
+            <button class="close-video-btn" (click)="closeVideo()">✕</button>
+            <video [src]="selectedVideo" controls autoplay class="video-player"></video>
+        </div>
+    </div>
+}
 
 <footer></footer>
 </div>

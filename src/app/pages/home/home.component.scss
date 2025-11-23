@@ -7,11 +7,76 @@
 .w-50 { width: 50%; }
 .w-100 { width: 100%; }
 
-.main {
-  min-height: 700px;
-  background: url('../../../../public/images/Secao1.png');
-  padding: 0;
-}
+  .main {
+    min-height: 700px;
+    background: url('../../../../public/images/Secao1.jpg');
+    background-size: cover;
+    padding: 0;
+    position: relative;
+    color: #fff;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    
+    > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .highlight {
+      color: #fff !important;
+      
+      p {
+        color: #fff !important;
+      }
+      
+      img {
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    // Estilos para navbar branco apenas nesta seção
+    ::ng-deep {
+      .member-area {
+        a {
+          color: #fff !important;
+        }
+
+        .cart-icon {
+          img {
+            filter: brightness(0) invert(1);
+          }
+        }
+      }
+
+      .menu {
+        a {
+          color: #fff !important;
+        }
+      }
+
+      i.pi-bars {
+        color: #fff !important;
+      }
+    }
+  }
+
+  // Esconder logotipo quando menu mobile estiver aberto
+  ::ng-deep body.menu-mobile-open {
+    .highlight img {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+  }
 
 .menu {
   font-family: 'Montserrat';
@@ -93,8 +158,25 @@
 
 .values {
   min-height: 700px;
-  background: url('../../../../public/images/Secao3.png') no-repeat center center;
+  background: url('../../../../public/images/Secao3.jpg') no-repeat center center;
   background-size: cover;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 2;
+  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,7 +208,7 @@
   }
 
   @media only screen and (max-width: 700px) {
-    background: url('../../../../public/images/Secao3-mobile.png') no-repeat center center;
+    background: url('../../../../public/images/Secao3.jpg') no-repeat center center;
     background-size: cover;
     display: flex;
 
@@ -276,7 +358,19 @@
   }
 }
 
+#gallery {
+  @media only screen and (min-width: 701px) {
+    min-height: 600px;
+  }
+}
+
 .gallery {
+  .desktop-max-width {
+    @media only screen and (min-width: 701px) {
+      max-width: 60%;
+    }
+  }
+  
   .description {
     color: #624725 !important;
     font-size: 22px !important;
@@ -301,13 +395,14 @@
 
     .img2 {
       z-index: 1;
-      left: 30%;
+      left: 41%;
+      height: calc(94%);
     }
 
     .img1 {
       z-index: 2;
-      left: 7%;
-      top: 10%;
+      left: 5%;
+      top: 31%;
     }
   }
 
@@ -331,7 +426,8 @@
 
       .img2 {
         z-index: 1 !important;
-        left: 40% !important;
+        left: 41% !important;
+        height: 84%;
       }
 
       .img1 {
@@ -391,7 +487,7 @@
     }
 
     &::before {
-      background: url('../../../../public/images/Secao7-mobile.png') no-repeat center/cover !important;
+      background: url('../../../../public/images/Secao7.jpeg') no-repeat center/cover !important;
     }
 
     .title {
