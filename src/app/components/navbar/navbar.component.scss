@@ -39,6 +39,11 @@ body{
     }
   }
 
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-right: 0.75rem !important; // mr-3 (reduzido de mr-7)
+  }
+
   @media only screen and (max-width:700px) {
   p{
     font-size: 10px;
@@ -74,6 +79,7 @@ i{
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .flex.flex-row {
       font-size: 13px !important;
+      gap: 0.75rem !important; // gap-3 (12px)
     }
   }
 }

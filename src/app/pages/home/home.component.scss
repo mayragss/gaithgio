@@ -184,21 +184,27 @@
   // Media query para iPad (768px - 1024px)
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
     margin-bottom: 0 !important;
+    padding-top: 1rem !important; // pt-4 (reduzido de pt-8)
 
     img {
-      max-width: 531px !important;
-      max-height: 531px !important;
+        max-width: 424px !important;
+        max-height: 412px !important;
     }
 
     .title {
       padding-top: 0 !important;
+      font-size: 2.3rem !important;
     }
 
     .about-txt {
-      padding-left: 1rem !important;
+      padding-left: 10px !important;
+      padding-right: 2rem !important;
+      padding-top: 15px !important;
+      line-height: 1.5rem !important;
 
       p {
-        font-size: 20px !important;
+        font-size: 16px !important;
+        padding-top: 10px !important;
       }
     }
   }
@@ -261,6 +267,31 @@
     cursor: pointer !important;
   }
 
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .description {
+      font-size: 16px !important;
+    }
+
+    .tt {
+      margin-bottom: 0 !important;
+    }
+
+    .flex.flex-row.gap-8 {
+      gap: 1.25rem !important; // gap-5 (reduzido de gap-8)
+    }
+
+    p-button {
+      width: 190px !important;
+      max-height: 44px !important;
+      font-size: 0.75rem !important; // 12px (reduzido de 16px em 4px)
+    }
+
+    ::ng-deep p-button .p-button-label {
+      font-size: 13px !important;
+    }
+  }
+
   @media only screen and (max-width: 700px) {
     background: url('../../../../public/images/Secao3.jpg') no-repeat center center;
     background-size: cover;
@@ -319,6 +350,31 @@
     font-size: 22px;
   }
 
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .title {
+      font-size: 36px;
+    }
+    img {
+      max-height: 393px !important;
+    }
+
+    .title {
+      padding-top: 0 !important;
+      font-size: 2.3rem !important;
+    }
+
+    .desc {
+      padding-left: 1.5rem !important; // pl-2 (reduzido de pl-8)
+      padding-right: 1.5rem !important; // pr-2 (reduzido de pr-8)
+      padding-top: 0 !important; // remove pt-5
+
+      p {
+        font-size: 17px !important;
+      }
+    }
+  }
+
   @media only screen and (max-width:700px) {
     .desc {
       max-width: 90%;
@@ -375,14 +431,54 @@
       width: 18% !important;
     }
 
+    .title {
+      padding-top: 0.5rem !important; // pt-2 (reduzido de pt-8)
+    }
+
+    // iPad em modo landscape
+    @media only screen and (orientation: landscape) {
+      .title {
+        padding-top: 2.5rem !important;
+      }
+    }
+
+    .desc {
+      padding-top: 0.5rem !important; // pt-2 (reduzido de pt-6)
+      width: 80% !important;
+      max-width: 80% !important; // Sobrescreve o max-width: 60% padrão
+      margin: 0 auto !important; // Centraliza o elemento
+
+      p {
+        font-size: 16px !important;
+        padding-bottom: 1rem;
+      }
+    }
+
     .first {
-      max-height: 210px !important;
+      max-height: 233px !important;
       min-height: 210px !important;
     }
 
     .second {
-      max-height: 230px !important;
-      min-height: 230px !important;
+      max-height: 245px !important;
+      min-height: 245px !important;
+    }
+  }
+
+  // Media query para iPad Pro em modo horizontal (1024px - 1366px)
+  @media only screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+    .first {
+      max-height: 220px !important;
+      min-height: 220px !important;
+    }
+
+    .second {
+      max-height: 246px !important;
+      min-height: 239px !important;
+    }
+
+    .title {
+      padding-top: 2.5rem !important;
     }
   }
 
@@ -442,7 +538,7 @@
 
   // Padding-top no iPad
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    padding-top: 2rem !important;
+    padding-top: 0px !important;
   }
 }
 
@@ -450,6 +546,12 @@
   // Padding-top no iPad
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
     padding-top: 2rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    .title {
+      padding-top: 0 !important; // remove pt-8
+    }
   }
 
   .desktop-max-width {
@@ -459,6 +561,7 @@
 
     @media only screen and (min-width: 768px) and (max-width: 1024px) {
       max-width: 55% !important;
+      padding-top: 7rem;
     }
   }
 
@@ -466,9 +569,16 @@
     color: #624725 !important;
     font-size: 22px !important;
 
+    // Media query para iPad (768px - 1024px)
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+      padding-left: 0 !important; // remove pl-8
+      font-size: 18px !important;
+    }
+
     @media only screen and (max-width: 700px) {
       padding: 1rem !important;
       padding-top: 0px !important;
+      font-size: 15px !important;
     }
   }
 
@@ -511,7 +621,14 @@
       }
 
       img {
-        width: 211px;
+        width: 228px;
+      }
+    }
+
+    // Media query para iPad Pro em modo horizontal (1024px - 1366px)
+    @media only screen and (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+      img {
+        width: 262px;
       }
     }
   }
@@ -593,6 +710,16 @@
     bottom: 9px;
     left: 0;
     opacity: 0.5;
+  }
+
+  // Media query para iPad (768px - 1024px)
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    margin-top: 0 !important; // remove mt-8
+    padding-top: 0 !important; // remove pt-8
+
+    .title {
+      padding-top: 5rem !important; // remove pt-8 do título
+    }
   }
 
   @media only screen and (max-width:700px) {
