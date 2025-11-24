@@ -14,7 +14,7 @@
     padding: 0;
     position: relative;
     color: #fff;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -26,19 +26,19 @@
       z-index: 1;
       pointer-events: none; // Permite cliques através do overlay
     }
-    
+
     > * {
       position: relative;
       z-index: 2;
     }
-    
+
     .highlight {
       color: #fff !important;
-      
+
       p {
         color: #fff !important;
       }
-      
+
       img {
         filter: brightness(0) invert(1);
       }
@@ -56,7 +56,7 @@
         position: relative;
         z-index: 101 !important; // Área de cliente acima do overlay
         pointer-events: auto !important; // Garante que é clicável
-        
+
         a {
           color: #fff !important;
           pointer-events: auto !important; // Links clicáveis
@@ -64,7 +64,7 @@
 
         .cart-icon {
           pointer-events: auto !important; // Ícone clicável
-          
+
           img {
             filter: brightness(0) invert(1);
           }
@@ -79,7 +79,7 @@
         position: relative;
         z-index: 101 !important; // Menu acima do overlay
         pointer-events: auto !important; // Garante que é clicável
-        
+
         a {
           color: #fff !important;
           pointer-events: auto !important; // Links clicáveis
@@ -209,7 +209,7 @@
   background: url('../../../../public/images/Secao3.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -221,7 +221,7 @@
     z-index: 1;
     pointer-events: none; // Permite cliques através do overlay
   }
-  
+
   > * {
     position: relative;
     z-index: 2;
@@ -285,7 +285,7 @@
   position: relative;
   z-index: 10 !important; // Botões acima do overlay
   pointer-events: auto !important; // Garante que são clicáveis
-  
+
   @media only screen and (max-width: 700px) {
     span {
       max-width: 120px !important;
@@ -376,13 +376,13 @@
     }
 
     .first {
-      max-height: 265px !important;
-      min-height: 265px !important;
+      max-height: 210px !important;
+      min-height: 210px !important;
     }
 
     .second {
-      max-height: 300px !important;
-      min-height: 285px !important;
+      max-height: 230px !important;
+      min-height: 230px !important;
     }
   }
 
@@ -391,7 +391,7 @@
       overflow: hidden;
       width: 100%;
       padding: 0 1rem;
-      
+
       .flex-row {
         width: 100%;
         overflow: hidden;
@@ -461,7 +461,7 @@
       max-width: 55% !important;
     }
   }
-  
+
   .description {
     color: #624725 !important;
     font-size: 22px !important;
@@ -504,11 +504,14 @@
     // Media query para iPad (768px - 1024px)
     @media only screen and (min-width: 768px) and (max-width: 1024px) {
       .img2 {
-        height: 84%;
+        height: 78%;
+      }
+      .img1 {
+        top: 38%;
       }
 
       img {
-        width: 266px;
+        width: 211px;
       }
     }
   }
@@ -593,8 +596,8 @@
   }
 
   @media only screen and (max-width:700px) {
-    .line { 
-      bottom: 4px; 
+    .line {
+      bottom: 4px;
     }
 
     &::before {
@@ -637,7 +640,7 @@
   position: relative;
   z-index: 10 !important; // Botões acima de qualquer overlay
   cursor: pointer !important;
-  
+
   a {
     pointer-events: auto !important; // Links dentro dos botões são clicáveis
     cursor: pointer !important;
