@@ -188,7 +188,14 @@
 
     img {
         max-width: 424px !important;
-        max-height: 412px !important;
+        max-height: 377px !important;
+    }
+
+    // iPad em modo horizontal (landscape)
+    @media only screen and (orientation: landscape) {
+      img {
+        max-width: 554px !important;
+      }
     }
 
     .title {
@@ -462,6 +469,48 @@
     .second {
       max-height: 245px !important;
       min-height: 245px !important;
+    }
+
+    // Usar a mesma estrutura do mobile para iPad
+    .images {
+      overflow: hidden;
+      width: 100%;
+      padding: 0 1rem;
+
+      .flex-row {
+        width: 100%;
+        overflow: hidden;
+        justify-content: center;
+        align-items: flex-start;
+      }
+    }
+
+    .collection-img-small {
+      height: 390px;
+      width: 29%;
+      object-fit: cover;
+    }
+
+    .collection-img-large {
+      height: 429px;
+      width: 38%;
+      object-fit: cover;
+    }
+
+    .collection-img-medium {
+      height: 412px;
+      width: 336px;
+      padding-right: 1rem;
+      object-fit: cover;
+    }
+
+    // Esconder desktop e mostrar mobile no iPad
+    .images.desktop {
+      display: none !important;
+    }
+
+    .images.mobile {
+      display: flex !important;
     }
   }
 
