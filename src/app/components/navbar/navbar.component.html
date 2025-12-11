@@ -1,8 +1,8 @@
 <div class="member-area flex justify-content-end mb-5 pt-5 mr-7 desktop">
     @if (isLoggedIn()) {
-        <a href="/member/dashboard" class="main-txt-color underline montserrat">Área de Cliente</a>
+        <a href="/member/dashboard" class="main-txt-color underline montserrat">{{ 'navbar.clientArea' | translate }}</a>
     } @else {
-        <a href="/login" class="main-txt-color underline montserrat">Área de Cliente</a>
+        <a href="/login" class="main-txt-color underline montserrat">{{ 'navbar.clientArea' | translate }}</a>
     }
     <div class="cart-icon ml-2">
       <a href="/cart" class="no-underline cursor-pointer main-txt-color">
@@ -12,15 +12,16 @@
         }
       </a>
     </div>
+    <language-selector></language-selector>
 </div>
 
 <div class="member-area flex flex-row justify-content-between mb-5 pt-5 mobile montserrat">
     <i class="pi pi-bars ml-3" (click)="toggleMenu()"></i>
     <div class="justify-content-end flex flex-row mr-3">
         @if (isLoggedIn()) {
-            <a href="/member/dashboard" class="main-txt-color underline mr-2 size-14">Área de Cliente</a>
+            <a href="/member/dashboard" class="main-txt-color underline mr-2 size-14">{{ 'navbar.clientArea' | translate }}</a>
         } @else {
-            <a href="/login" class="main-txt-color underline mr-2 size-14">Área de Cliente</a>
+            <a href="/login" class="main-txt-color underline mr-2 size-14">{{ 'navbar.clientArea' | translate }}</a>
         }
         <a href="/cart" class="no-underline cursor-pointer main-txt-color">
             <div class="cart-icon ml-2">
@@ -30,19 +31,21 @@
                 }
             </div>
         </a>
+        <language-selector></language-selector>
     </div>
 </div>
 
 <div class="menu center desktop">
     <div class="flex flex-row md:gap-6 main-txt-color montserrat">
-        <p class="cursor-pointer"><a class="no-underline" href="/#about"> SOBRE NÓS </a></p>
-        <p class="cursor-pointer"><a class="no-underline" href="/#values"> VALORES </a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/#concept"> CONCEITO DA MARCA </a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/#collection"> NOVA COLEÇÃO </a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/products"> PRODUTOS</a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/gallery"> GALERIA </a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/#contact"> CONTATOS </a> </p>
-        <p class="cursor-pointer"><a class="no-underline" href="/faqs"> FAQS </a></p>
+        <p class="cursor-pointer"><a class="no-underline" href="/#about"> {{ 'navbar.about' | translate }} </a></p>
+        <p class="cursor-pointer"><a class="no-underline" href="/#values"> {{ 'navbar.values' | translate }} </a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/#concept"> {{ 'navbar.concept' | translate }} </a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/#collection"> {{ 'navbar.collection' | translate }} </a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/products"> {{ 'navbar.products' | translate }}</a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/gallery"> {{ 'navbar.gallery' | translate }} </a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/#contact"> {{ 'navbar.contact' | translate }} </a> </p>
+        <p class="cursor-pointer"><a class="no-underline" href="/faqs"> {{ 'navbar.faqs' | translate }} </a></p>
+        <!-- <language-selector></language-selector> -->
     </div>
 </div>
 
@@ -54,19 +57,19 @@
         <button class="close-btn" (click)="closeMenu()">✕</button>
 
         <div class="menu-items montserrat">
-            <a href="/" (click)="closeMenu()">HOME</a>
-            <a href="/#about" (click)="closeMenu()">SOBRE NÓS</a>
-            <a href="/#values" (click)="closeMenu()">VALORES</a>
-            <a href="/#concept" (click)="closeMenu()">CONCEITO DA MARCA</a>
-            <a href="/#collection" (click)="closeMenu()">NOVA COLEÇÃO</a>
-            <a href="/products" (click)="closeMenu()">PRODUTOS</a>
-            <a href="/gallery" (click)="closeMenu()">GALERIA</a>
-            <a href="/#contact" (click)="closeMenu()">CONTATOS</a>
-            <a href="/faqs" (click)="closeMenu()">FAQS</a>
+            <a href="/" (click)="closeMenu()">{{ 'navbar.home' | translate }}</a>
+            <a href="/#about" (click)="closeMenu()">{{ 'navbar.about' | translate }}</a>
+            <a href="/#values" (click)="closeMenu()">{{ 'navbar.values' | translate }}</a>
+            <a href="/#concept" (click)="closeMenu()">{{ 'navbar.concept' | translate }}</a>
+            <a href="/#collection" (click)="closeMenu()">{{ 'navbar.collection' | translate }}</a>
+            <a href="/products" (click)="closeMenu()">{{ 'navbar.products' | translate }}</a>
+            <a href="/gallery" (click)="closeMenu()">{{ 'navbar.gallery' | translate }}</a>
+            <a href="/#contact" (click)="closeMenu()">{{ 'navbar.contact' | translate }}</a>
+            <a href="/faqs" (click)="closeMenu()">{{ 'navbar.faqs' | translate }}</a>
             @if (isLoggedIn()) {
-                <a href="/member/dashboard" (click)="closeMenu()">ÁREA DE CLIENTE</a>
+                <a href="/member/dashboard" (click)="closeMenu()">{{ 'navbar.clientArea' | translate }}</a>
             } @else {
-                <a href="/login" (click)="closeMenu()">ÁREA DE CLIENTE</a>
+                <a href="/login" (click)="closeMenu()">{{ 'navbar.clientArea' | translate }}</a>
             }
         </div>
     </div>

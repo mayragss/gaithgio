@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, effect, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,15 +6,21 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { OrderService, Order } from '../../services/order.service';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { LanguageService } from '../../services/language.service';
+import { translations } from '../../translations/translations';
 
 @Component({
   selector: 'app-member-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, FooterComponent],
+  imports: [CommonModule, FormsModule, FooterComponent, NavbarComponent, TranslatePipe],
   templateUrl: './member-dashboard.component.html',
   styleUrls: ['./member-dashboard.component.scss']
 })
 export class MemberDashboardComponent implements OnInit {
+  private languageService = inject(LanguageService);
+  private cdr = inject(ChangeDetectorRef);
   currentUser: User | null = null;
   activeTab: string = 'profile';
   isLoading: boolean = false;
@@ -33,14 +39,19 @@ export class MemberDashboardComponent implements OnInit {
   editingAddressId: number | null = null;
   orders: Order[] = [];
   isLoadingOrders: boolean = false;
-  showUserMenu: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private orderService: OrderService
-  ) {}
+  ) {
+    // Effect para detectar mudanças no idioma e forçar atualização
+    effect(() => {
+      this.languageService.currentLanguage();
+      this.cdr.markForCheck();
+    });
+  }
 
   ngOnInit(): void {
     // Verificar se o usuário está logado
@@ -48,14 +59,6 @@ export class MemberDashboardComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-
-    // Fechar o menu do usuário ao clicar fora
-    document.addEventListener('click', (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest('.navbar-profile') && !target.closest('.user-dropdown')) {
-        this.showUserMenu = false;
-      }
-    });
 
     // Obter dados do usuário atual
     this.currentUser = this.authService.getCurrentUser();
@@ -111,9 +114,8 @@ export class MemberDashboardComponent implements OnInit {
       this.loadOrders();
     }
     
-    // Se for adicionar endereço, resetar o formulário
-    if (tab === 'add-address') {
-      this.editingAddressId = null;
+    // Se for adicionar endereço, resetar o formulário apenas se não estiver editando
+    if (tab === 'add-address' && !this.editingAddressId) {
       this.addressForm = {
         type: 'residential',
         street: '',
@@ -174,7 +176,8 @@ export class MemberDashboardComponent implements OnInit {
     this.authService.updateProfile(updateData).subscribe({
       next: (response: any) => {
         this.isLoading = false;
-        this.successMessage = 'Perfil atualizado com sucesso!';
+        const currentLang = this.languageService.currentLanguage();
+        this.successMessage = translations['dashboard.editProfile.success'][currentLang];
         
         // Atualizar o usuário atual
         if (this.currentUser) {
@@ -199,30 +202,36 @@ export class MemberDashboardComponent implements OnInit {
   }
 
   getStatusLabel(status: string): string {
-    const statusMap: { [key: string]: string } = {
-      'pending': 'Pendente',
-      'awaiting_treatment': 'Aguardando Tratamento',
-      'processing': 'Processando',
-      'shipped': 'Em trânsito',
-      'delivered': 'Entregue',
-      'cancelled': 'Cancelado'
-    };
+    const currentLang = this.languageService.currentLanguage();
+    const statusKey = status.toLowerCase();
+    const translationKey = `dashboard.orders.status.${statusKey}` as keyof typeof translations;
     
-    return statusMap[status.toLowerCase()] || status;
+    if (translations[translationKey]) {
+      return translations[translationKey][currentLang];
+    }
+    
+    return status;
   }
 
   formatOrderDate(dateString: string): string {
-    const months = [
-      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    const currentLang = this.languageService.currentLanguage();
+    const monthKeys = [
+      'january', 'february', 'march', 'april', 'may', 'june',
+      'july', 'august', 'september', 'october', 'november', 'december'
     ];
     
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = months[date.getMonth()];
+    const monthIndex = date.getMonth();
+    const monthKey = monthKeys[monthIndex];
+    const month = translations[`dashboard.months.${monthKey}` as keyof typeof translations]?.[currentLang] || monthKey;
     const year = date.getFullYear();
     
-    return `${day} de ${month}, ${year}`;
+    const ofText = translations['dashboard.months.of'][currentLang];
+    
+    return currentLang === 'pt' 
+      ? `${day} de ${month}, ${year}`
+      : `${month} ${day}, ${year}`;
   }
 
   getTotalItems(order: Order): number {
@@ -247,49 +256,73 @@ export class MemberDashboardComponent implements OnInit {
   }
 
   formatItemsText(order: Order): string {
+    const currentLang = this.languageService.currentLanguage();
     const totalItems = this.getTotalItems(order);
-    return totalItems === 1 ? '1 item' : `${totalItems} itens`;
+    const itemKey = totalItems === 1 ? 'dashboard.orders.item' : 'dashboard.orders.items';
+    const itemText = translations[itemKey][currentLang];
+    return `${totalItems} ${itemText}`;
   }
 
   concludeOrder(order: Order): void {
-    let mensagem = `Olá! Gostaria de finalizar meu pedido da GAITHGIO.\n\n`;
-    mensagem += `📦 Pedido #${order.orderNumber || order.id}\n`;
-    mensagem += `📅 Data: ${new Date(order.createdAt).toLocaleDateString('pt-PT')}\n`;
+    const currentLang = this.languageService.currentLanguage();
+    const t = translations;
+    
+    let mensagem = `${t['dashboard.whatsapp.greeting'][currentLang]}\n\n`;
+    mensagem += `📦 ${t['dashboard.whatsapp.order'][currentLang]}${order.orderNumber || order.id}\n`;
+    
+    const date = new Date(order.createdAt);
+    const dateStr = currentLang === 'pt' 
+      ? date.toLocaleDateString('pt-PT')
+      : date.toLocaleDateString('en-US');
+    mensagem += `📅 ${t['dashboard.whatsapp.date'][currentLang]} ${dateStr}\n`;
     
     // Garantir que total seja tratado como número
     const total = typeof order.total === 'number' ? order.total : parseFloat(String(order.total)) || 0;
-    mensagem += `💰 Total: €${total.toFixed(2)}\n\n`;
+    mensagem += `💰 ${t['dashboard.whatsapp.total'][currentLang]} €${total.toFixed(2)}\n\n`;
     
     // Usar OrderItems (O maiúsculo) que é como a API retorna
-    const items = (order as any).OrderItems;
+    const items = (order as any).OrderItems || (order as any).orderItems || (order as any).items;
     if (items && items.length > 0) {
-      mensagem += `Itens do pedido:\n`;
+      mensagem += `${t['dashboard.whatsapp.items'][currentLang]}\n`;
       items.forEach((item: any, index: number) => {
+        // Debug: verificar estrutura do item
+        console.log('Order item:', item);
+        
         mensagem += `${index + 1}. `;
         
-        // Verificar se o item tem productName (do tipo OrderItem do user.ts) ou precisa buscar
-        if ('productName' in item && item.productName) {
-          mensagem += `${item.productName}`;
+        // Verificar se o item tem productName
+        if (item.productName || item.ProductName) {
+          mensagem += `${item.productName || item.ProductName}`;
         } else {
-          mensagem += `Produto ID: ${item.productId}`;
+          // Tentar diferentes variações do productId
+          const productId = item.productId ?? item.ProductId ?? item.product_id ?? item.Product_Id ?? item.id;
+          
+          if (productId !== undefined && productId !== null && productId !== 'undefined') {
+            mensagem += `${t['dashboard.whatsapp.productId'][currentLang]} ${productId}`;
+          } else {
+            // Fallback: usar apenas o número do item
+            mensagem += `${t['dashboard.whatsapp.productId'][currentLang]} #${index + 1}`;
+          }
         }
         
-        mensagem += ` - Quantidade: ${item.quantity}`;
+        mensagem += ` - ${t['dashboard.whatsapp.quantity'][currentLang]} ${item.quantity}`;
         
         // Garantir que unitPrice seja tratado como número
-        const unitPrice = typeof item.unitPrice === 'number' ? item.unitPrice : parseFloat(String(item.unitPrice)) || 0;
-        mensagem += ` - Preço unitário: €${unitPrice.toFixed(2)}`;
+        const unitPrice = typeof item.unitPrice === 'number' ? item.unitPrice : parseFloat(String(item.unitPrice || item.UnitPrice || 0)) || 0;
+        mensagem += ` - ${t['dashboard.whatsapp.unitPrice'][currentLang]} €${unitPrice.toFixed(2)}`;
         
-        if ('totalPrice' in item && item.totalPrice) {
-          const itemTotal = typeof item.totalPrice === 'number' ? item.totalPrice : parseFloat(String(item.totalPrice)) || 0;
-          mensagem += ` - Total: €${itemTotal.toFixed(2)}`;
+        if (item.totalPrice || item.TotalPrice) {
+          const itemTotal = typeof item.totalPrice === 'number' ? item.totalPrice : 
+                           typeof item.TotalPrice === 'number' ? item.TotalPrice :
+                           parseFloat(String(item.totalPrice || item.TotalPrice || 0)) || 0;
+          mensagem += ` - ${t['dashboard.whatsapp.itemTotal'][currentLang]} €${itemTotal.toFixed(2)}`;
         }
         
         mensagem += `\n`;
       });
     }
     
-    mensagem += `\nAguardo confirmação. Obrigado!`;
+    mensagem += `\n${t['dashboard.whatsapp.confirmation'][currentLang]}`;
     
     const numero = "351934036467";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
@@ -298,22 +331,25 @@ export class MemberDashboardComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  toggleUserMenu(): void {
-    this.showUserMenu = !this.showUserMenu;
-  }
-
   getAddressTypeLabel(type: string): string {
-    const types: { [key: string]: string } = {
-      'residential': 'Residencial',
-      'commercial': 'Comercial'
-    };
-    return types[type] || type;
+    const currentLang = this.languageService.currentLanguage();
+    const translationKey = `dashboard.addresses.type.${type}` as keyof typeof translations;
+    
+    if (translations[translationKey]) {
+      return translations[translationKey][currentLang];
+    }
+    
+    return type;
   }
 
   logout(): void {
-    this.showUserMenu = false;
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  addNewAddress(): void {
+    this.editingAddressId = null;
+    this.setActiveTab('add-address');
   }
 
   editAddress(address: any): void {
@@ -354,7 +390,8 @@ export class MemberDashboardComponent implements OnInit {
       this.authService.updateAddress(this.editingAddressId, addressData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.successMessage = 'Endereço atualizado com sucesso!';
+          const currentLang = this.languageService.currentLanguage();
+          this.successMessage = translations['dashboard.editAddress.success.update'][currentLang];
           this.editingAddressId = null;
           // Recarregar perfil para obter endereços atualizados
           this.authService.refreshUserProfile().subscribe(user => {
@@ -366,14 +403,16 @@ export class MemberDashboardComponent implements OnInit {
         error: (error) => {
           this.isLoading = false;
           console.error('Erro ao atualizar endereço:', error);
-          this.successMessage = 'Erro ao atualizar endereço. Tente novamente.';
+          const currentLang = this.languageService.currentLanguage();
+          this.successMessage = translations['dashboard.editAddress.error'][currentLang];
         }
       });
     } else {
       this.authService.addAddress(addressData).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.successMessage = 'Endereço salvo com sucesso!';
+          const currentLang = this.languageService.currentLanguage();
+          this.successMessage = translations['dashboard.editAddress.success.save'][currentLang];
           // Recarregar perfil para obter endereços atualizados
           this.authService.refreshUserProfile().subscribe(user => {
             this.currentUser = user;
@@ -384,9 +423,38 @@ export class MemberDashboardComponent implements OnInit {
         error: (error) => {
           this.isLoading = false;
           console.error('Erro ao salvar endereço:', error);
-          this.successMessage = 'Erro ao salvar endereço. Tente novamente.';
+          const currentLang = this.languageService.currentLanguage();
+          this.successMessage = translations['dashboard.editAddress.error'][currentLang];
         }
       });
     }
+  }
+
+  deleteAddress(address: any): void {
+    const currentLang = this.languageService.currentLanguage();
+    const confirmMessage = translations['dashboard.addresses.confirmDelete'][currentLang];
+    
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.successMessage = '';
+
+    this.authService.deleteAddress(address.id).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.successMessage = translations['dashboard.addresses.success.delete'][currentLang];
+        // Recarregar perfil para obter endereços atualizados
+        this.authService.refreshUserProfile().subscribe(user => {
+          this.currentUser = user;
+        });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Erro ao apagar endereço:', error);
+        this.successMessage = translations['dashboard.addresses.error.delete'][currentLang];
+      }
+    });
   }
 }

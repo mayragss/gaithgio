@@ -10,10 +10,11 @@ import { CartService } from '../../services/cart.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { take, tap } from 'rxjs';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'products',
-  imports: [NavbarComponent, CommonModule, JsonArrayToStringPipe, FooterComponent, ToastModule],
+  imports: [NavbarComponent, CommonModule, JsonArrayToStringPipe, FooterComponent, ToastModule, TranslatePipe],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })

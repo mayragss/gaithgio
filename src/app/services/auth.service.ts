@@ -192,6 +192,16 @@ export class AuthService {
     return this.http.put<any>(`${this.baseUrl}/address/${addressId}`, addressData, { headers });
   }
 
+  deleteAddress(addressId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.delete<any>(`${this.baseUrl}/address/${addressId}`, { headers });
+  }
+
   updateProfile(profileData: any): Observable<any> {
     const token = this.getToken();
     if (!token) {

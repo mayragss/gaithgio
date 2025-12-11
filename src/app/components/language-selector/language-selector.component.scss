@@ -1,0 +1,41 @@
+.language-selector {
+      background: none !important;
+      border: none !important;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+      margin: 0;
+      vertical-align: middle;
+      line-height: 1;
+      height: auto;
+      width: auto;
+    }
+
+    .language-selector:hover {
+      transform: scale(1.1);
+    }
+
+    .language-selector:focus {
+      outline: none;
+    }
+
+    .flag-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      display: inline-block;
+      width: auto;
+      height: auto;
+      user-select: none;
+      font-style: normal;
+      font-weight: normal;
+      font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img{
+      width: 23px;
+    }

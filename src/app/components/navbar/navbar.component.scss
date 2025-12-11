@@ -13,7 +13,7 @@ body{
   position: relative;
   z-index: 1000 !important; // Garante que está acima de qualquer overlay
   pointer-events: auto !important; // Garante que é clicável
-  
+
   p{
     font-size: 15px;
   }
@@ -21,6 +21,15 @@ body{
   a {
     pointer-events: auto !important; // Links clicáveis
     cursor: pointer !important;
+  }
+
+  // Estilos para o seletor de idioma
+  app-language-selector {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
   }
 
   .logout-btn {
@@ -69,10 +78,18 @@ i{
   position: relative;
   z-index: 1000 !important; // Garante que está acima de qualquer overlay
   pointer-events: auto !important; // Garante que é clicável
-  
+
   a {
     pointer-events: auto !important; // Links clicáveis
     cursor: pointer !important;
+  }
+
+  // Estilos para o seletor de idioma no menu
+  app-language-selector {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5rem;
+    vertical-align: middle;
   }
 
   // Media query para iPad (768px - 1024px)
@@ -98,7 +115,7 @@ a:focus{
   display: inline-block;
 
   img {
-    width: 23px; // 19px + 4px
+    width: 20px; // 19px + 4px
     padding-top: 2px;
     display: block;
   }
@@ -147,7 +164,7 @@ a:focus{
     color: #624725 !important;
     cursor: pointer;
     z-index: 1000001 !important;
-    
+
     &:hover {
       color: #624725 !important;
     }
@@ -196,7 +213,7 @@ a:focus{
 
 :host::ng-deep .menu-overlay .close-btn {
   color: #624725 !important;
-  
+
   &:hover {
     color: #624725 !important;
   }

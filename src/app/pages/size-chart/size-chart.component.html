@@ -1,6 +1,8 @@
 <navbar></navbar>
 
 <div class="content md:pl-6 md:pr-6 md:pt-5 mb-8">
+    <!-- Portuguese Version -->
+    @if (currentLanguage === 'pt') {
     <div class="mt-4 mb-7 uppercase cinzel center title">Tabela de Tamanhos</div>
 
     <div class="main-container p-6 pb-0 pt-1 md:p-0 montserrat pt-5">
@@ -210,7 +212,220 @@
             </div>
         </div>
     </div>
+    }
 
+    <!-- English Version -->
+    @if (currentLanguage === 'en') {
+    <div class="mt-4 mb-7 uppercase cinzel center title">Size Chart</div>
+
+    <div class="main-container p-6 pb-0 pt-1 md:p-0 montserrat pt-5">
+        <div class="size-chart-content text-main-color">
+            <div class="tables-layout">
+                <!-- Left Column: Tops and Pants -->
+                <div class="left-column">
+                    <!-- Table 1: Tops - Blouses - Dresses - Shirts -->
+                    <div class="size-table-container">
+                        <h3 class="table-title">Tops - Blouses - Dresses - Shirts</h3>
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Measurements (cm)</th>
+                                    <th>XS/40</th>
+                                    <th>S/42</th>
+                                    <th>M/44</th>
+                                    <th>L/46</th>
+                                    <th>XL/48</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A - Height</td>
+                                    <td>165/169</td>
+                                    <td>168/172</td>
+                                    <td>171/175</td>
+                                    <td>174/178</td>
+                                    <td>177/172</td>
+                                </tr>
+                                <tr>
+                                    <td>B - Chest</td>
+                                    <td>82</td>
+                                    <td>86</td>
+                                    <td>90</td>
+                                    <td>94</td>
+                                    <td>98</td>
+                                </tr>
+                                <tr>
+                                    <td>C - Bust</td>
+                                    <td>84/86</td>
+                                    <td>88/90</td>
+                                    <td>92/94</td>
+                                    <td>96/98</td>
+                                    <td>100/102</td>
+                                </tr>
+                                <tr>
+                                    <td>D - High waist</td>
+                                    <td>66</td>
+                                    <td>70</td>
+                                    <td>74</td>
+                                    <td>78</td>
+                                    <td>82</td>
+                                </tr>
+                                <tr>
+                                    <td>E - Low waist</td>
+                                    <td>80</td>
+                                    <td>84</td>
+                                    <td>88</td>
+                                    <td>92</td>
+                                    <td>96</td>
+                                </tr>
+                                <tr>
+                                    <td>F - Hips</td>
+                                    <td>92</td>
+                                    <td>96</td>
+                                    <td>100</td>
+                                    <td>104</td>
+                                    <td>108</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table 2: Pants - Jeans -->
+                    <div class="size-table-container">
+                        <h3 class="table-title">Pants - Jeans</h3>
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>38</th>
+                                    <th>40</th>
+                                    <th>42</th>
+                                    <th>44</th>
+                                    <th>46</th>
+                                    <th>48</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EUROPE</td>
+                                    <td>38</td>
+                                    <td>40</td>
+                                    <td>42</td>
+                                    <td>44</td>
+                                    <td>46</td>
+                                    <td>48</td>
+                                </tr>
+                                <tr>
+                                    <td>USA</td>
+                                    <td>24</td>
+                                    <td>25, 26</td>
+                                    <td>27, 28</td>
+                                    <td>29, 30</td>
+                                    <td>31, 32</td>
+                                    <td>33, 34</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right Column: Size conversion table -->
+                <div class="right-column">
+                    <!-- Table 3: Size conversion table -->
+                    <div class="size-table-container">
+                        <h3 class="table-title">Size conversion table</h3>
+                        <table class="size-table conversion-table">
+                            <thead>
+                                <tr>
+                                    <th>PORTUGAL</th>
+                                    <th>XS/34</th>
+                                    <th>S/36</th>
+                                    <th>M/38</th>
+                                    <th>L/40</th>
+                                    <th>XL/42</th>
+                                    <th>XXL/44</th>
+                                    <th>3XL/46</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ITALY</td>
+                                    <td>38</td>
+                                    <td>40</td>
+                                    <td>42</td>
+                                    <td>44</td>
+                                    <td>46</td>
+                                    <td>48</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>FRANCE</td>
+                                    <td>34</td>
+                                    <td>36</td>
+                                    <td>38</td>
+                                    <td>40</td>
+                                    <td>42</td>
+                                    <td>44</td>
+                                    <td>46</td>
+                                </tr>
+                                <tr>
+                                    <td>GERMANY</td>
+                                    <td>32</td>
+                                    <td>34</td>
+                                    <td>36</td>
+                                    <td>38</td>
+                                    <td>40</td>
+                                    <td>42</td>
+                                    <td>44</td>
+                                </tr>
+                                <tr>
+                                    <td>SPAIN</td>
+                                    <td>36</td>
+                                    <td>38</td>
+                                    <td>40</td>
+                                    <td>42</td>
+                                    <td>44</td>
+                                    <td>46</td>
+                                    <td>48</td>
+                                </tr>
+                                <tr>
+                                    <td>UNITED KINGDOM</td>
+                                    <td>6</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>12</td>
+                                    <td>14</td>
+                                    <td>16</td>
+                                    <td>18</td>
+                                </tr>
+                                <tr>
+                                    <td>USA</td>
+                                    <td>4</td>
+                                    <td>6</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>12</td>
+                                    <td>14</td>
+                                    <td>16</td>
+                                </tr>
+                                <tr>
+                                    <td>USA INCH</td>
+                                    <td>24/25</td>
+                                    <td>26/27</td>
+                                    <td>28/29</td>
+                                    <td>30</td>
+                                    <td>32</td>
+                                    <td>34</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
 </div>
 
 <footer></footer>

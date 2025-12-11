@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, effect, ChangeDetectorRef } from '@angular/core';
 import { CartItem } from '../../services/cart.service';
 import { Button } from "primeng/button";
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -6,15 +6,20 @@ import { AuthService } from '../../services/auth.service';
 import { OrderService, CreateOrderRequest } from '../../services/order.service';
 import { Router } from '@angular/router';
 import { WhatsAppConfirmationComponent } from '../../components/whatsapp-confirmation/whatsapp-confirmation.component';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { LanguageService } from '../../services/language.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
   standalone: true,
-  imports: [Button, FooterComponent, WhatsAppConfirmationComponent]
+  imports: [Button, FooterComponent, WhatsAppConfirmationComponent, TranslatePipe, CommonModule]
 })
 export class CartComponent implements OnInit {
+  private languageService = inject(LanguageService);
+  private cdr = inject(ChangeDetectorRef);
   items: CartItem[] = [];
   showConfirmation: boolean = false;
   createdOrderNumber?: string;
@@ -23,7 +28,13 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService,
     private router: Router
-  ) {}
+  ) {
+    // Effect para detectar mudanças no idioma e forçar atualização
+    effect(() => {
+      this.languageService.currentLanguage();
+      this.cdr.markForCheck();
+    });
+  }
 
   ngOnInit(): void {
     this.loadCart();
@@ -83,11 +94,130 @@ export class CartComponent implements OnInit {
   }
 
   getTamanhos(prod: any): string[] {
-    try {
-      return prod.attributes ? JSON.parse(prod.attributes) : [];
-    } catch {
+    if (!prod || !prod.attributes) {
       return [];
     }
+
+    const parsedAttributes = this.parseAttributes(prod.attributes);
+    let sizes: string[] = [];
+    
+    // Se parsedAttributes é um array, usa diretamente
+    if (Array.isArray(parsedAttributes)) {
+      sizes = parsedAttributes;
+    }
+    // Se é um objeto com propriedade size, extrai o array de tamanhos
+    else if (parsedAttributes && typeof parsedAttributes === 'object' && parsedAttributes.size) {
+      sizes = Array.isArray(parsedAttributes.size) ? parsedAttributes.size : [];
+    }
+    
+    // Converte os tamanhos baseado no idioma atual
+    return sizes.map(size => this.convertSize(size));
+  }
+
+  /**
+   * Converte tamanhos brasileiros para internacionais apenas quando o idioma for EN
+   * PT: G e GG (mantém como vem do backend)
+   * EN: L e XL (converte)
+   */
+  convertSize(size: string): string {
+    const currentLang = this.languageService.currentLanguage();
+    
+    // Se o idioma for PT, mantém como está
+    if (currentLang === 'pt') {
+      return size;
+    }
+    
+    // Se o idioma for EN, converte
+    if (size === 'G') {
+      return 'L';
+    }
+    if (size === 'GG') {
+      return 'XL';
+    }
+    return size;
+  }
+
+  /**
+   * Converte o tamanho selecionado para exibição baseado no idioma atual
+   */
+  getDisplaySize(selectedSize: string | undefined): string {
+    if (!selectedSize) {
+      return '';
+    }
+    return this.convertSize(selectedSize);
+  }
+
+  /**
+   * Faz o parse recursivo dos atributos que podem ter múltiplas camadas de escape JSON
+   */
+  private parseAttributes(attributes: any): any {
+    if (!attributes) {
+      return {};
+    }
+
+    // Se já é um objeto, retorna diretamente
+    if (typeof attributes === 'object' && attributes !== null && !Array.isArray(attributes)) {
+      return attributes;
+    }
+
+    // Se é string, tenta fazer parse recursivo
+    if (typeof attributes === 'string') {
+      let currentValue: any = attributes.trim();
+      let maxAttempts = 10; // Limite de segurança para evitar loop infinito
+      let attempts = 0;
+      let lastValidObject: any = null;
+
+      while (attempts < maxAttempts) {
+        try {
+          const parsed = JSON.parse(currentValue);
+          
+          // Se o resultado é uma string, continua tentando fazer parse
+          if (typeof parsed === 'string') {
+            currentValue = parsed.trim();
+            attempts++;
+            continue;
+          }
+          
+          // Se o resultado é um objeto, verifica se tem a estrutura esperada
+          if (typeof parsed === 'object' && parsed !== null) {
+            lastValidObject = parsed;
+            
+            // Se tem as propriedades esperadas (size, color), retorna
+            if (parsed.size || parsed.color || (Object.keys(parsed).length > 0 && !parsed.toString)) {
+              return parsed;
+            }
+            
+            // Se não tem propriedades úteis, pode ser que ainda precise de mais um parse
+            // Mas só continua se o objeto não tem propriedades ou se parece ser um wrapper
+            if (Object.keys(parsed).length === 0) {
+              break;
+            }
+            
+            // Tenta fazer stringify e parse novamente
+            currentValue = JSON.stringify(parsed);
+            attempts++;
+            continue;
+          }
+          
+          // Se chegou aqui, retorna o que foi parseado
+          return parsed;
+        } catch (e) {
+          // Se falhou o parse e já temos um objeto válido, retorna ele
+          if (lastValidObject) {
+            return lastValidObject;
+          }
+          // Se falhou na primeira tentativa, retorna objeto vazio
+          return {};
+        }
+      }
+      
+      // Se saiu do loop e tem um objeto válido, retorna ele
+      if (lastValidObject) {
+        return lastValidObject;
+      }
+    }
+
+    return {};
   }
 
   loadCart() {
@@ -184,17 +314,38 @@ export class CartComponent implements OnInit {
   }
 
   private openWhatsApp(orderNumber?: string) {
-    let mensagem = "Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n";
+    const currentLang = this.languageService.currentLanguage();
+    const translations = {
+      pt: {
+        orderMessage: 'Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n',
+        size: ' - Tamanho ',
+        quantity: ' - Quantidade: ',
+        value: ' - Valor: €',
+        totalValue: '\n\nValor total: €',
+        orderNumber: '\n\nNúmero do pedido: '
+      },
+      en: {
+        orderMessage: 'Hello, I would like to finalize my GAITHGIO product. These are the items I will purchase:\n\n',
+        size: ' - Size ',
+        quantity: ' - Quantity: ',
+        value: ' - Value: €',
+        totalValue: '\n\nTotal value: €',
+        orderNumber: '\n\nOrder number: '
+      }
+    };
+
+    const t = translations[currentLang];
+    let mensagem = t.orderMessage;
 
     this.items.forEach(item => {
-      const tamanho = item.selectedSize ? ` - Tamanho ${item.selectedSize}` : '';
-      mensagem += `${item.product.name}${tamanho} - Quantidade: ${item.quantity} - Valor: €${item.product.price}\n`;
+      const tamanho = item.selectedSize ? `${t.size}${item.selectedSize}` : '';
+      mensagem += `${item.product.name}${tamanho}${t.quantity}${item.quantity}${t.value}${item.product.price}\n`;
     });
 
-    mensagem += `\nValor total: €${this.totalPrice()}`;
+    mensagem += `${t.totalValue}${this.totalPrice()}`;
     
     if (orderNumber) {
-      mensagem += `\n\nNúmero do pedido: ${orderNumber}`;
+      mensagem += `${t.orderNumber}${orderNumber}`;
     }
 
     const numero = "351934036467";
@@ -250,18 +401,39 @@ export class CartComponent implements OnInit {
   }
 
   private openWhatsAppWithItems(items: CartItem[], orderNumber?: string) {
-    let mensagem = "Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n";
+    const currentLang = this.languageService.currentLanguage();
+    const translations = {
+      pt: {
+        orderMessage: 'Olá, gostaria de finalizar o meu produto da GAITHGIO. Esses são os itens que vou comprar:\n\n',
+        size: ' - Tamanho ',
+        quantity: ' - Quantidade: ',
+        value: ' - Valor: €',
+        totalValue: '\n\nValor total: €',
+        orderNumber: '\n\nNúmero do pedido: '
+      },
+      en: {
+        orderMessage: 'Hello, I would like to finalize my GAITHGIO product. These are the items I will purchase:\n\n',
+        size: ' - Size ',
+        quantity: ' - Quantity: ',
+        value: ' - Value: €',
+        totalValue: '\n\nTotal value: €',
+        orderNumber: '\n\nOrder number: '
+      }
+    };
+
+    const t = translations[currentLang];
+    let mensagem = t.orderMessage;
 
     items.forEach(item => {
-      const tamanho = item.selectedSize ? ` - Tamanho ${item.selectedSize}` : '';
-      mensagem += `${item.product.name}${tamanho} - Quantidade: ${item.quantity} - Valor: €${item.product.price}\n`;
+      const tamanho = item.selectedSize ? `${t.size}${item.selectedSize}` : '';
+      mensagem += `${item.product.name}${tamanho}${t.quantity}${item.quantity}${t.value}${item.product.price}\n`;
     });
 
     const totalPrice = items.reduce((acc, i) => acc + i.product.price * i.quantity, 0);
-    mensagem += `\nValor total: €${totalPrice}`;
+    mensagem += `${t.totalValue}${totalPrice}`;
     
     if (orderNumber) {
-      mensagem += `\n\nNúmero do pedido: ${orderNumber}`;
+      mensagem += `${t.orderNumber}${orderNumber}`;
     }
 
     const numero = "351934036467";
@@ -273,6 +445,7 @@ export class CartComponent implements OnInit {
 
   getFirstName(): string {
     const currentUser = this.authService.getCurrentUser();
-    return currentUser?.firstName || 'Cliente';
+    const currentLang = this.languageService.currentLanguage();
+    return currentUser?.firstName || (currentLang === 'pt' ? 'Cliente' : 'Customer');
   }
 }

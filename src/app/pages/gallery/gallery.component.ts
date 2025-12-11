@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject, effect, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import galleryData from '../../../../public/resources/gallery.json';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { LanguageService } from '../../services/language.service';
 
 interface GalleryItem {
   alt: string;
@@ -14,10 +17,12 @@ interface GalleryItem {
   selector: 'gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [NavbarComponent, CommonModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, TranslatePipe],
   standalone: true
 })
 export class GalleryComponent {
+  private languageService = inject(LanguageService);
+  private cdr = inject(ChangeDetectorRef);
   images: GalleryItem[] = galleryData;
   videos: GalleryItem[] = [
     { alt: 'Video 1', path: 'images/video-1.mp4', type: 'video', thumbnail: 'images/capa-video-1.jpeg' },
@@ -46,5 +51,13 @@ export class GalleryComponent {
   closeVideo() {
     this.showVideoPlayer = false;
     this.selectedVideo = null;
+  }
+
+  constructor() {
+    // Effect para detectar mudanças no idioma e forçar atualização
+    effect(() => {
+      this.languageService.currentLanguage();
+      this.cdr.markForCheck();
+    });
   }
 }

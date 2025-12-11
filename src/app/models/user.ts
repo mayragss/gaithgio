@@ -22,7 +22,7 @@ export interface Address {
   neighborhood: string;
   city: string;
   state: string;
-  zipCode: string;
+  zip: string;
   country: string;
   isDefault: boolean;
   createdAt: Date;

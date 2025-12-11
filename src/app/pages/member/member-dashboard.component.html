@@ -1,65 +1,30 @@
 <div class="member-dashboard" *ngIf="currentUser; else loadingTemplate">
   <!-- Navbar do Dashboard -->
-  <div class="dashboard-navbar">
-    <div class="navbar-container">
-      <div class="navbar-logo">
-        <a href="/" class="logo-link">
-          <img src="/images/Logotipo.png" alt="GAITHGIO" class="logo-image" />
-          <span class="logo-text cinzel">GAITHGIO</span>
-        </a>
-      </div>
-      <div class="navbar-links montserrat">
-        <a href="/" class="navbar-link">
-          <i class="pi pi-home"></i>
-          Home
-        </a>
-        <a href="/products" class="navbar-link">
-          <i class="pi pi-shopping-bag"></i>
-          Produtos
-        </a>
-        <div class="navbar-profile" (click)="toggleUserMenu()">
-          <i class="pi pi-user"></i>
-        </div>
-        @if (showUserMenu) {
-          <div class="user-dropdown">
-            <div class="user-info">
-              <p class="user-name">{{ currentUser.firstName }} {{ currentUser.lastName }}</p>
-              <p class="user-email">{{ currentUser.email }}</p>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="logout-option" (click)="logout()">
-              <i class="pi pi-arrow-right"></i>
-              <span>Sair</span>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </div>
-  
-  <div class="dashboard-container" [class.orders-container]="activeTab === 'orders'">
+  <navbar></navbar>
+
+  <div class="dashboard-container mt-4" [class.orders-container]="activeTab === 'orders'">
     <!-- Secondary Navigation Menu -->
     <div class="dashboard-tabs">
-      <button 
-        class="tab-item" 
+      <button
+        class="tab-item"
         [class.active]="activeTab === 'profile'"
         (click)="setActiveTab('profile')">
         <i class="pi pi-user"></i>
-        <span class="montserrat">Perfil</span>
+        <span class="montserrat">{{ 'dashboard.tabs.profile' | translate }}</span>
       </button>
-      <button 
-        class="tab-item" 
+      <button
+        class="tab-item"
         [class.active]="activeTab === 'orders'"
         (click)="setActiveTab('orders')">
         <i class="pi pi-box"></i>
-        <span class="montserrat">Pedidos</span>
+        <span class="montserrat">{{ 'dashboard.tabs.orders' | translate }}</span>
       </button>
-      <button 
-        class="tab-item" 
+      <button
+        class="tab-item"
         [class.active]="activeTab === 'addresses'"
         (click)="setActiveTab('addresses')">
         <i class="pi pi-map-marker"></i>
-        <span class="montserrat">Endereços</span>
+        <span class="montserrat">{{ 'dashboard.tabs.addresses' | translate }}</span>
       </button>
     </div>
 
@@ -68,24 +33,23 @@
       <!-- Profile Tab -->
       <div class="tab-content" *ngIf="activeTab === 'profile'">
         <div class="profile-section">
-          <h2 class="section-title montserrat">Informações Pessoais</h2>
+          <h2 class="section-title montserrat">{{ 'dashboard.profile.title' | translate }}</h2>
           <div class="profile-info">
             <div class="info-item">
-              <label class="montserrat">Nome</label>
+              <label class="montserrat">{{ 'dashboard.profile.name' | translate }}</label>
               <span class="montserrat">{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
             </div>
             <div class="info-item">
-              <label class="montserrat">Email</label>
+              <label class="montserrat">{{ 'dashboard.profile.email' | translate }}</label>
               <span class="montserrat">{{ currentUser.email }}</span>
             </div>
             <div class="info-item">
-              <label class="montserrat">Telefone</label>
+              <label class="montserrat">{{ 'dashboard.profile.phone' | translate }}</label>
               <span class="montserrat">{{ currentUser.phone }}</span>
             </div>
           </div>
           <button class="edit-btn montserrat" (click)="setActiveTab('edit-profile')">
-
-            <span>Editar Perfil</span>
+            <span>{{ 'dashboard.profile.edit' | translate }}</span>
           </button>
         </div>
       </div>
@@ -93,10 +57,10 @@
       <!-- Orders Tab -->
       <div class="tab-content" *ngIf="activeTab === 'orders'">
         <div class="orders-section">
-          <h2 class="section-title montserrat pb-4">Histórico de Pedidos</h2>
+          <h2 class="section-title montserrat pb-4">{{ 'dashboard.orders.title' | translate }}</h2>
           @if (isLoadingOrders) {
             <div class="empty-state">
-              <p class="montserrat">Carregando pedidos...</p>
+              <p class="montserrat">{{ 'dashboard.orders.loading' | translate }}</p>
             </div>
           } @else {
             <div class="orders-info" *ngIf="orders.length > 0; else noOrders">
@@ -106,7 +70,7 @@
                   <i class="pi pi-box"></i>
                 </div>
                 <div class="order-content">
-                  <div class="order-number montserrat">Pedido #{{ order.orderNumber || order.id }}</div>
+                  <div class="order-number montserrat">{{ 'dashboard.orders.orderNumber' | translate }}{{ order.orderNumber || order.id }}</div>
                   <div class="order-date montserrat">
                     <i class="pi pi-clock"></i>
                     <span>{{ formatOrderDate(order.createdAt) }}</span>
@@ -122,10 +86,10 @@
                       {{ getStatusLabel(order.status) }}
                     </span>
                   </div>
-                  <div class="order-total montserrat">R$ {{ order.total | number:'1.2-2' }}</div>
+                  <div class="order-total montserrat">€ {{ order.total | number:'1.2-2' }}</div>
                   <div class="order-action-link">
                     <a class="conclude-link montserrat" (click)="concludeOrder(order)">
-                      Concluir o Pedido
+                      {{ 'dashboard.orders.conclude' | translate }}
                     </a>
                   </div>
                 </div>
@@ -135,7 +99,7 @@
             <ng-template #noOrders>
               <div class="empty-state">
                 <span class="empty-icon">🛍️</span>
-                <p class="montserrat">Nenhum pedido encontrado</p>
+                <p class="montserrat">{{ 'dashboard.orders.empty' | translate }}</p>
               </div>
             </ng-template>
           }
@@ -145,29 +109,36 @@
       <!-- Addresses Tab -->
       <div class="tab-content" *ngIf="activeTab === 'addresses'">
         <div class="addresses-header">
-          <h2 class="section-title montserrat">Meus Endereços</h2>
-          <button class="add-address-btn montserrat" (click)="setActiveTab('add-address')">
+          <h2 class="section-title montserrat">{{ 'dashboard.addresses.title' | translate }}</h2>
+          <button class="add-address-btn montserrat" (click)="addNewAddress()">
             <span class="icon">+</span>
-            Adicionar Endereço
+            {{ 'dashboard.addresses.add' | translate }}
           </button>
+        </div>
+        <div class="success-message" *ngIf="successMessage">
+          <span class="icon">✅</span>
+          {{ successMessage }}
         </div>
         <div class="addresses-list" *ngIf="currentUser.addresses.length > 0; else noAddresses">
           @for (address of currentUser.addresses; track address.id) {
           <div class="address-card">
             <div class="address-header">
               <span class="address-type montserrat">{{ getAddressTypeLabel(address.type) }}</span>
-              <span class="default-badge montserrat" *ngIf="address.isDefault">Padrão</span>
+              <span class="default-badge montserrat" *ngIf="address.isDefault">{{ 'dashboard.addresses.default' | translate }}</span>
             </div>
             <div class="address-details">
               <p class="montserrat">{{ address.street }}, {{ address.number }}</p>
               <p class="montserrat" *ngIf="address.complement">{{ address.complement }}</p>
               <p class="montserrat">{{ address.neighborhood }}</p>
               <p class="montserrat">{{ address.city }} - {{ address.state }}</p>
-              <p class="montserrat">CEP: {{ address.zipCode }}</p>
+              <p class="montserrat">{{ address.zip }}</p>
             </div>
             <div class="address-actions">
               <button class="edit-address-btn montserrat" (click)="editAddress(address)">
-              Editar
+                {{ 'dashboard.addresses.edit' | translate }}
+              </button>
+              <button class="delete-address-btn montserrat" (click)="deleteAddress(address)">
+                {{ 'dashboard.addresses.delete' | translate }}
               </button>
             </div>
           </div>
@@ -178,16 +149,16 @@
             <div class="empty-icon-circle">
               <i class="pi pi-map-marker"></i>
             </div>
-            <p class="empty-title montserrat">Nenhum endereço cadastrado</p>
-            <p class="empty-description montserrat">Adicione um endereço para facilitar suas compras futuras.</p>
+            <p class="empty-title montserrat">{{ 'dashboard.addresses.empty.title' | translate }}</p>
+            <p class="empty-description montserrat">{{ 'dashboard.addresses.empty.description' | translate }}</p>
           </div>
         </ng-template>
       </div>
 
       <!-- Edit Profile Tab -->
       <div class="tab-content" *ngIf="activeTab === 'edit-profile'">
-        <h2 class="section-title montserrat">Editar Perfil</h2>
-        
+        <h2 class="section-title montserrat">{{ 'dashboard.editProfile.title' | translate }}</h2>
+
         <div class="success-message" *ngIf="successMessage">
           <span class="icon">✅</span>
           {{ successMessage }}
@@ -195,28 +166,28 @@
 
         <form class="profile-form" (ngSubmit)="onSubmitEditProfile()">
           <div class="form-group">
-            <label class="montserrat">Nome</label>
+            <label class="montserrat">{{ 'dashboard.editProfile.firstName' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="editForm.firstName" name="firstName" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">Sobrenome</label>
+            <label class="montserrat">{{ 'dashboard.editProfile.lastName' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="editForm.lastName" name="lastName" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">Email</label>
+            <label class="montserrat">{{ 'dashboard.editProfile.email' | translate }}</label>
             <input type="email" class="form-input montserrat" [(ngModel)]="editForm.email" name="email" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">Telefone</label>
+            <label class="montserrat">{{ 'dashboard.editProfile.phone' | translate }}</label>
             <input type="tel" class="form-input montserrat" [(ngModel)]="editForm.phone" name="phone" required>
           </div>
           <div class="form-actions">
             <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('profile')">
-              Cancelar
+              {{ 'dashboard.editProfile.cancel' | translate }}
             </button>
             <button type="submit" class="save-btn montserrat" [disabled]="isLoading">
               <span *ngIf="isLoading">⏳</span>
-              {{ isLoading ? 'Salvando...' : 'Salvar Alterações' }}
+              {{ isLoading ? ('dashboard.editProfile.saving' | translate) : ('dashboard.editProfile.save' | translate) }}
             </button>
           </div>
         </form>
@@ -224,57 +195,57 @@
 
       <!-- Add Address Tab -->
       <div class="tab-content" *ngIf="activeTab === 'add-address'">
-        <h2 class="section-title montserrat">{{ editingAddressId ? 'Editar Endereço' : 'Adicionar Endereço' }}</h2>
-        
+        <h2 class="section-title montserrat">{{ editingAddressId ? ('dashboard.editAddress.title' | translate) : ('dashboard.editAddress.add' | translate) }}</h2>
+
         <div class="success-message" *ngIf="successMessage">
           <span class="icon">✅</span>
           {{ successMessage }}
         </div>
-        
+
         <form class="address-form" (ngSubmit)="saveAddress()">
           <div class="form-group">
-            <label class="montserrat">Tipo de Endereço</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.type' | translate }}</label>
             <select class="form-input montserrat" [(ngModel)]="addressForm.type" name="type" required>
-              <option value="residential">Residencial</option>
-              <option value="commercial">Comercial</option>
+              <option value="residential">{{ 'dashboard.addresses.type.residential' | translate }}</option>
+              <option value="commercial">{{ 'dashboard.addresses.type.commercial' | translate }}</option>
             </select>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="montserrat">Rua</label>
+              <label class="montserrat">{{ 'dashboard.editAddress.street' | translate }}</label>
               <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.street" name="street" required>
             </div>
             <div class="form-group">
-              <label class="montserrat">Número</label>
+              <label class="montserrat">{{ 'dashboard.editAddress.number' | translate }}</label>
               <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.number" name="number" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="montserrat">Complemento</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.complement' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.complement" name="complement">
           </div>
           <div class="form-group">
-            <label class="montserrat">Bairro</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.district' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.district" name="district" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">Cidade</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.city' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.city" name="city" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">Código postal</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.zip' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.zip" name="zip" required>
           </div>
           <div class="form-group">
-            <label class="montserrat">País</label>
+            <label class="montserrat">{{ 'dashboard.editAddress.country' | translate }}</label>
             <input type="text" class="form-input montserrat" [(ngModel)]="addressForm.country" name="country" value="Portugal" required>
           </div>
           <div class="form-actions">
             <button type="button" class="cancel-btn montserrat" (click)="setActiveTab('addresses')">
-              Cancelar
+              {{ 'dashboard.editAddress.cancel' | translate }}
             </button>
             <button type="submit" class="save-btn montserrat" [disabled]="isLoading">
-              {{ isLoading ? 'Salvando...' : (editingAddressId ? 'Atualizar Endereço' : 'Salvar Endereço') }}
+              {{ isLoading ? ('dashboard.editAddress.saving' | translate) : (editingAddressId ? ('dashboard.editAddress.update' | translate) : ('dashboard.editAddress.save' | translate)) }}
             </button>
           </div>
         </form>
@@ -290,6 +261,6 @@
 <ng-template #loadingTemplate>
   <div class="loading-container">
     <div class="loading-spinner"></div>
-    <p class="montserrat">Carregando seus dados...</p>
+    <p class="montserrat">{{ 'dashboard.loading' | translate }}</p>
   </div>
 </ng-template>

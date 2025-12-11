@@ -3,7 +3,7 @@
     <navbar></navbar>
 
     <div class="highlight center montserrat uppercase main-txt-color">
-      <p>Upcycling, styling PESSOAL & mAIS.</p>
+      <p>{{ 'home.highlight' | translate }}</p>
 
       <img src="/images/Logotipo.png" />
     </div>
@@ -16,19 +16,11 @@
     <img class="md:pt-4 desktop" src="/images/Secao2.jpg" />
     <img class="md:pt-4 mobile center" src="/images/Secao2.jpg" />
     <div class="text-section md:pt-4 montserrat">
-      <p class="title center md:pt-5">SOBRE NÓS</p>
+      <p class="title center md:pt-5">{{ 'home.about.title' | translate }}</p>
       <div class="md:pt-4 about-txt">
-        <p class="">GaithGio é a evolução natural de um sonho. Nasceu como <span class="montserrat-italic">
-            Gaith Silver Plate</span>, dedicada à
-          criação
-          de jóias corporais descontraídas e agnósticas.
-        </p>
-        <p class="pt-3">Com o tempo a visão cresceu e hoje, se apresenta como uma marca de vestuário, que valoriza o
-          único, o feito à
-          mão e o sustentável.
-        </p>
-        <p class="pt-3">É uma homenagem às raízes, à reinvenção e ao poder de criar beleza a partir do que já
-          existe.</p>
+        <p class="">{{ 'home.about.text1' | translate }}</p>
+        <p class="pt-3">{{ 'home.about.text2' | translate }}</p>
+        <p class="pt-3">{{ 'home.about.text3' | translate }}</p>
       </div>
     </div>
   </div>
@@ -38,27 +30,22 @@
 <section id="values">
   <div class="values ">
     <div class="flex flex-column">
-      <p class="mb-4 center cinzel tt">VALORES</p>
+      <p class="mb-4 center cinzel tt">{{ 'home.values.title' | translate }}</p>
 
       <div class="mt-5 flex flex-row gap-8 center uppercase mb-5 desktop">
-        <p-button label="EXCLUSIVIDADE" class="" />
-        <p-button label="SUSTENTABILIDADE" />
+        <p-button [label]="'home.values.exclusivity' | translate" class="" />
+        <p-button [label]="'home.values.sustainability' | translate" />
       </div>
 
       <div class="flex flex-row gap-6 center uppercase mb-1 values-btn mobile">
-        <span class="cursor-pointer">EXCLUSIVIDADE</span>
-        <span class="cursor-pointer">SUSTENTABILIDADE</span>
+        <span class="cursor-pointer">{{ 'home.values.exclusivity' | translate }}</span>
+        <span class="cursor-pointer">{{ 'home.values.sustainability' | translate }}</span>
       </div>
       <div class="desc flex flex-column justify-content-center desktop">
-        <p class="description montserrat pb-0 mb-0">Criada com intenção, alma e mãos que acreditam na transformação como
-          um</p>
-        <p class="description montserrat mb-0 pb-0 center">ato de cuidado com o mundo e com as histórias que cada peça
-          carrega.</p>
+        <p class="description montserrat pb-0 mb-0">{{ 'home.values.description' | translate }}</p>
       </div>
       <div class="desc text-align-center mobile">
-        <p class="description montserrat pb-0 mb-0">Criada com intenção, alma e mãos que acreditam na transformação como
-          um ato de cuidado com o mundo e com as histórias que cada peça
-          carrega.</p>
+        <p class="description montserrat pb-0 mb-0">{{ 'home.values.description' | translate }}</p>
       </div>
     </div>
   </div>
@@ -67,22 +54,15 @@
 <section id="concept">
   <div class="concept p-5 md:pb-5 pb-0 flex flex-column md:flex-row">
     <div class="flex flex-column gap-4 pt-5">
-      <p class="title cinzel center md:pt-8">Conceito da Marca</p>
+      <p class="title cinzel center md:pt-8">{{ 'home.concept.title' | translate }}</p>
       <div class="desc center pl-8 pt-5 pr-8 desktop">
-        <p class="montserrat-italic">“O upcycling vem do costume de reutilizar peças ou materiais que haviam pela casa
-          na época de criança, minha mãe sempre ensinava o valor de brechós e roupas de doações da igreja. Pra mim
-          sempre foi normal reciclar.” - <a class="montserrat">Giovanna Gaith</a></p>
-        <p class="montserrat pt-4">Vestir o que é genuíno. Escolher ser único todos os dias com peças exclusivas,
-          conscientes e com identidade.</p>
+        <p class="montserrat-italic">{{ 'home.concept.quote' | translate }}</p>
+        <p class="montserrat pt-4">{{ 'home.concept.text2' | translate }}</p>
       </div>
 
       <div class="desc mb-5 mobile">
-        <p class="montserrat-italic">“O upcycling vem do costume de reutilizar peças ou materiais que haviam pela casa
-          na época de criança, minha mãe sempre ensinava o valor de brechós e roupas de doações da igreja. Pra mim
-          sempre foi normal reciclar.” - <a class="montserrat">Giovanna Gaith</a>
-        </p>
-          <p class="montserrat mt-3">Vestir o que é genuíno. Escolher ser único todos os dias com peças exclusivas,
-          conscientes e com identidade.</p>
+        <p class="montserrat-italic">{{ 'home.concept.quote' | translate }}</p>
+        <p class="montserrat mt-3">{{ 'home.concept.text2' | translate }}</p>
       </div>
     </div>
     <img class="desktop" src="/images/Secao4.jpeg" />
@@ -93,14 +73,11 @@
 <section id="collection">
   <div class="collection pt-3">
     <div class="center">
-      <p class="title cinzel center md:pt-8 pt-6 cinzel">Nova Coleção</p>
+      <p class="title cinzel center md:pt-8 pt-6 cinzel">{{ 'home.collection.title' | translate }}</p>
       <div class="desc md:pt-6 pt-4 center">
-        <p class="flex flex-row text-justify-center montserrat">Criados com tecidos reaproveitados e alma artesanal, os
-          biquínis GaithGio
-          vestem o verão com intenção. Para quem faz do seu corpo manifesto.
-        </p>
+        <p class="flex flex-row text-justify-center montserrat">{{ 'home.collection.description' | translate }}</p>
         <a href="/products" class="no-underline">
-          <span class="flex flex-row justify-content-end montserrat cursor-pointer see-all">[Ver tudo]</span>
+          <span class="flex flex-row justify-content-end montserrat cursor-pointer see-all">{{ 'home.collection.seeAll' | translate }}</span>
         </a>
       </div>
       <div class="images flex flex-row gap-4 w-full mt-5 mb-3 desktop">
@@ -130,11 +107,10 @@
 <section id="gallery" class="pt-0 md:pt-8  mb-5 md:mb-0">
   <div class="gallery mb-8 md:mb-5 flex flex-column md:flex-row w-full mb-2 mt-2 md:mt-4">
     <div class="md:w-50 flex flex-column md:pl-5 desktop-max-width">
-      <p class="title cinzel center pb-3 md:pb-5 pt-8">Galeria</p>
-      <p class="description montserrat md:pl-8">Criações que já contaram histórias — desde coleções passadas à peças feitas sob
-        medida. Um mergulho no processo criativo da GaithGio.</p>
+      <p class="title cinzel center pb-3 md:pb-5 pt-8">{{ 'home.gallery.title' | translate }}</p>
+      <p class="description montserrat md:pl-8">{{ 'home.gallery.description' | translate }}</p>
         <a href="/gallery" class="no-underline">
-          <span class="montserrat flex flex-row justify-content-end montserrat cursor-pointer see-all">[Ver tudo]</span>
+          <span class="montserrat flex flex-row justify-content-end montserrat cursor-pointer see-all">{{ 'home.gallery.seeAll' | translate }}</span>
         </a>
 
     </div>
@@ -155,7 +131,7 @@
 
 <section id="contact">
   <div class="contact flex flex-column mt-8 md:pt-8 md:mt-8">
-    <p class="title center md:pt-8 cinzel">CONTATOS</p>
+    <p class="title center md:pt-8 cinzel">{{ 'home.contact.title' | translate }}</p>
     <div class="flex flex-row w-full gap-6 md:gap-8 mt-6">
       <div class="w-5 flex flex-column align-items-end gap-4">
         <p-button><img class="btn-icon" src="images/instagram.png" /><span><a href="https://instagram.com/gaithgio" target="_blank" class="no-underline">@gaithgio</a></span> </p-button>
@@ -164,7 +140,7 @@
 
       <div class="w-5 flex flex-column md:pl-8 gap-4">
         <p-button><img class="btn-icon" src="images/phone.png" /><span><a href="tel:+351934036467" class="no-underline">+351 934 036 467</a></span></p-button>
-        <p-button><img class="btn-icon" src="images/ruler.png" /><span><a href="/size-chart">Tamanhos</a></span></p-button>
+        <p-button><img class="btn-icon" src="images/ruler.png" /><span><a class="capitalize" href="/size-chart">{{ 'footer.sizes' | translate }} Tamanhos</a></span></p-button>
       </div>
     </div>
     <div class="w-full line"></div>

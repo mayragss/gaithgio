@@ -18,30 +18,30 @@
         <div class="mb-8 w-5 montserrat flex flex-column">
             <p class="title gaith-color pb-2"> {{product?.name}}</p>
             <p class="price gaith-color"> €{{product?.price}}</p>
-            <span class="color gaith-color font-light">Cor: {{attributes['color']}}</span>
+            <span class="color gaith-color font-light">{{ 'detail.color' | translate }} {{attributes['color']}}</span>
 
-            <p class="size gaith-color font-light mt-3">Tamanho</p>
+            <p class="size gaith-color font-light mt-3">{{ 'detail.size' | translate }}</p>
             <div class="mt-0 pt-0 flex flex-row gap-3 mb-5 mt-2">
-                @for (item of attributes['size']; track item){
-                <div class="size-card gaith-color">{{item}}</div>
+                @for (item of getSizes(); track item){
+                <div class="size-card gaith-color" [class.selected]="isSizeSelected(item)" (click)="selectSizeFromDisplay(item)">{{item}}</div>
                 }
             </div>
 
-            <p class="quantity gaith-color">Quantidade</p>
+            <p class="quantity gaith-color">{{ 'detail.quantity' | translate }}</p>
             <div class="quantify-card gaith-color justify-content-between align-items-center flex flex-row">
                 <i class="pi pi-plus pl-3 cursor-pointer" (click)="addQuantity()"></i>
                 <p class="font-bold">{{quantity}}</p>
                 <i class="pi pi-minus pr-3 cursor-pointer" (click)="removeQuantity()"></i>
             </div>
 
-            <button class="mt-3 add-cart w-10 cursor-pointer" (click)="addToCart()">Adicionar ao carrinho</button>
+            <button class="mt-3 add-cart w-10 cursor-pointer" (click)="addToCart()">{{ 'detail.addToCart' | translate }}</button>
 
             <div class="pt-8 gaith-color text-regular-size">
                 <p class="flex flex-row gap-2">
-                    <span>Descrição</span>
+                    <span>{{ 'detail.description' | translate }}</span>
                     <i class="text-regular-size pt-1 pi pi-chevron-up"></i>
                 </p>
-                <p>{{product?.description}}</p>
+                <p>{{getDescription()}}</p>
             </div>
         </div>
     </div>
@@ -63,30 +63,30 @@
         <div class="mobile-product-info">
             <h1 class="mobile-title">{{product?.name}}</h1>
             <p class="mobile-price">€ {{product?.price}}</p>
-            <p class="mobile-color">Cor: {{attributes['color']}}</p>
+            <p class="mobile-color">{{ 'detail.color' | translate }} {{attributes['color']}}</p>
 
                 <div class="mobile-size-section">
                     <div class="mobile-size-content">
-                        <p class="mobile-size-label">Tamanho</p>
+                        <p class="mobile-size-label">{{ 'detail.size' | translate }}</p>
                         <div class="mobile-size-options">
-                            @for (item of attributes['size']; track item){
-                            <div class="mobile-size-card" [class.selected]="selectedSize === item" (click)="selectSize(item)">{{item}}</div>
+                            @for (item of getSizes(); track item){
+                            <div class="mobile-size-card" [class.selected]="isSizeSelected(item)" (click)="selectSizeFromDisplay(item)">{{item}}</div>
                             }
                         </div>
                     </div>
                     <div class="mobile-description">
                         <p class="mobile-desc-header" (click)="toggleDescription()">
-                            <span>Descrição</span>
+                            <span>{{ 'detail.description' | translate }}</span>
                             <i class="pi" [ngClass]="descriptionExpanded ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
                         </p>
                         @if (descriptionExpanded) {
-                        <p class="mobile-desc-text">{{product?.description}}</p>
+                        <p class="mobile-desc-text">{{getDescription()}}</p>
                         }
                     </div>
                 </div>
 
             <div class="mobile-quantity-section">
-                <p class="mobile-quantity-label">Quantidade</p>
+                <p class="mobile-quantity-label">{{ 'detail.quantity' | translate }}</p>
                 <div class="mobile-quantify-card">
                     <i class="pi pi-minus cursor-pointer" (click)="removeQuantity()"></i>
                     <p class="font-bold">{{quantity}}</p>
@@ -94,7 +94,7 @@
                 </div>
             </div>
 
-                <button class="mobile-add-cart" (click)="addToCart()">Adicionar ao carrinho</button>
+                <button class="mobile-add-cart" (click)="addToCart()">{{ 'detail.addToCart' | translate }}</button>
         </div>
     </div>
 

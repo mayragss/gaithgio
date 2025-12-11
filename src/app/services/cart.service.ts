@@ -1,7 +1,9 @@
 // src/app/services/cart.service.ts
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Product } from '../models/product';
 import { MessageService } from 'primeng/api';
+import { LanguageService } from './language.service';
+import { translations } from '../translations/translations';
 
 export interface CartItem {
   product: Product;
@@ -13,6 +15,8 @@ export interface CartItem {
   providedIn: 'root'
 })
 export class CartService {
+  private languageService = inject(LanguageService);
+  
   constructor(private messageService: MessageService){}
 
   private storageKey = 'cart_items';
@@ -41,13 +45,16 @@ export class CartService {
   addToCart(product: Product, quantity: number = 1, selectedSize?: string) {
     const items = [...this.items()];
     const existing = items.find(i => i.product.id === product.id && i.selectedSize === selectedSize);
+    const currentLang = this.languageService.currentLanguage();
 
     if (existing) {
       existing.quantity += quantity;
-      this.messageService.add({ severity: 'success', detail: 'Produto atualizado com sucesso!', life: 3000 });
+      const message = translations['cart.productUpdated'][currentLang] || 'Produto atualizado com sucesso!';
+      this.messageService.add({ severity: 'success', detail: message, life: 3000 });
     } else {
-      items.push({ product, quantity, selectedSize });      
-      this.messageService.add({ severity: 'success', detail: 'Produto adicionado com sucesso!', life: 1000 });      
+      items.push({ product, quantity, selectedSize });
+      const message = translations['cart.productAdded'][currentLang] || 'Produto adicionado com sucesso!';
+      this.messageService.add({ severity: 'success', detail: message, life: 1000 });      
     }
 
     this.items.set(items);

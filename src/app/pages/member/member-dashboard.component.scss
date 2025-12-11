@@ -674,6 +674,8 @@
           
           .address-actions {
             margin-top: 1rem;
+            display: flex;
+            gap: 0.75rem;
             .edit-address-btn {
               background: transparent;
               color: #624725;
@@ -682,6 +684,25 @@
               border-radius: 6px;
               cursor: pointer;
               font-size: 0.875rem;
+              transition: all 0.3s ease;
+              &:hover {
+                background: #624725;
+                color: #fff;
+              }
+            }
+            .delete-address-btn {
+              background: transparent;
+              color: #dc3545;
+              border: 1px solid #dc3545;
+              padding: 0.5rem 1rem;
+              border-radius: 6px;
+              cursor: pointer;
+              font-size: 0.875rem;
+              transition: all 0.3s ease;
+              &:hover {
+                background: #dc3545;
+                color: #fff;
+              }
             }
           }
         }

@@ -3,14 +3,14 @@
   <!-- Desktop Cart -->
   <div class="desktop">
     <div class="flex flex-row justify-content-between">
-      <h2 class="font-bold">Seu Carrinho</h2>
-      <a href="/products" class="keep-buying">Continuar a comprar</a>
+      <h2 class="font-bold">{{ 'cart.title' | translate }}</h2>
+      <a href="/products" class="keep-buying">{{ 'cart.continueShopping' | translate }}</a>
     </div>
 
     <div class="head flex flex-row pt-4">
-      <div class="w-6"style="    justify-items: self-start;"><p>Produto</p></div>
-      <div class="w-3 md:pr-4 self-end"><p>Quantidade</p></div>
-      <div class="w-3 self-end"><p>Total</p></div>
+      <div class="w-6"style="    justify-items: self-start;"><p>{{ 'cart.product' | translate }}</p></div>
+      <div class="w-3 md:pr-4 self-end"><p>{{ 'cart.quantity' | translate }}</p></div>
+      <div class="w-3 self-end"><p>{{ 'cart.total' | translate }}</p></div>
     </div>
     <div class="divider mt-3 mb-3"></div>
     @if (items.length > 0) {
@@ -21,7 +21,7 @@
         <div class="flex flex-column gap-1 mt-3">
           <p>{{item.product.name}}</p>
           <p>€ {{item.product.price}}</p>
-          <p>Tamanho 
+          <p>{{ 'cart.size' | translate }} 
             @if(item.product.attributes != undefined){
             @for (tamanho of getTamanhos(item.product.attributes); track tamanho) {
             <span>{{ tamanho }}</span>
@@ -51,29 +51,29 @@
 
     <div class="price-will-be-payed align-self-end flex flex-column">
       <div class="flex flex-row gap-4">
-        <p class="font-bold size-14">Total Estimado </p>
+        <p class="font-bold size-14">{{ 'cart.estimatedTotal' | translate }} </p>
         <p class="font-normal size-14">€{{ totalPrice() }}</p>
       </div>
-      <p class="size-6 pb-3">Impostos, descontos e entregas calculados a seguir</p>
-      <p-button (click)="finalizarCompra()">Finalizar compra</p-button>
-      <button (click)="clear()" class="mt-3">Limpar Carrinho</button>
+      <p class="size-6 pb-3">{{ 'cart.taxesNote' | translate }}</p>
+      <p-button (click)="finalizarCompra()">{{ 'cart.finalizePurchase' | translate }}</p-button>
+      <button (click)="clear()" class="mt-3">{{ 'cart.clearCart' | translate }}</button>
     </div>
     } @else {
-    <p>O carrinho está vazio 🛒</p>
+    <p>{{ 'cart.empty' | translate }}</p>
     }
   </div>
 
   <!-- Mobile Cart -->
   <div class="mobile">
     <div class="mobile-cart-header">
-      <h2 class="mobile-cart-title">Seu Carrinho</h2>
-      <a href="/products" class="mobile-keep-buying">Continuar compra</a>
+      <h2 class="mobile-cart-title">{{ 'cart.title' | translate }}</h2>
+      <a href="/products" class="mobile-keep-buying">{{ 'cart.continueShoppingMobile' | translate }}</a>
     </div>
 
     <div class="mobile-cart-head">
-      <p>Produto</p>
-      <p>Quantidade</p>
-      <p>Total</p>
+      <p>{{ 'cart.product' | translate }}</p>
+      <p>{{ 'cart.quantity' | translate }}</p>
+      <p>{{ 'cart.total' | translate }}</p>
     </div>
     <div class="mobile-divider"></div>
 
@@ -86,7 +86,7 @@
           <p class="mobile-item-name">{{item.product.name}}</p>
           <p class="mobile-item-price">€ {{item.product.price}}</p>
           @if (item.selectedSize) {
-          <p class="mobile-item-size">Tamanho {{item.selectedSize}}</p>
+          <p class="mobile-item-size">{{ 'cart.size' | translate }} {{getDisplaySize(item.selectedSize)}}</p>
           }
         </div>
       </div>
@@ -107,16 +107,16 @@
 
     <div class="mobile-total-section">
       <div class="mobile-total-row">
-        <p class="mobile-total-label">Total Estimado</p>
+        <p class="mobile-total-label">{{ 'cart.estimatedTotal' | translate }}</p>
         <p class="mobile-total-price">€{{ totalPrice() }}</p>
       </div>
-      <p class="mobile-total-note">Impostos, descontos e entregas calculados a seguir</p>
-      <p-button class="mobile-checkout-btn" (click)="finalizarCompra()">Finalizar compra</p-button>
+      <p class="mobile-total-note">{{ 'cart.taxesNote' | translate }}</p>
+      <p-button class="mobile-checkout-btn" (click)="finalizarCompra()">{{ 'cart.finalizePurchase' | translate }}</p-button>
     </div>
 
-    <button class="mobile-clear-btn" (click)="clear()">Limpar Carrinho</button>
+    <button class="mobile-clear-btn" (click)="clear()">{{ 'cart.clearCart' | translate }}</button>
     } @else {
-    <p class="mobile-empty-cart">O carrinho está vazio 🛒</p>
+    <p class="mobile-empty-cart">{{ 'cart.empty' | translate }}</p>
     }
   </div>
 </div>

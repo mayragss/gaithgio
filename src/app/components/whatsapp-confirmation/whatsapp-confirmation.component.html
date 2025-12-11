@@ -1,31 +1,31 @@
 <div class="confirmation-overlay">
   <div class="confirmation-dialog">
     <div class="confirmation-header">
-      <h2 class="confirmation-title montserrat">Confirmação de Pedido</h2>
+      <h2 class="confirmation-title montserrat">{{ 'whatsapp.confirmation.title' | translate }}</h2>
     </div>
     
     <div class="confirmation-content montserrat">
       <p class="confirmation-message">
-        Olá <strong>{{ firstName }}</strong>! Seu pedido foi criado com sucesso.
+        {{ 'whatsapp.confirmation.message1' | translate }} <strong>{{ firstName }}</strong>{{ 'whatsapp.confirmation.message2' | translate }}
       </p>
       <p class="confirmation-message">
-        Você será redirecionado para o WhatsApp para finalizar sua compra.
+        {{ 'whatsapp.confirmation.message3' | translate }}
       </p>
       @if (orderNumber) {
       <p class="order-number">
-        Número do pedido: <strong>{{ orderNumber }}</strong>
+        {{ 'whatsapp.confirmation.orderNumber' | translate }} <strong>{{ orderNumber }}</strong>
       </p>
       }
     </div>
     
     <div class="confirmation-actions">
       <p-button 
-        label="Confirmar" 
+        [label]="'whatsapp.confirmation.confirm' | translate" 
         (onClick)="onConfirm()"
         styleClass="confirm-btn">
       </p-button>
       <p-button 
-        label="Cancelar" 
+        [label]="'whatsapp.confirmation.cancel' | translate" 
         (onClick)="onCancel()"
         styleClass="cancel-btn"
         [text]="true">
