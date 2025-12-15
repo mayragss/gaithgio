@@ -205,8 +205,8 @@ export const translations: Record<string, Record<'pt' | 'en', string>> = {
     en: 'EXCHANGES AND RETURNS'
   },
   'footer.sizes': {
-    pt: 'TAMANHOS',
-    en: 'SIZES'
+    pt: 'Tamanhos',
+    en: 'Sizes'
   },
 
   // Gallery page
