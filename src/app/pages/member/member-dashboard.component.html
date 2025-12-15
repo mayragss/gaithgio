@@ -87,11 +87,13 @@
                     </span>
                   </div>
                   <div class="order-total montserrat">€ {{ order.total | number:'1.2-2' }}</div>
+                  @if (isOrderPending(order)) {
                   <div class="order-action-link">
                     <a class="conclude-link montserrat" (click)="concludeOrder(order)">
                       {{ 'dashboard.orders.conclude' | translate }}
                     </a>
                   </div>
+                  }
                 </div>
               </div>
               }

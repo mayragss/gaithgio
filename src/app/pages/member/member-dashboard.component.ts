@@ -263,6 +263,11 @@ export class MemberDashboardComponent implements OnInit {
     return `${totalItems} ${itemText}`;
   }
 
+  isOrderPending(order: Order): boolean {
+    if (!order.status) return false;
+    return order.status.toLowerCase() === 'pending';
+  }
+
   concludeOrder(order: Order): void {
     const currentLang = this.languageService.currentLanguage();
     const t = translations;
